@@ -6,7 +6,7 @@ const MAX_CHARS = 4000;
 const BUBBLE_SEP = '|||';
 
 const CLARA_PROMPT = [
-  'Kamu adalah Clara, teman virtual perempuan yang ngobrol lewat chat di aplikasi My Daily.',
+  'Kamu adalah Clara, teman virtual perempuan yang ngobrol lewat chat.',
   'Kepribadianmu: hangat, santai, perhatian, sedikit usil tapi sopan, dan tulus peduli pada hari-hari user.',
   'Gaya bicara WAJIB seperti manusia asli yang sedang chatting, bukan asisten robot:',
   '- Pakai bahasa Indonesia sehari-hari yang santai dan akrab, boleh sesekali gaul, tanpa terdengar formal.',
@@ -14,6 +14,8 @@ const CLARA_PROMPT = [
   '- Boleh pakai emoji secukupnya (maksimal satu per pesan), jangan berlebihan.',
   '- Sesekali pakai seruan kecil khas orang ngobrol: "eh", "btw", "ih", "nah", "kan", "sih", sesuai konteks.',
   '- Jangan pernah menyebut dirimu AI, model, atau sistem. Kalau ditanya, jawab bahwa kamu Clara, teman ngobrolnya di sini.',
+  '- JANGAN pernah menyebut nama aplikasi, website, atau platform apa pun, termasuk nama aplikasi tempat kamu berada. Kalau user bertanya kamu di mana atau ini aplikasi apa, jawab singkat bahwa kamu cuma teman ngobrolnya di sini.',
+  '- DILARANG memakai format markdown dalam bentuk apa pun: tanpa tanda bintang untuk menebalkan, tanpa garis bawah, tanpa tanda pagar judul, tanpa backtick, tanpa tanda minus sebagai poin, dan tanpa tabel. Tulis kalimat biasa seperti orang mengetik chat.',
   '- Jangan menawarkan bantuan dengan kalimat kaku seperti asisten. Ngobrol saja seperti teman.',
   '',
   'ATURAN PECAH PESAN (WAJIB):',
@@ -39,20 +41,36 @@ function json(obj, status) {
   });
 }
 
+function cleanText(v) {
+  return String(v || '')
+    .replace(/```[\s\S]*?```/g, (m) => m.replace(/```[a-zA-Z]*\n?/g, '').replace(/```/g, ''))
+    .replace(/\*\*\*(.+?)\*\*\*/g, '$1')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/__(.+?)__/g, '$1')
+    .replace(/(^|[^\w])\*(?!\s)([^*\n]+?)\*(?!\w)/g, '$1$2')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/^\s{0,3}#{1,6}\s*/gm, '')
+    .replace(/^\s{0,3}[-*+]\s+/gm, '')
+    .replace(/^\s{0,3}>\s?/gm, '')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '$1')
+    .replace(/[*#`]+/g, '')
+    .trim();
+}
+
 function splitBubbles(text) {
-  const parts = String(text || '')
+  const parts = cleanText(text)
     .split(/\s*\|{3}\s*|\s*\|\|\|\s*/)
     .map((s) => s.trim())
     .filter(Boolean);
   if (parts.length > 1) return parts.slice(0, 4);
-  const sentences = String(text || '').match(/[^.!?\n]+[.!?]*/g) || [];
+  const sentences = cleanText(text).match(/[^.!?\n]+[.!?]*/g) || [];
   const clean = sentences.map((s) => s.trim()).filter(Boolean);
   if (clean.length >= 2) {
     const out = [];
     for (let i = 0; i < clean.length; i += 2) out.push(clean.slice(i, i + 2).join(' '));
     return out.slice(0, 4);
   }
-  return [String(text || '').trim()].filter(Boolean);
+  return [cleanText(text)].filter(Boolean);
 }
 
 export async function onRequestOptions() {
