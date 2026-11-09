@@ -1626,7 +1626,7 @@ window.PROFIL=(function(){
         }else{busy=false;upd();end()}
       })();
     },
-      function(er){busy=false;d.remove();upd();bub('a err',er&&er.message?er.message:'Gagal menghubungi server.');end()});
+      function(er){busy=false;d.remove();upd();var m=!navigator.onLine?'Kamu sedang offline. Catatan dan tugas tetap bisa kamu ubah, chat nyala lagi begitu internet kembali.':(er&&er.message?er.message:'Gagal menghubungi server.');bub('a err',m);end()});
   });
   inp.addEventListener('input',function(){fit();upd()});
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&window.matchMedia('(pointer:fine)').matches){e.preventDefault();if(!send.disabled)form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event('submit',{cancelable:true}))}});
