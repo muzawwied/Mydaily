@@ -1497,11 +1497,11 @@ window.PROFIL=(function(){
 })();
 </script>
 <script>
-/* Chat AI. Isi CHAT_API dengan alamat server (proxy) milikmu yang meneruskan
-   permintaan ke Claude (format Anthropic /v1/messages). Jangan menaruh API key di file ini. */
+/* Chat AI. Permintaan diteruskan ke server proxy milik aplikasi ini (/api/chat).
+   Kunci API disimpan di sisi server, tidak pernah ada di file ini. */
 (function(){
-  var CHAT_API='';
-  var MODEL='claude-sonnet-5-5';
+  var CHAT_API='/api/chat';
+  var MODEL='mydaily';
   var SYS='Kamu adalah asisten ramah di aplikasi harian bernama My Daily. Jawab dalam bahasa Indonesia, singkat dan jelas.';
   var $=function(i){return document.getElementById(i)};
   var chat=$('chat'),list=$('chatList'),inp=$('chatInp'),send=$('chatSend'),form=$('chatForm');
@@ -1519,7 +1519,7 @@ window.PROFIL=(function(){
   function fit(){inp.style.height='auto';inp.style.height=Math.min(120,inp.scrollHeight)+'px'}
   function upd(){send.disabled=busy||!inp.value.trim()}
   function ask(){
-    if(!CHAT_API)return Promise.reject(new Error('Chat AI belum disambungkan. Isi CHAT_API di file ini dengan alamat server Claude kamu.'));
+    if(!CHAT_API)return Promise.reject(new Error('Chat AI belum siap. Coba lagi sebentar.'));
     var msgs=M.slice(-20).map(function(m){return{role:m.r==='u'?'user':'assistant',content:m.t}});
     while(msgs.length&&msgs[0].role!=='user')msgs.shift();
     return fetch(CHAT_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:1000,system:SYS,messages:msgs})})
