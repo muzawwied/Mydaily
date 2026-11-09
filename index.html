@@ -1817,6 +1817,73 @@ window.PROFIL=(function(){
 
 
 <script>
+/* Notifikasi perangkat (khusus APK). Di browser biasa blok ini tidak melakukan apa pun. */
+(function(){
+  var B=window.MdNotify;
+  if(!B) return;
+  function pad(n){return n<10?'0'+n:''+n}
+  function reminders(){
+    var A={};try{A=JSON.parse(localStorage.getItem('agenda'))||{}}catch(e){return []}
+    var out=[];
+    Object.keys(A).forEach(function(k){
+      var arr=Array.isArray(A[k])?A[k]:[];
+      arr.forEach(function(it,idx){
+        var o=typeof it==='string'?{t:it}:it;
+        if(!o||!o.t) return;
+        var hm=String(o.j||'').match(/^(\d{1,2})[.:](\d{2})/);
+        if(!hm) return;
+        var p=k.split('-');
+        if(p.length<3) return;
+        var d=new Date(+p[0],+p[1]-1,+p[2],+hm[1],+hm[2],0,0);
+        if(isNaN(d.getTime())) return;
+        if(d.getTime()<=Date.now()+60000) return;
+        out.push({
+          id:'agenda|'+k+'|'+idx,
+          t:String(o.t).slice(0,90),
+          b:(o.c?String(o.c).slice(0,200):'Pengingat agenda pukul '+hm[1]+'.'+hm[2]),
+          w:d.getTime()
+        });
+      });
+    });
+    return out;
+  }
+  function sync(){
+    try{
+      var items=reminders();
+      B.clearAll();
+      items.forEach(function(x){try{B.schedule(x.id,x.t,x.b,x.w)}catch(e){}});
+    }catch(e){}
+  }
+  window.mdSyncReminders=sync;
+  try{
+    var si=localStorage.setItem.bind(localStorage);
+    localStorage.setItem=function(k,v){
+      si(k,v);
+      if(k==='agenda') setTimeout(sync,60);
+    };
+  }catch(e){}
+  sync();
+  setInterval(sync,120000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden) sync()});
+  window.addEventListener('online',sync);
+  var list=document.getElementById('chatList');
+  if(list&&window.MutationObserver){
+    new MutationObserver(function(muts){
+      if(!document.hidden) return;
+      muts.forEach(function(m){
+        Array.prototype.forEach.call(m.addedNodes,function(n){
+          if(!n||n.nodeType!==1||!n.classList) return;
+          if(!n.classList.contains('cm')||!n.classList.contains('a')||n.classList.contains('dots')) return;
+          var txt=(n.textContent||'').trim();
+          if(!txt) return;
+          try{B.notify('Clara',txt.slice(0,200))}catch(e){}
+        });
+      });
+    }).observe(list,{childList:true});
+  }
+})();
+</script>
+<script>
 if('serviceWorker' in navigator&&location.protocol==='https:'){
 window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
 }
