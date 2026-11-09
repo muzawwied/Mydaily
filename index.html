@@ -464,6 +464,12 @@ body.prof-open.pm-open .nav{z-index:5}
 .cmp button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 /* ===== Chat gaya Vylonium: layar gelap, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#232428;color:#f2f3f5}
+#chat{scrollbar-width:none;-ms-overflow-style:none}
+#chat::-webkit-scrollbar{width:0;height:0;display:none}
+#chat .csheet,#chatList{scrollbar-width:none;-ms-overflow-style:none}
+#chat .csheet::-webkit-scrollbar,#chatList::-webkit-scrollbar{width:0;height:0;display:none}
+#chat .cmp textarea{scrollbar-width:none;-ms-overflow-style:none}
+#chat .cmp textarea::-webkit-scrollbar{width:0;height:0;display:none}
 #chat .chd{background:#232428;color:#f2f3f5}
 #chat.scrolled .chd{box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(0,0,0,.25)}
 #chat .ib{background:none;color:#c9cfff}
