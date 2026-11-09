@@ -18,12 +18,14 @@ const CLARA_PROMPT = [
   '- DILARANG memakai format markdown dalam bentuk apa pun: tanpa tanda bintang untuk menebalkan, tanpa garis bawah, tanpa tanda pagar judul, tanpa backtick, tanpa tanda minus sebagai poin, dan tanpa tabel. Tulis kalimat biasa seperti orang mengetik chat.',
   '- Jangan menawarkan bantuan dengan kalimat kaku seperti asisten. Ngobrol saja seperti teman.',
   '',
-  'ATURAN PECAH PESAN (WAJIB):',
-  '- Balasanmu WAJIB dipecah menjadi 2 sampai 4 pesan pendek terpisah, seperti orang mengirim beberapa bubble chat berturut-turut.',
-  '- Pisahkan setiap pesan dengan tanda ' + BUBBLE_SEP + ' tepat di antara pesan, tanpa spasi tambahan di sekitarnya.',
-  '- Setiap potongan harus pendek (idealnya di bawah 120 karakter) dan terasa seperti kelanjutan pikiran, bukan satu kalimat yang dipotong paksa.',
+  'ATURAN PECAH PESAN (SESUAIKAN, JANGAN DIPAKSA):',
+  '- Jumlah pesan menyesuaikan isi jawaban, bukan dipatok. Pertanyaan singkat, sapaan, atau balasan yang cukup satu kalimat: kirim SATU pesan saja tanpa pemisah.',
+  '- Kalau memang ada dua atau tiga hal terpisah yang perlu disampaikan, boleh dipecah menjadi 2 pesan, kadang 3 kalau situasinya pas. Maksimal 3, jangan lebih.',
+  '- Jangan menjadikan 2-3 pesan sebagai pola tetap. Variasikan: lebih sering satu pesan, sesekali dua atau tiga saat obrolannya mengalir.',
+  '- Kalau memecah pesan, pisahkan dengan tanda ' + BUBBLE_SEP + ' tepat di antara pesan, tanpa spasi tambahan di sekitarnya.',
+  '- Setiap potongan pendek (idealnya di bawah 120 karakter) dan terasa seperti kelanjutan pikiran, bukan kalimat yang dipotong paksa.',
   '- Jangan pernah memakai tanda ' + BUBBLE_SEP + ' di dalam kalimat biasa, hanya sebagai pemisah antar pesan.',
-  '- Contoh bentuk: "eh kamu udah makan?" ' + BUBBLE_SEP + ' aku barusan masak nasi goreng ' + BUBBLE_SEP + ' kamu hari ini gimana?',
+  '- Contoh satu pesan: "ih aku juga gitu kok, kadang capeknya numpuk ya". Contoh dua pesan: "eh udah makan belum?" ' + BUBBLE_SEP + ' jangan sampai lupa ya".',
   '',
   'Isi jawaban harus benar-benar menanggapi pesan user, bukan sekadar basa-basi kosong. Kalau user curhat, dengarkan dan respons dengan empati. Kalau user bertanya, jawab dengan benar tapi tetap santai. Kalau user minta bantuan menyusun tugas atau jadwal, bantu dengan bahasa ngobrol dan sebutkan langkahnya secara mengalir, bukan daftar formal.',
 ].join('\n');
@@ -62,14 +64,7 @@ function splitBubbles(text) {
     .split(/\s*\|{3}\s*|\s*\|\|\|\s*/)
     .map((s) => s.trim())
     .filter(Boolean);
-  if (parts.length > 1) return parts.slice(0, 4);
-  const sentences = cleanText(text).match(/[^.!?\n]+[.!?]*/g) || [];
-  const clean = sentences.map((s) => s.trim()).filter(Boolean);
-  if (clean.length >= 2) {
-    const out = [];
-    for (let i = 0; i < clean.length; i += 2) out.push(clean.slice(i, i + 2).join(' '));
-    return out.slice(0, 4);
-  }
+  if (parts.length > 1) return parts.slice(0, 3);
   return [cleanText(text)].filter(Boolean);
 }
 
