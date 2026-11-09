@@ -1,0 +1,69 @@
+{
+  "packageId": "id.vylonium.mydaily",
+  "host": "vylonium.my.id",
+  "name": "My Daily",
+  "launcherName": "My Daily",
+  "display": "standalone",
+  "themeColor": "#6A2BDB",
+  "themeColorDark": "#1A1A1A",
+  "navigationColor": "#FFFFFF",
+  "navigationColorDark": "#1A1A1A",
+  "navigationDividerColor": "#FFFFFF",
+  "navigationDividerColorDark": "#1A1A1A",
+  "backgroundColor": "#FFFFFF",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://vylonium.my.id/assets/img/icon-512.png",
+  "maskableIconUrl": "https://vylonium.my.id/assets/img/icon-512.png",
+  "monochromeIconUrl": "https://vylonium.my.id/assets/img/icon-192.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "mydaily"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    {
+      "name": "Chat Clara",
+      "shortName": "Chat",
+      "url": "/chat",
+      "chosenIconUrl": "https://vylonium.my.id/assets/img/shortcut-chat.png"
+    },
+    {
+      "name": "Tugas",
+      "shortName": "Tugas",
+      "url": "/tugas",
+      "chosenIconUrl": "https://vylonium.my.id/assets/img/shortcut-tugas.png"
+    },
+    {
+      "name": "Catatan",
+      "shortName": "Catatan",
+      "url": "/catatan",
+      "chosenIconUrl": "https://vylonium.my.id/assets/img/shortcut-catatan.png"
+    },
+    {
+      "name": "Kalender",
+      "shortName": "Kalender",
+      "url": "/kalender",
+      "chosenIconUrl": "https://vylonium.my.id/assets/img/shortcut-kalender.png"
+    }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://vylonium.my.id/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://vylonium.my.id/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1.0.0"
+}
