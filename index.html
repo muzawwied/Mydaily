@@ -19,6 +19,9 @@
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
+/* Sembunyikan semua scrollbar (scroll tetap jalan) */
+html,body,section,div,textarea,.cal,.mdl{scrollbar-width:none;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,section::-webkit-scrollbar,div::-webkit-scrollbar,textarea::-webkit-scrollbar{width:0;height:0;display:none}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 button,input,textarea,label,svg{outline:none;-webkit-touch-callout:none}
 button{-webkit-user-select:none;user-select:none}
