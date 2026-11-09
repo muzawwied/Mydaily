@@ -431,8 +431,8 @@ body.prof-open.pm-open .nav{z-index:5}
 .cm{position:relative;max-width:78%;min-width:0;display:flow-root;padding:12px 17px 10px;min-height:46px;border-radius:24px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15.5px;line-height:1.5;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .cm.u{align-self:flex-end;color:#232428;background:linear-gradient(135deg,#bfc7ff 0%,#dcb6f0 45%,#f6a5d6 75%,#ffb9a8 100%);background-size:180% 180%;background-position:0% 50%;box-shadow:0 6px 16px -6px rgba(246,165,214,.5),0 1px 2px rgba(0,0,0,.18);animation:bAur 9s ease-in-out infinite alternate}
 .cm.u::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.08) 38%,transparent 55%)}
-.cm.a{align-self:flex-start;color:#f2f3f5;background:linear-gradient(160deg,#44464e 0%,#34363c 100%);box-shadow:0 3px 10px -4px rgba(0,0,0,.5)}
-.cm.err{background:#3b2a31;color:#ffa3b5;box-shadow:none}
+.cm.a{align-self:flex-start;color:#1E1433;background:#F4F0FA;box-shadow:0 1px 2px rgba(60,20,140,.07)}
+.cm.err{background:#FFF0F3;color:#C2255C;box-shadow:none}
 .cm.sg{margin-top:-5px}
 .cm.a.sg{border-top-left-radius:16px}
 .cm.u.sg{border-top-right-radius:16px}
@@ -443,7 +443,7 @@ body.prof-open.pm-open .nav{z-index:5}
 .cm .brx{position:absolute;bottom:-14px;display:flex;gap:3px;margin:0;z-index:2}
 .cm.u .brx{right:14px}
 .cm.a .brx{left:14px}
-.cm .brx button{display:flex;align-items:center;justify-content:center;height:26px;min-width:26px;padding:0;border:0;border-radius:50%;background:#3a3d45;color:#f2f3f5;font-size:13.5px;line-height:1;box-shadow:0 0 0 2px #232428,0 3px 8px rgba(0,0,0,.35);cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.cm .brx button{display:flex;align-items:center;justify-content:center;height:26px;min-width:26px;padding:0;border:0;border-radius:50%;background:#fff;color:#1E1433;font-size:13.5px;line-height:1;box-shadow:0 0 0 2px #F4F0FA,0 3px 8px rgba(60,20,140,.18);cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
 .cm.baru{animation:bPop .42s cubic-bezier(.2,1.35,.4,1) both}
 .cm.u.baru{animation:bPop .42s cubic-bezier(.2,1.35,.4,1) both,bAur 9s ease-in-out infinite alternate}
 .cm.u.baru{transform-origin:100% 100%}
@@ -452,12 +452,12 @@ body.prof-open.pm-open .nav{z-index:5}
 @keyframes bPop{0%{opacity:0;transform:scale(.6) translateY(10px)}60%{opacity:1}100%{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.cm.u,.cm.baru,.cm.u.baru{animation:none}}
 .cm.dots{display:flex;gap:5px;align-items:center;padding:15px 16px}
-.cm.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.6);animation:cdot 1s infinite ease-in-out}
+.cm.dots i{width:7px;height:7px;border-radius:50%;background:#C6B4E8;animation:cdot 1s infinite ease-in-out}
 .cm.dots i:nth-child(2){animation-delay:.15s}
 .cm.dots i:nth-child(3){animation-delay:.3s}
 @keyframes cdot{0%,80%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-3px)}}
-.cem{margin:60px auto 0;padding:0 24px;text-align:center;font-size:.88rem;line-height:1.6;color:#949ba4}
-.cem b{display:block;margin-bottom:6px;font:800 1.2rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#f2f3f5}
+.cem{margin:60px auto 0;padding:0 24px;text-align:center;font-size:.88rem;line-height:1.6;color:#6A5F80}
+.cem b{display:block;margin-bottom:6px;font:800 1.2rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#1E1433}
 .cmp{position:fixed;left:0;right:0;bottom:0;z-index:2;max-width:640px;margin:0 auto;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:#fff}
 .cap{display:flex;align-items:flex-end;gap:8px;padding:5px 5px 5px 18px;border-radius:999px;background:#F4F0FA}
 .cmp textarea{flex:1;min-width:0;box-sizing:border-box;min-height:36px;max-height:120px;padding:7px 0;border:0;border-radius:0;background:none;color:#111;font:500 16px/1.4 'Plus Jakarta Sans',sans-serif;resize:none;outline:none}
@@ -465,24 +465,24 @@ body.prof-open.pm-open .nav{z-index:5}
 .cmp button:active{opacity:.85}
 .cmp button:disabled{opacity:.4;cursor:default}
 .cmp button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-/* ===== Chat gaya Vylonium: layar gelap, input pil, aksi pesan ===== */
-#chat,#chat .csheet{background:#232428;color:#f2f3f5}
+/* ===== Chat: layar putih, input pil, aksi pesan ===== */
+#chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
 #chat::-webkit-scrollbar{width:0;height:0;display:none}
 #chat .csheet,#chatList{scrollbar-width:none;-ms-overflow-style:none}
 #chat .csheet::-webkit-scrollbar,#chatList::-webkit-scrollbar{width:0;height:0;display:none}
 #chat .cmp textarea{scrollbar-width:none;-ms-overflow-style:none}
 #chat .cmp textarea::-webkit-scrollbar{width:0;height:0;display:none}
-#chat .chd{background:#232428;color:#f2f3f5}
-#chat.scrolled .chd{box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 12px rgba(0,0,0,.25)}
-#chat .ib{background:none;color:#c9cfff}
-#chat .ib:active{background:#2b2d31}
-#chat .ctl{color:#f2f3f5}
-#chat .cmp{background:#232428;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
+#chat .chd{background:#fff;color:#1E1433}
+#chat.scrolled .chd{box-shadow:0 1px 0 #EFE8FA,0 4px 12px rgba(60,20,140,.08)}
+#chat .ib{background:none;color:#5B1FD0}
+#chat .ib:active{background:#F1E8FF}
+#chat .ctl{color:#1E1433}
+#chat .cmp{background:#fff;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
 #chat .cap{gap:8px;padding:0;border-radius:0;background:none}
-#chat .cmp textarea{min-height:42px;padding:10px 18px;border-radius:21px;background:#2b2d31;color:#f2f3f5;font:500 16px/1.4 'Plus Jakarta Sans',sans-serif}
-#chat .cmp textarea::placeholder{color:#949ba4}
-#chat .cmp button{width:42px;height:42px;background:linear-gradient(135deg,#c9cfff 0%,#e3b9ea 55%,#f6a5d6 100%);color:#232428;transition:transform .15s ease,opacity .18s ease,filter .18s ease}
+#chat .cmp textarea{min-height:42px;padding:10px 18px;border-radius:21px;background:#F4F0FA;color:#1E1433;font:500 16px/1.4 'Plus Jakarta Sans',sans-serif}
+#chat .cmp textarea::placeholder{color:#9A9A9A}
+#chat .cmp button{width:42px;height:42px;background:#7B2FF7;color:#fff;transition:transform .15s ease,opacity .18s ease,filter .18s ease}
 #chat .cmp button svg{width:20px;height:20px}
 #chat .cmp button:active{opacity:1;transform:scale(.92)}
 #chat .cmp button:disabled{opacity:.7;filter:saturate(.75)}
