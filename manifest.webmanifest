@@ -1,0 +1,62 @@
+{
+  "name": "My Daily",
+  "short_name": "My Daily",
+  "description": "Catat tugas, kebiasaan, dan cerita harianmu di satu tempat.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#6A2BDB",
+  "lang": "id",
+  "icons": [
+    {
+      "src": "/assets/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Chat Clara",
+      "short_name": "Chat",
+      "description": "Ngobrol sama Clara",
+      "url": "/chat",
+      "icons": [{ "src": "/assets/img/shortcut-chat.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Tugas",
+      "short_name": "Tugas",
+      "description": "Lihat dan tambah tugas harian",
+      "url": "/tugas",
+      "icons": [{ "src": "/assets/img/shortcut-tugas.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Catatan",
+      "short_name": "Catatan",
+      "description": "Tulis catatan baru",
+      "url": "/catatan",
+      "icons": [{ "src": "/assets/img/shortcut-catatan.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Kalender",
+      "short_name": "Kalender",
+      "description": "Agenda hari ini",
+      "url": "/kalender",
+      "icons": [{ "src": "/assets/img/shortcut-kalender.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
