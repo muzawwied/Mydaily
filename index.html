@@ -2928,7 +2928,9 @@ window.PROFIL=(function(){
   $('profBack').addEventListener('click',function(){closeP()});
   $('barAv').addEventListener('click',function(){$('openProf').click()});
   document.querySelectorAll('.nav .nb,.nav .plus').forEach(function(b){
-    if(b.id==='openProf')return;
+    /* Clara adalah lapisan di atas Profil: membukanya tidak menutup Profil,
+       supaya tombol kembali dari chat balik ke Profil. */
+    if(b.id==='openProf'||b.id==='openChat')return;
     b.addEventListener('click',function(){if(isOpen())closeP(true,b!==nbs[0])});
   });
   $('pfEdit').addEventListener('click',openM);
