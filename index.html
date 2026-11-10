@@ -3280,6 +3280,9 @@ window.PROFIL=(function(){
   if(!sec)return;
   var $=function(i){return document.getElementById(i)};
   var audio=$('mAudio'),fileInp=$('mFile'),dirInp=$('mDir'),listEl=$('mList'),emp=$('mEmpty');
+  // Di dalam APK (WebView) pemilih folder web tidak tersedia: input webkitdirectory
+  // diabaikan dan showDirectoryPicker tidak ada. Jadi tawarkan pilih banyak lagu.
+  var SHELL=!!window.MdNotify;
   var tEl=$('mTitle'),sEl=$('mSub'),cEl=$('mCur'),dEl=$('mDur'),seek=$('mSeek'),playBtn=$('mPlay'),cnt=$('mCount');
   var DB='mydaily-musik',ST='tracks',MT='meta',DB_VER=2,db=null,mem=[],useMem=false;
   var tracks=[],cur=-1,objUrl=null,seeking=false,restored=false;
@@ -3500,17 +3503,25 @@ window.PROFIL=(function(){
   fileInp.addEventListener('change',function(){addFiles(Array.prototype.slice.call(fileInp.files||[]))});
   dirInp.addEventListener('change',function(){addFiles(Array.prototype.slice.call(dirInp.files||[]))});
   $('mMenu').addEventListener('click',function(){
-    window.popMenu(this,[
-      {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}},
-      {l:'Impor folder musik',f:function(){dirInp.click()}},
-      {l:'Folder musik otomatis',f:function(){pickFolder()}},
-      {l:'Hapus semua lagu',d:1,f:function(){
+    var items=[
+      {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}}
+    ];
+    if(SHELL){
+      items.push({l:'Tambah banyak lagu',f:function(){fileInp.click()}});
+      items.push({l:'Soal impor folder',f:function(){
+        if(window.toast)toast('Di aplikasi, pemilih folder tidak tersedia. Pilih beberapa lagu sekaligus dari folder itu ya.');
+      }});
+    }else{
+      items.push({l:'Impor folder musik',f:function(){dirInp.click()}});
+      items.push({l:'Folder musik otomatis',f:function(){pickFolder()}});
+    }
+    items.push({l:'Hapus semua lagu',d:1,f:function(){
         if(!tracks.length)return;
         audio.pause();audio.removeAttribute('src');
         if(objUrl){URL.revokeObjectURL(objUrl);objUrl=null}
         cur=-1;clearState();delAll(function(){load();if(window.toast)toast('Semua lagu dihapus')});
-      }}
-    ]);
+      }});
+    window.popMenu(this,items);
   });
   function load(announce){
     all(function(list){
