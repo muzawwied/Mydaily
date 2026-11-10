@@ -2297,6 +2297,7 @@ window.PROFIL=(function(){
   var miss=false;N.forEach(function(x){if(!x.id){x.id=uid();miss=true}});if(miss){try{localStorage.setItem('catatan',JSON.stringify(N))}catch(e){}}
   var MN=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
   function save(){try{localStorage.setItem('catatan',JSON.stringify(N))}catch(e){}}
+  window.addEventListener('md:notes',function(){try{var r=JSON.parse(localStorage.getItem('catatan'))||[];if(Array.isArray(r)){N=r;render()}}catch(e){}});
   function dl(ts){var d=new Date(ts),n=new Date(),a=new Date(n.getFullYear(),n.getMonth(),n.getDate()),b=new Date(d.getFullYear(),d.getMonth(),d.getDate()),df=Math.round((a-b)/864e5);if(df===0)return'Hari ini';if(df===1)return'Kemarin';return d.getDate()+' '+MN[d.getMonth()]+(d.getFullYear()!==n.getFullYear()?' '+d.getFullYear():'')}
   function toast(m){msg.textContent=m;toastEl.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toastEl.hidden=true;bk=null},4000)}
   function chk(){sv.disabled=!(inp.value.trim()||body.innerText.trim())}
@@ -2825,7 +2826,7 @@ window.PROFIL=(function(){
     try{arr=JSON.parse(localStorage.getItem('catatan'))||[]}catch(e){arr=[]}
     if(!Array.isArray(arr))arr=[];
     arr.unshift({id:(Math.random().toString(36)+'000000').slice(2,8),t:'Chat '+d.getDate()+' '+NM[d.getMonth()],b:transcript(),m:Date.now()});
-    try{localStorage.setItem('catatan',JSON.stringify(arr));say('Disimpan ke Catatan')}
+    try{localStorage.setItem('catatan',JSON.stringify(arr));try{window.dispatchEvent(new CustomEvent('md:notes'))}catch(e){}say('Disimpan ke Catatan')}
     catch(e){say('Gagal menyimpan')}
   }
   function toggleSearch(open){
