@@ -530,9 +530,9 @@ body.prof-open.pm-open .nav{z-index:5}
 .jdial[hidden]{display:none}
 .jcols{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:relative;z-index:1}
 .jcol{position:relative}
-.jwheel{height:190px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:70px 0;text-align:center;mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent)}
+.jwheel{height:208px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:75px 0;text-align:center;mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent)}
 .jwheel::-webkit-scrollbar{display:none}
-.jwheel button{display:block;width:100%;height:50px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.5rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
+.jwheel button{display:block;width:100%;height:58px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.8rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
 .jwheel button.on{color:#5B1FD0;transform:scale(1.06)}
 .jcu{display:block;text-align:center;font:700 .55rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A08FC9;padding-top:8px}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:40px;padding-bottom:12px}
@@ -714,6 +714,15 @@ body.prof-open.pm-open .nav{z-index:5}
 .pf-pen svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .pf-pre{cursor:pointer;overflow:hidden;display:grid;place-items:center;width:76px;height:76px;margin:0 auto;border-radius:50%;background:#F1E8FF;color:#5B1FD0;font:800 1.9rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif}
 .pf-cnt{display:block;margin-top:4px;text-align:right;font-size:.7rem;font-weight:500;color:#9C90B5}
+
+.csrch{padding:8px 20px 0;background:#fff}
+.csrch-in{position:relative;max-width:640px;margin:0 auto}
+.csrch> .csrch-in>svg{position:absolute;left:15px;top:50%;width:18px;height:18px;margin-top:-9px;fill:none;stroke:#8E7BB8;stroke-width:2;stroke-linecap:round;pointer-events:none}
+.csrch input{display:block;width:100%;height:42px;padding:0 44px 0 43px;border:0;border-radius:999px;background:#F1E8FF;color:var(--ink);font:500 15.5px 'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none;appearance:none}
+.csrch button{position:absolute;right:5px;top:50%;width:32px;height:32px;margin-top:-16px;display:grid;place-items:center;border:0;border-radius:50%;background:none;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.csrch button svg{position:static;width:16px;height:16px;margin:0;fill:none;stroke:#6B5A8A;stroke-width:2.2;stroke-linecap:round}
+.jpanel[data-p="timer"]:not([hidden]){display:flex;flex-direction:column;min-height:calc(100vh - 210px);min-height:calc(100dvh - 210px)}
+.jpanel[data-p="timer"]:not([hidden]) .jctrl{margin-top:auto}
 </style>
 </head>
 <body>
@@ -969,6 +978,14 @@ body.prof-open.pm-open .nav{z-index:5}
       </div>
     </div>
   </div>
+  <div class="csrch" id="chatSearch" hidden>
+    <div class="csrch-in">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+      <input id="chatSearchInp" type="search" placeholder="Cari pesan" autocomplete="off" aria-label="Cari pesan">
+      <button type="button" id="chatSearchClose" aria-label="Tutup pencarian"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+  </div>
+  <div class="toast" id="cToast" hidden role="status"><span id="cMsg"></span></div>
   <div class="csheet"><div class="cin" id="chatList"></div></div>
   <form class="cmp" id="chatForm" autocomplete="off">
     <div class="cap"><textarea id="chatInp" rows="1" maxlength="2000" placeholder="Tulis pesan" aria-label="Tulis pesan"></textarea>
@@ -2684,9 +2701,14 @@ window.PROFIL=(function(){
   function render(anim){
     list.innerHTML='';
     if(!M.length){list.insertAdjacentHTML('beforeend','<div class="cem"><b>Halo!</b>Tanya apa saja atau minta bantuan menyusun tugas dan harianmu.</div>');return}
-    M.forEach(function(m,i){
+    var kw=(typeof skw==='string'?skw:'').trim().toLowerCase();
+    var rows=[];
+    M.forEach(function(m,i){if(!kw||(m.t||'').toLowerCase().indexOf(kw)>-1)rows.push({m:m,i:i})});
+    if(!rows.length){list.insertAdjacentHTML('beforeend','<div class="cem"><b>Tidak ditemukan</b>Coba kata kunci lain.</div>');return}
+    rows.forEach(function(o){
+      var m=o.m,i=o.i;
       var d=document.createElement('div');
-      d.className='cm '+m.r+(i>0&&M[i-1].r===m.r?' sg':'')+(!M[i+1]||M[i+1].r!==m.r?' ak':'')+(m.x?' rxd':'');
+      d.className='cm '+m.r+(kw?' hit':(i>0&&M[i-1].r===m.r?' sg':''))+(kw?'':(!M[i+1]||M[i+1].r!==m.r?' ak':''))+(m.x?' rxd':'');
       d.dataset.i=i;
       var s=document.createElement('span');s.textContent=m.t;d.appendChild(s);
       if(m.d){var t=document.createElement('span');t.className='t';t.textContent=hm(m.d);d.appendChild(t)}
@@ -2776,7 +2798,7 @@ window.PROFIL=(function(){
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&window.matchMedia('(pointer:fine)').matches){e.preventDefault();if(!send.disabled)form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event('submit',{cancelable:true}))}});
   function navHome(){var nb=document.querySelectorAll('.nb');nb.forEach(function(x){x.classList.remove('on')});if(nb[0])nb[0].classList.add('on')}
   function openC(){render();chat.classList.add('open');chat.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';upd();end()}
-  function closeC(){closeAct();chat.classList.remove('open');chat.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();navHome()}
+  function closeC(){closeAct();try{toggleSearch(false)}catch(e){}chat.classList.remove('open');chat.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();navHome()}
   $('openChat').addEventListener('click',openC);
   try{
     if(sessionStorage.getItem('md_reopen_chat')){
@@ -2785,7 +2807,51 @@ window.PROFIL=(function(){
     }
   }catch(e){}
   $('chatBack').addEventListener('click',closeC);
-  $('chatMenu').addEventListener('click',function(){window.popMenu(this,[{l:'Hapus chat',d:1,f:function(){M=[];save();render()}}])});
+  /* Menu titik 3 percakapan: cari, simpan, salin, hapus */
+  var skw='';
+  function say(t){
+    var el=$('cToast'),sp=$('cMsg');
+    if(!el||!sp)return;
+    sp.textContent=t;el.hidden=false;
+    clearTimeout(say._t);say._t=setTimeout(function(){el.hidden=true},2400);
+  }
+  function transcript(){
+    return M.map(function(m){return (m.r==='u'?'Aku':'Clara')+': '+m.t}).join('\n');
+  }
+  function toNotes(){
+    if(!M.length){say('Belum ada pesan');return}
+    var d=new Date(),NM=['Jan','Feb','Mar','Apr','Mei','Jun','Agu','Sep','Okt','Nov','Des'];
+    var arr=[];
+    try{arr=JSON.parse(localStorage.getItem('catatan'))||[]}catch(e){arr=[]}
+    if(!Array.isArray(arr))arr=[];
+    arr.unshift({id:(Math.random().toString(36)+'000000').slice(2,8),t:'Chat '+d.getDate()+' '+NM[d.getMonth()],b:transcript(),m:Date.now()});
+    try{localStorage.setItem('catatan',JSON.stringify(arr));say('Disimpan ke Catatan')}
+    catch(e){say('Gagal menyimpan')}
+  }
+  function toggleSearch(open){
+    var bar=$('chatSearch');if(!bar)return;
+    var buka=typeof open==='boolean'?open:bar.hidden;
+    bar.hidden=!buka;
+    if(buka){
+      setTimeout(function(){var i=$('chatSearchInp');if(i)i.focus()},60);
+    }else{
+      var i2=$('chatSearchInp');if(i2)i2.value='';
+      skw='';render();
+    }
+  }
+  (function(){
+    var i=$('chatSearchInp'),c=$('chatSearchClose');
+    if(i)i.addEventListener('input',function(){skw=i.value;render()});
+    if(c)c.addEventListener('click',function(){toggleSearch(false)});
+  })();
+  $('chatMenu').addEventListener('click',function(){
+    window.popMenu(this,[
+      {l:'Cari pesan',f:function(){toggleSearch(true)}},
+      {l:'Simpan ke Catatan',f:toNotes},
+      {l:'Salin semua teks',f:function(){if(!M.length){say('Belum ada pesan');return}copyT(transcript());say('Percakapan disalin')}},
+      {l:'Hapus chat',d:1,f:function(){M=[];save();render();say('Chat dihapus')}}
+    ]);
+  });
 
   /* Aksi pesan: tekan lama (atau klik kanan) pada gelembung -> reaksi + menu */
   var RX=['\u2764\uFE0F','\uD83D\uDC4D','\uD83D\uDE02','\uD83D\uDE2E','\uD83D\uDE22','\uD83D\uDD25','\uD83D\uDE0D','\uD83E\uDD79','\uD83D\uDE4F','\uD83D\uDC4F','\uD83C\uDF89','\uD83D\uDE2D','\uD83E\uDD14','\uD83D\uDE21','\uD83D\uDC4E','\uD83D\uDCAF','\uD83D\uDE0E','\uD83E\uDD23'];
