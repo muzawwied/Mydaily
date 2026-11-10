@@ -3941,7 +3941,10 @@ window.PROFIL=(function(){
   function fmt(v,code){
     var d=(code==='IDR'||code==='JPY'||code==='KRW'||code==='VND')?0:2;
     var n;
-    try{n=new Intl.NumberFormat('id-ID',{minimumFractionDigits:0,maximumFractionDigits:d}).format(v)}catch(e){n=v.toFixed(d)}
+    try{
+      if(v!==0&&Math.abs(v)<0.01){n=new Intl.NumberFormat('id-ID',{maximumSignificantDigits:4}).format(v)}
+      else{n=new Intl.NumberFormat('id-ID',{minimumFractionDigits:0,maximumFractionDigits:d}).format(v)}
+    }catch(e){n=String(v)}
     var sym=SIM[code];
     return sym?(sym+' '+n):(code+' '+n);
   }
