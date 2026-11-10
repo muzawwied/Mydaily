@@ -3361,6 +3361,10 @@ window.PROFIL=(function(){
   // Di dalam APK (WebView) pemilih folder web tidak tersedia: input webkitdirectory
   // diabaikan dan showDirectoryPicker tidak ada. Jadi tawarkan pilih banyak lagu.
   var SHELL=!!window.MdNotify;
+  // Di APK, folder perangkat dibaca langsung oleh sisi Android (SAF): tidak ada lagu
+  // yang disalin ke IndexedDB, daftar & pemutaran datang dari MusicController.
+  var NATIVE=!!(window.MdNotify&&typeof window.MdNotify.musicSupported==='function'&&window.MdNotify.musicSupported());
+  var NDUR=0,NPLAY=false,NTITLE='';
   var tEl=$('mTitle'),sEl=$('mSub'),cEl=$('mCur'),dEl=$('mDur'),seek=$('mSeek'),playBtn=$('mPlay'),cnt=$('mCount');
   var DB='mydaily-musik',ST='tracks',MT='meta',DB_VER=2,db=null,mem=[],useMem=false;
   var tracks=[],cur=-1,objUrl=null,seeking=false,restored=false;
@@ -3465,6 +3469,7 @@ window.PROFIL=(function(){
   }
   function play(i){
     if(!tracks.length)return;
+    if(NATIVE){if(i<0)i=tracks.length-1;if(i>=tracks.length)i=0;try{window.MdNotify.musicPlay(i)}catch(e){}return}
     if(i<0)i=tracks.length-1;
     if(i>=tracks.length)i=0;
     var t=tracks[i];
@@ -3482,6 +3487,7 @@ window.PROFIL=(function(){
     }
   }
   function toggle(){
+    if(NATIVE){try{window.MdNotify.musicToggle()}catch(e){}return}
     if(cur<0){if(tracks.length)play(0);return}
     if(audio.paused){audio.play().catch(function(){})}else{audio.pause()}
   }
@@ -3504,17 +3510,56 @@ window.PROFIL=(function(){
     if(d>0)cEl.textContent=tstr(seek.value/1000*d);
   });
   seek.addEventListener('change',function(){
+    if(NATIVE){
+      if(NDUR>0){try{window.MdNotify.musicSeek(Math.round(seek.value/1000*NDUR))}catch(e){}}
+      seeking=false;return;
+    }
     var d=audio.duration||0;
     if(d>0)audio.currentTime=seek.value/1000*d;
     seeking=false;
   });
   seek.addEventListener('pointerup',function(){setTimeout(function(){seeking=false},60)});
+  /* --- mode native: daftar dan status datang dari MusicController --- */
+  function nativeLoad(){
+    if(!NATIVE)return;
+    var list=[];
+    try{list=JSON.parse(window.MdNotify.musicList()||'[]')}catch(e){list=[]}
+    tracks=Array.isArray(list)?list:[];
+    try{applyNative(JSON.parse(window.MdNotify.musicState()||'{}'))}catch(e){render()}
+    render();
+  }
+  function applyNative(st){
+    if(!st)return;
+    NDUR=+st.durMs||0;NPLAY=!!st.playing;NTITLE=st.title||'';
+    var idx=(typeof st.index==='number')?st.index:-1;
+    if(idx!==cur){cur=idx;seek.value=0;cEl.textContent='0:00'}
+    if(st.count&&tracks.length!==st.count)nativeLoad();
+    tEl.textContent=st.title||(idx>=0&&tracks[idx]?name(tracks[idx].name):'Belum ada lagu');
+    if(st.title)sEl.textContent=NPLAY?'Memutar':(st.posMs>0?'Dijeda':'Siap diputar');
+    else if(!tracks.length)sEl.textContent='Pilih folder musik dari perangkat';
+    dEl.textContent=tstr(NDUR/1000);
+    if(!seeking)cEl.textContent=tstr((+st.posMs||0)/1000);
+    if(NDUR>0&&!seeking)seek.value=Math.round((+st.posMs||0)/NDUR*1000);
+    setPlay(NPLAY);
+    var c=$('mCover');if(c){if(NPLAY)c.classList.add('playing');else c.classList.remove('playing')}
+    render();
+    pushMusic();
+  }
+  window.mdMusicNativeState=function(st){applyNative(st)};
+  window.mdMusicNativeList=function(list){tracks=Array.isArray(list)?list:[];cur=-1;render()};
+  window.mdMusicFolderPicked=function(){
+    nativeLoad();
+    var f='';try{f=window.MdNotify.musicFolder()||''}catch(e){}
+    if(window.toast)toast(tracks.length?(tracks.length+' lagu dari '+(f||'folder perangkat')):'Tidak ada berkas audio di folder itu');
+  };
   function pushMusic(){
     try{
       var BM=window.MdNotify;
       if(!BM||typeof BM.setMusic!=='function')return;
       var tr=tracks[cur];
-      BM.setMusic(tr?name(tr.name):'',audio.paused?'0':'1');
+      var title=NATIVE?(NTITLE||(tr?name(tr.name):'')):(tr?name(tr.name):'');
+      var on=NATIVE?(NPLAY?'1':'0'):(audio.paused?'0':'1');
+      BM.setMusic(title,on);
     }catch(e){}
   }
   window.mdMusic=function(a){
@@ -3527,13 +3572,14 @@ window.PROFIL=(function(){
   audio.addEventListener('pause',pushMusic);
   audio.addEventListener('ended',pushMusic);
   playBtn.addEventListener('click',function(){toggle();pushMusic()});
-  $('mNext').addEventListener('click',function(){if(tracks.length)play(cur+1)});
+  $('mNext').addEventListener('click',function(){if(NATIVE){try{window.MdNotify.musicNext()}catch(e){}return}if(tracks.length)play(cur+1)});
   $('mPrev').addEventListener('click',function(){
+    if(NATIVE){try{window.MdNotify.musicPrev()}catch(e){}return}
     if(audio.currentTime>4){audio.currentTime=0;return}
     if(tracks.length)play(cur-1);
   });
-  $('mAdd').addEventListener('click',function(){fileInp.click()});
-  $('mEmptyAdd').addEventListener('click',function(){fileInp.click()});
+  $('mAdd').addEventListener('click',function(){if(NATIVE){pickFolder();return}fileInp.click()});
+  $('mEmptyAdd').addEventListener('click',function(){if(NATIVE){pickFolder();return}fileInp.click()});
   $('mEmptyDir').addEventListener('click',function(){pickFolder()});
   function metaGet(key,cb){
     if(useMem||!db)return cb(null);
@@ -3577,6 +3623,12 @@ window.PROFIL=(function(){
     });
   }
   async function pickFolder(){
+    if(NATIVE){
+      try{window.MdNotify.musicPickFolder()}catch(e){
+        if(window.toast)toast('Pemilih folder tidak bisa dibuka');
+      }
+      return;
+    }
     if(!window.showDirectoryPicker){
       if(window.toast)toast('Browser ini belum mendukung folder otomatis. Pakai Tambah lagu atau Impor folder.');
       return;
@@ -3601,7 +3653,15 @@ window.PROFIL=(function(){
     var items=[
       {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}}
     ];
-    if(SHELL){
+    if(NATIVE){
+      items.push({l:'Pilih folder perangkat',f:function(){pickFolder()}});
+      items.push({l:'Pindai ulang folder',f:function(){nativeLoad();if(window.toast)toast('Daftar lagu diperbarui')}});
+      items.push({l:'Lepas folder',f:function(){
+        try{window.MdNotify.musicClearFolder()}catch(e){}
+        tracks=[];cur=-1;NDUR=0;NPLAY=false;NTITLE='';render();
+        if(window.toast)toast('Folder dilepas');
+      }});
+    }else if(SHELL){
       items.push({l:'Tambah banyak lagu',f:function(){fileInp.click()}});
       items.push({l:'Soal impor folder',f:function(){
         if(window.toast)toast('Di aplikasi, pemilih folder tidak tersedia. Pilih beberapa lagu sekaligus dari folder itu ya.');
@@ -3612,6 +3672,12 @@ window.PROFIL=(function(){
     }
     items.push({l:'Hapus semua lagu',d:1,f:function(){
         if(!tracks.length)return;
+        if(NATIVE){
+          try{window.MdNotify.musicClearFolder()}catch(e){}
+          tracks=[];cur=-1;NDUR=0;NPLAY=false;NTITLE='';render();
+          if(window.toast)toast('Lagu dilepas dari daftar');
+          return;
+        }
         audio.pause();audio.removeAttribute('src');
         if(objUrl){URL.revokeObjectURL(objUrl);objUrl=null}
         cur=-1;clearState();delAll(function(){load();if(window.toast)toast('Semua lagu dihapus')});
@@ -3636,7 +3702,8 @@ window.PROFIL=(function(){
     });
     sec.classList.add('open');sec.setAttribute('aria-hidden','false');sec.scrollTop=0;
     document.body.style.overflow='hidden';
-    if(!db&&!useMem)openDB(function(){load()});
+    if(NATIVE)nativeLoad();
+    else if(!db&&!useMem)openDB(function(){load()});
   });
   $('musikBack').addEventListener('click',function(){
     sec.classList.remove('open');sec.setAttribute('aria-hidden','true');
@@ -3646,11 +3713,15 @@ window.PROFIL=(function(){
     if(nb[0])nb[0].classList.add('on');
   });
   setPlay(false);
-  openDB(function(){all(function(list){
-    tracks=list.slice().sort(function(a,b){return (+a.date||0)-(+b.date||0)});
-    render();restoreLast();
-    setTimeout(function(){syncFolder(false)},900);
-  })});
+  if(NATIVE){
+    nativeLoad();
+  }else{
+    openDB(function(){all(function(list){
+      tracks=list.slice().sort(function(a,b){return (+a.date||0)-(+b.date||0)});
+      render();restoreLast();
+      setTimeout(function(){syncFolder(false)},900);
+    })});
+  }
 })();
 
 /* rute asli sebelum router menormalkan URL (dipakai skrip konverter di bawah) */
