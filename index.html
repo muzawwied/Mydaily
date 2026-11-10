@@ -772,6 +772,44 @@ body.prof-open.pm-open .nav{z-index:5}
   .klc-ex{font-size:1.35rem;min-height:26px}
   .klc-res{font-size:2.2rem;min-height:38px}
 }
+/* ===== Konverter mata uang & penggaris ===== */
+.ovl{position:fixed;inset:0;z-index:98;display:grid;align-items:end;background:rgba(20,8,50,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.ovl[hidden]{display:none}
+.ovl-cd{width:100%;max-width:600px;margin:0 auto;background:#fff;border-radius:26px 26px 0 0;padding:14px 18px calc(18px + env(safe-area-inset-bottom,0px));box-shadow:0 -18px 44px rgba(20,8,50,.26);animation:ovlUp .26s cubic-bezier(.2,.85,.3,1)}
+@keyframes ovlUp{from{transform:translateY(26px);opacity:.55}to{transform:none;opacity:1}}
+.ovl-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.ovl-t{font-family:'Fredoka','Plus Jakarta Sans',sans-serif;font-weight:600;font-size:1rem;color:#1E1433}
+.ovl-x{flex:none;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:#F5F0FF;color:#5B1FD0;font:600 .95rem/1 'Plus Jakarta Sans',sans-serif;display:grid;place-items:center;cursor:pointer}
+.cv-row{display:flex;align-items:center;gap:10px;background:#FAF8FF;border-radius:16px;padding:10px 12px}
+.cv-in{flex:1 1 auto;min-width:0;width:100%;border:0;background:transparent;font:800 1.32rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#241542;outline:none;font-variant-numeric:tabular-nums}
+.cv-out{flex:1 1 auto;min-width:0;font:800 1.32rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#6A1FE0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+.cv-sel{flex:none;max-width:46%;border:0;border-radius:999px;background:#fff;padding:9px 10px;font:600 .84rem 'Plus Jakarta Sans',sans-serif;color:#241542;box-shadow:0 1px 2px rgba(20,8,50,.09);outline:none}
+.cv-swap{display:grid;place-items:center;margin:8px auto;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:#F1E8FF;color:#5B1FD0;cursor:pointer}
+.cv-swap svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.cv-note{margin-top:11px;font-size:.72rem;line-height:1.4;color:#8B84A3;text-align:center;cursor:pointer}
+.cv-note b{color:#5B1FD0;font-weight:600}
+.rg-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rg-chip{padding:6px 12px;border-radius:999px;background:#F6F1FD;color:#6B5A8A;font:600 .8rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;user-select:none}
+.rg-chip.on{background:#E6D8FB;color:#6A1FE0}
+.rg-read{margin-left:auto;font:600 .76rem 'Plus Jakarta Sans',sans-serif;color:#8B84A3;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rg-read b{color:#5B1FD0;font-weight:700}
+.rg-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border-radius:14px;background:#FAF8FF;padding:6px 0 0}
+.rg-scroll::-webkit-scrollbar{height:0}
+.rg-strip{position:relative;height:74px}
+.rg-strip svg{display:block;height:74px}
+.rg-mk{position:absolute;top:0;bottom:0;width:2px;background:#7B2FF7;border-radius:2px;pointer-events:none}
+.rg-mk.b{background:#C2410C}
+.rg-mk span{position:absolute;top:2px;left:4px;font:700 .62rem 'Plus Jakarta Sans',sans-serif;color:#fff;background:#7B2FF7;border-radius:6px;padding:1px 4px;white-space:nowrap}
+.rg-mk.b span{background:#C2410C}
+.rg-foot{display:flex;align-items:center;gap:10px;margin-top:12px}
+.rg-btn{flex:none;padding:9px 14px;border:0;border-radius:999px;background:#F1E8FF;color:#5B1FD0;font:600 .82rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+.rg-btn.on{background:#E6D8FB}
+.rg-hint{flex:1 1 auto;min-width:0;font:500 .72rem/1.35 'Plus Jakarta Sans',sans-serif;color:#8B84A3}
+.rg-adj{display:none;align-items:center;gap:8px;margin-top:12px}
+.rg-adj.on{display:flex}
+.rg-adj button{width:38px;height:38px;border:0;border-radius:50%;background:#F1E8FF;color:#5B1FD0;font:700 1.15rem/1 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+.rg-kartu{position:relative;flex:1 1 auto;height:54px;border-radius:8px;background:linear-gradient(160deg,#EDE3FF,#D9C6FF);box-shadow:inset 0 0 0 1.5px #B79BF0}
+.rg-kartu span{position:absolute;right:8px;bottom:5px;font:600 .66rem 'Plus Jakarta Sans',sans-serif;color:#5B1FD0}
 /* ===== Musik ===== */
 #musik .csheet{background:linear-gradient(180deg,#FBF7FF 0%,#FFFFFF 42%)}
 #musik .cin{max-width:420px;padding:0 18px calc(92px + env(safe-area-inset-bottom,0px))}
@@ -1316,7 +1354,7 @@ body.prof-open.pm-open .nav{z-index:5}
     <div class="crow">
       <button class="ib" id="kalkBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <span class="ctl">Kalkulator</span>
-      <button class="ib mv" id="kalkMenu" type="button" aria-label="Menu kalkulator"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
+      <span class="hr"><button class="ib" id="kConv" type="button" aria-label="Konversi mata uang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5h12.5l-3-3"/><path d="M20 15.5H7.5l3 3"/></svg></button><button class="ib mv" id="kRuler" type="button" aria-label="Penggaris"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="1.6"/><path d="M6.5 8.5v3M10 8.5v4M13.5 8.5v3M17 8.5v4"/></svg></button></span>
     </div>
   </div></div>
   <div class="csheet"><div class="cin">
@@ -1348,6 +1386,24 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
   </div></div>
 </section>
+<div class="ovl" id="cvWrap" hidden>
+  <div class="ovl-cd" role="dialog" aria-modal="true" aria-label="Konversi mata uang">
+    <div class="ovl-hd"><span class="ovl-t">Konversi mata uang</span><button class="ovl-x" id="cvX" type="button" aria-label="Tutup">&#10005;</button></div>
+    <div class="cv-row"><input class="cv-in" id="cvAmt" type="text" inputmode="decimal" value="1" aria-label="Nominal"><select class="cv-sel" id="cvFrom" aria-label="Dari mata uang"></select></div>
+    <button class="cv-swap" id="cvSwap" type="button" aria-label="Tukar mata uang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-3.5-3.5"/><path d="M18 16H6l3.5 3.5"/></svg></button>
+    <div class="cv-row"><div class="cv-out" id="cvOut">&ndash;</div><select class="cv-sel" id="cvTo" aria-label="Ke mata uang"></select></div>
+    <div class="cv-note" id="cvNote">Memuat kurs&hellip;</div>
+  </div>
+</div>
+<div class="ovl" id="rgWrap" hidden>
+  <div class="ovl-cd" role="dialog" aria-modal="true" aria-label="Penggaris">
+    <div class="ovl-hd"><span class="ovl-t">Penggaris</span><button class="ovl-x" id="rgX" type="button" aria-label="Tutup">&#10005;</button></div>
+    <div class="rg-top"><span class="rg-chip on" id="rgCm">cm</span><span class="rg-chip" id="rgIn">inci</span><span class="rg-read" id="rgRead">Ketuk penggaris untuk menandai</span></div>
+    <div class="rg-scroll" id="rgScroll"><div class="rg-strip" id="rgStrip"></div></div>
+    <div class="rg-foot"><button class="rg-btn" id="rgCal" type="button">Atur skala</button><span class="rg-hint" id="rgHint">Skala awal sudah mendekati asli. Kalibrasi sekali dengan kartu ATM supaya presisi.</span></div>
+    <div class="rg-adj" id="rgAdj"><button id="rgMinus" type="button" aria-label="Perkecil">&#8722;</button><div class="rg-kartu" id="rgKartu"><span>8,56 cm</span></div><button id="rgPlus" type="button" aria-label="Perbesar">+</button></div>
+  </div>
+</div>
 <section class="cal" id="musik" aria-label="Musik" aria-hidden="true">
   <div class="chd"><div class="in"><div class="crow">
     <button class="ib" id="musikBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -3261,15 +3317,6 @@ window.PROFIL=(function(){
     Array.prototype.forEach.call(nb,function(x){x.classList.remove('on')});
     if(nb[0])nb[0].classList.add('on');
   });
-  $('kalkMenu').addEventListener('click',function(){
-    window.popMenu(this,[
-      {l:'Salin hasil',f:function(){
-        var t=resEl.textContent.replace('= ','').trim()||exEl.textContent;
-        if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){if(window.toast)toast('Hasil disalin')},function(){})}
-      }},
-      {l:'Bersihkan',f:function(){expr='';done=false;show()}}
-    ]);
-  });
   show();
 })();
 
@@ -3873,6 +3920,153 @@ window.PROFIL=(function(){
       });
     }).observe(list,{childList:true});
   }
+})();
+</script>
+<script>
+/* Konverter mata uang: kurs harian dari open.er-api.com, disimpan 12 jam. */
+(function(){
+  var wrap=document.getElementById('cvWrap');if(!wrap)return;
+  var amt=document.getElementById('cvAmt'),from=document.getElementById('cvFrom'),to=document.getElementById('cvTo'),
+      out=document.getElementById('cvOut'),note=document.getElementById('cvNote');
+  var CUR=[['IDR','IDR · Rupiah'],['USD','USD · Dolar AS'],['EUR','EUR · Euro'],['SGD','SGD · Dolar Singapura'],['MYR','MYR · Ringgit'],['JPY','JPY · Yen'],['GBP','GBP · Pound'],['AUD','AUD · Dolar Australia'],['CNY','CNY · Yuan'],['SAR','SAR · Riyal'],['HKD','HKD · Dolar Hong Kong'],['THB','THB · Baht'],['KRW','KRW · Won'],['INR','INR · Rupee'],['PHP','PHP · Peso'],['VND','VND · Dong'],['AED','AED · Dirham'],['CAD','CAD · Dolar Kanada'],['CHF','CHF · Franc Swiss'],['NZD','NZD · Dolar Selandia Baru']];
+  var SIM={IDR:'Rp',USD:'$',EUR:'\u20ac',GBP:'\u00a3',JPY:'\u00a5',KRW:'\u20a9',THB:'\u0e3f',INR:'\u20b9',PHP:'\u20b1',VND:'\u20ab',CNY:'\u00a5'};
+  var KEY='md_kurs_idr',SEL='md_konversi',rates=null,stamp=0;
+  CUR.forEach(function(c){
+    [from,to].forEach(function(sel){var o=document.createElement('option');o.value=c[0];o.textContent=c[1];sel.appendChild(o)});
+  });
+  var st={a:'IDR',b:'USD',x:'1'};
+  try{var raw=JSON.parse(localStorage.getItem(SEL));if(raw&&raw.a&&raw.b){st.a=raw.a;st.b=raw.b;st.x=String(raw.x||'1')}}catch(e){}
+  from.value=st.a;to.value=st.b;amt.value=st.x;
+  function num(v){v=String(v).replace(/[^0-9.,]/g,'').replace(/\./g,'').replace(',','.');var n=parseFloat(v);return isFinite(n)?n:0}
+  function fmt(v,code){
+    var d=(code==='IDR'||code==='JPY'||code==='KRW'||code==='VND')?0:2;
+    var n;
+    try{n=new Intl.NumberFormat('id-ID',{minimumFractionDigits:0,maximumFractionDigits:d}).format(v)}catch(e){n=v.toFixed(d)}
+    var sym=SIM[code];
+    return sym?(sym+' '+n):(code+' '+n);
+  }
+  function tgl(ts){try{return new Date(ts).toLocaleDateString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}catch(e){return ''}}
+  function render(){
+    if(!rates){out.textContent='\u2013';return}
+    var a=rates[from.value],b=rates[to.value];
+    if(!a||!b){out.textContent='\u2013';return}
+    var v=num(amt.value)*b/a;
+    out.textContent=fmt(v,to.value);
+    note.innerHTML='1 '+from.value+' = '+fmt(b/a,to.value)+'<br>Kurs '+tgl(stamp)+' \u00b7 ketuk untuk perbarui';
+  }
+  function setNote(t){note.textContent=t}
+  function load(force){
+    var c=null;
+    try{c=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+    if(!force&&c&&c.rates&&Date.now()-c.ts<12*3600*1000){rates=c.rates;stamp=c.ts;render();return}
+    if(!rates&&c&&c.rates){rates=c.rates;stamp=c.ts;render()}
+    setNote('Memuat kurs\u2026');
+    fetch('https://open.er-api.com/v6/latest/IDR',{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){
+      if(!j||!j.rates||!j.rates.IDR)throw new Error('bad');
+      rates=j.rates;stamp=Date.now();
+      try{localStorage.setItem(KEY,JSON.stringify({ts:stamp,rates:rates}))}catch(e){}
+      render();
+    }).catch(function(){
+      if(rates){render()}else{setNote('Kurs belum bisa dimuat. Sambungkan internet lalu ketuk di sini.')}
+    });
+  }
+  function save(){try{localStorage.setItem(SEL,JSON.stringify({a:from.value,b:to.value,x:amt.value}))}catch(e){}}
+  function open(){wrap.hidden=false;document.body.style.overflow='hidden';save();load(false);setTimeout(function(){try{amt.focus();amt.setSelectionRange(0,String(amt.value).length)}catch(e){}},220)}
+  function close(){wrap.hidden=true;document.body.style.overflow=''}
+  var btn=document.getElementById('kConv');
+  if(btn)btn.addEventListener('click',open);
+  document.getElementById('cvX').addEventListener('click',close);
+  wrap.addEventListener('click',function(e){if(e.target===wrap)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wrap.hidden){close();e.stopImmediatePropagation()}},true);
+  amt.addEventListener('input',function(){save();render()});
+  from.addEventListener('change',function(){save();render()});
+  to.addEventListener('change',function(){save();render()});
+  document.getElementById('cvSwap').addEventListener('click',function(){
+    var a=from.value;from.value=to.value;to.value=a;save();render();
+    if(navigator.vibrate)try{navigator.vibrate(10)}catch(e){}
+  });
+  note.addEventListener('click',function(){if(!rates||Date.now()-stamp>60000)load(true)});
+  window.CVOPEN=open;
+})();
+
+/* Penggaris: skala px/cm bisa dikalibrasi, tandai titik A dan B. */
+(function(){
+  var wrap=document.getElementById('rgWrap');if(!wrap)return;
+  var strip=document.getElementById('rgStrip'),scroll=document.getElementById('rgScroll'),read=document.getElementById('rgRead'),
+      cmBtn=document.getElementById('rgCm'),inBtn=document.getElementById('rgIn'),calBtn=document.getElementById('rgCal'),
+      adj=document.getElementById('rgAdj'),kartu=document.getElementById('rgKartu'),hint=document.getElementById('rgHint');
+  var KEY='md_ruler',ppc=37.8,unit='cm',A=null,B=null,calMode=false;
+  try{var st=JSON.parse(localStorage.getItem(KEY));if(st){if(isFinite(st.ppc)&&st.ppc>10&&st.ppc<200)ppc=+st.ppc;if(st.unit==='in')unit='in'}}catch(e){}
+  function ppu(){return unit==='cm'?ppc:ppc*2.54}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({ppc:ppc,unit:unit}))}catch(e){}}
+  function fmtCm(v){return v.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+' cm'}
+  function fmtIn(v){var i=Math.floor(v),f=Math.round((v-i)*16);if(f===16){i++;f=0}return i+(f?' '+f+'/16':'')+' inci'}
+  function val(x){return x/ppu()}
+  function label(v){return unit==='cm'?fmtCm(v):fmtIn(v)}
+  function draw(){
+    var u=ppu(),tot=unit==='cm'?40:16,step=unit==='cm'?0.1:0.125,half=unit==='cm'?0.5:0.25,maj=1,parts=[],w=Math.round(tot*u)+8;
+    parts.push('<svg width="'+w+'" height="74" viewBox="0 0 '+w+' 74" aria-hidden="true">');
+    parts.push('<rect x="0" y="0" width="'+w+'" height="74" fill="none"/>');
+    var n=Math.round(tot/step);
+    for(var i=0;i<=n;i++){
+      var v=i*step,x=v*u,len=9,cl='#B9A8DD';
+      if(Math.abs(v%maj)<0.0001){len=26;cl='#5B1FD0'}
+      else if(Math.abs(v%half)<0.0001){len=17;cl='#8B6EDC'}
+      parts.push('<line x1="'+x.toFixed(2)+'" y1="'+(46-len)+'" x2="'+x.toFixed(2)+'" y2="46" stroke="'+cl+'" stroke-width="'+(len===26?1.6:1)+'" stroke-linecap="round"/>');
+      if(Math.abs(v%maj)<0.0001&&v>0){
+        parts.push('<text x="'+(x+3).toFixed(2)+'" y="66" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="600" fill="#5B5A6B">'+Math.round(v)+'</text>');
+      }
+    }
+    parts.push('</svg>');
+    strip.style.width=w+'px';
+    strip.innerHTML=parts.join('');
+    if(A!==null)marks();
+    readR();
+  }
+  function marks(){
+    Array.prototype.forEach.call(strip.querySelectorAll('.rg-mk'),function(m){m.remove()});
+    function add(v,cls,txt){
+      var d=document.createElement('div');d.className='rg-mk'+(cls?' '+cls:'');d.style.left=(v*ppu()).toFixed(2)+'px';
+      var sp=document.createElement('span');sp.textContent=txt;d.appendChild(sp);strip.appendChild(d);
+    }
+    if(A!==null)add(A,'',unit==='cm'?'A':'A');
+    if(B!==null)add(B,'b','B');
+  }
+  function readR(){
+    if(A===null){read.innerHTML='Ketuk penggaris untuk menandai';return}
+    if(B===null){read.innerHTML='<b>A '+label(A)+'</b> \u00b7 ketuk lagi untuk titik B';return}
+    read.innerHTML='<b>'+label(Math.abs(B-A))+'</b> \u00b7 A '+label(A)+' \u2192 B '+label(B);
+  }
+  function setUnit(u){
+    unit=u;cmBtn.classList.toggle('on',u==='cm');inBtn.classList.toggle('on',u==='in');save();draw();
+  }
+  cmBtn.addEventListener('click',function(){setUnit('cm')});
+  inBtn.addEventListener('click',function(){setUnit('in')});
+  strip.addEventListener('click',function(e){
+    var r=strip.getBoundingClientRect(),x=e.clientX-r.left,v=Math.max(0,val(x));
+    if(A===null||B!==null){A=v;B=null}else{B=v}
+    marks();readR();
+    try{if(navigator.vibrate)navigator.vibrate(8)}catch(err){}
+  });
+  calBtn.addEventListener('click',function(){
+    calMode=!calMode;adj.classList.toggle('on',calMode);calBtn.classList.toggle('on',calMode);
+    if(calMode){hint.textContent='Tempelkan sisi pendek kartu ATM pada kotak ungu, lalu geser tombol \u2212 / + sampai pas.';sizeKartu()}
+    else{hint.textContent='Skala tersimpan. Tempel objek ke tepi layar lalu ketuk penggaris untuk mengukur.';save()}
+  });
+  function sizeKartu(){kartu.style.maxWidth='none';kartu.style.width=(8.56*ppc).toFixed(1)+'px'}
+  function nudge(f){
+    ppc=Math.min(200,Math.max(15,ppc*f));sizeKartu();draw();save();
+  }
+  document.getElementById('rgMinus').addEventListener('click',function(){nudge(0.98)});
+  document.getElementById('rgPlus').addEventListener('click',function(){nudge(1.02)});
+  function open(){wrap.hidden=false;document.body.style.overflow='hidden';A=null;B=null;draw();if(calMode)sizeKartu();scroll.scrollLeft=0}
+  function close(){wrap.hidden=true;document.body.style.overflow='';calMode=false;adj.classList.remove('on');calBtn.classList.remove('on')}
+  var btn=document.getElementById('kRuler');
+  if(btn)btn.addEventListener('click',open);
+  document.getElementById('rgX').addEventListener('click',close);
+  wrap.addEventListener('click',function(e){if(e.target===wrap)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wrap.hidden){close();e.stopImmediatePropagation()}},true);
+  setUnit(unit);
 })();
 </script>
 <script>
