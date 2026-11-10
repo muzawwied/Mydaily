@@ -1,10 +1,17 @@
-/* Service worker My Daily: aplikasi tetap tampil walau tanpa internet. */
-const VERSION = 'mydaily-v2';
+/* Service worker My Daily: seluruh aplikasi (HTML, ikon, dan gambar) tetap hidup tanpa internet. */
+const VERSION = 'mydaily-v3';
 const CACHE = VERSION;
-const EXT_CACHE = 'mydaily-ext-v2';
+const EXT_CACHE = 'mydaily-ext-v3';
 const SHELL = [
   '/',
+  '/index.html',
   '/manifest.webmanifest',
+  '/assets/img/icon-192.png',
+  '/assets/img/icon-512.png',
+  '/assets/img/shortcut-kalender.png',
+  '/assets/img/shortcut-tugas.png',
+  '/assets/img/shortcut-catatan.png',
+  '/assets/img/shortcut-chat.png',
   '/assets/img/daily-01.jpg',
   '/assets/img/daily-02.jpg',
   '/assets/img/daily-03.jpg',
@@ -16,11 +23,9 @@ const SHELL = [
   '/assets/img/daily-09.jpg',
   '/assets/img/daily-10.jpg',
   '/assets/img/daily-11.jpg',
-  '/assets/img/daily-12.jpg',
-  '/assets/img/icon-192.png',
-  '/assets/img/icon-512.png'
+  '/assets/img/daily-12.jpg'
 ];
-const NET_TIMEOUT = 3500;
+const NET_TIMEOUT = 3000;
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {
@@ -42,19 +47,25 @@ function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms, null));
 }
 
+async function shell() {
+  const c = await caches.open(CACHE);
+  return (await c.match('/')) || (await c.match('/index.html'));
+}
+
 async function networkFirst(req) {
   const c = await caches.open(CACHE);
-  const net = fetch(req).then(async (res) => {
+  const net = fetch(req).then((res) => {
     if (res && res.ok) {
       const copy = res.clone();
       c.put(req, copy).catch(() => {});
+      // Simpan juga sebagai shell supaya rute lain bisa dibuka saat offline.
       c.put('/', res.clone()).catch(() => {});
     }
     return res;
   });
   const first = await Promise.race([net.catch(() => null), timeout(NET_TIMEOUT)]);
   if (first) return first;
-  const hit = (await c.match(req)) || (await c.match('/')) || (await c.match('/index.html'));
+  const hit = (await c.match(req)) || (await shell());
   if (hit) return hit;
   return net;
 }
