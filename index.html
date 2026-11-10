@@ -525,15 +525,15 @@ body.prof-open.pm-open .nav{z-index:5}
 .jsw.on{background:#7B2FF7}
 .jsw.on::after{transform:translateX(18px)}
 
-.jtp{position:relative;max-width:300px;margin:10px auto 0}
+.jtp{position:relative;width:calc(100% + 40px);max-width:none;margin:12px -20px 0}
 .jtp[hidden]{display:none}
 .jdial[hidden]{display:none}
-.jcols{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:relative;z-index:1}
+.jcols{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative;z-index:1}
 .jcol{position:relative}
 .jwheel{height:208px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:75px 0;text-align:center;mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent)}
 .jwheel::-webkit-scrollbar{display:none}
-.jwheel button{display:block;width:100%;height:58px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.8rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
-.jwheel button.on{color:#5B1FD0;transform:scale(1.06)}
+.jwheel button{display:block;width:100%;height:58px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 2.7rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
+.jwheel button.on{color:#5B1FD0;transform:scale(1.02)}
 .jcu{display:block;text-align:center;font:700 .55rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A08FC9;padding-top:8px}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:40px;padding-bottom:12px}
 .jcirc{width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(123,47,247,.16);border-radius:50%;background:none;color:#6B5A8A;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:none;transition:transform .2s cubic-bezier(.2,.8,.2,1),color .2s,border-color .2s}
@@ -1955,7 +1955,7 @@ function updateNext(){
   }
   function wheelIdx(el){
     if(!el)return 0;
-    return Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/50)));
+    return Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/58)));
   }
   function wheelSec(){
     return wheelIdx(W('h'))*3600+wheelIdx(W('m'))*60+wheelIdx(W('s'));
@@ -1967,7 +1967,7 @@ function updateNext(){
       var el=W(u);
       if(!el)return;
       var v=Math.min(vals[i],el.children.length-1);
-      el.scrollTop=v*50;
+      el.scrollTop=v*58;
       Array.prototype.forEach.call(el.children,function(c,ix){c.classList.toggle('on',ix===v)});
     });
   }
