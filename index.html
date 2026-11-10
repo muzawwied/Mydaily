@@ -520,6 +520,23 @@ body.prof-open.pm-open .nav{z-index:5}
 .jsw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(60,20,140,.28);transition:transform .18s}
 .jsw.on{background:#7B2FF7}
 .jsw.on::after{transform:translateX(18px)}
+@keyframes jcIn{from{opacity:0;transform:translateY(12px) scale(.94)}to{opacity:1;transform:none}}
+.jcards{display:flex;gap:10px;overflow-x:auto;padding:8px 4px 14px;margin:14px -8px 0;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.jcards::-webkit-scrollbar{display:none}
+.jc{flex:0 0 auto;scroll-snap-align:center;width:72px;padding:14px 8px 12px;border:0;border-radius:20px;background:#F7F2FF;color:#5B1FD0;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;display:grid;justify-items:center;gap:2px;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 10px 18px -14px rgba(60,20,140,.65),inset 0 1px 0 #fff;transition:transform .24s cubic-bezier(.2,.8,.2,1),background .24s,color .24s,box-shadow .24s;animation:jcIn .42s cubic-bezier(.2,.8,.2,1) both}
+.jc:nth-child(1){animation-delay:.02s}.jc:nth-child(2){animation-delay:.06s}.jc:nth-child(3){animation-delay:.1s}.jc:nth-child(4){animation-delay:.14s}.jc:nth-child(5){animation-delay:.18s}.jc:nth-child(6){animation-delay:.22s}.jc:nth-child(7){animation-delay:.26s}
+.jc b{font:800 1.32rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.03em}
+.jc span{font:700 .58rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.11em;text-transform:uppercase;color:#A08FC9;transition:color .24s}
+.jc.on{background:linear-gradient(158deg,#8B4BF0,#5B1FD0);color:#fff;transform:translateY(-4px) scale(1.05);box-shadow:0 18px 26px -16px rgba(91,31,208,.85),inset 0 1px 0 rgba(255,255,255,.45)}
+.jc.on span{color:rgba(255,255,255,.86)}
+.jc:active{transform:scale(.95)}
+.jctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px}
+.jcirc{width:58px;height:58px;display:grid;place-items:center;border:0;border-radius:50%;background:#F7F2FF;color:#5B1FD0;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 12px 20px -14px rgba(60,20,140,.75),inset 0 1px 0 #fff;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.jcirc svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.jcirc.big{width:82px;height:82px;font:800 .82rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#fff;background:linear-gradient(158deg,#8B4BF0,#5B1FD0);box-shadow:0 20px 28px -16px rgba(91,31,208,.9),inset 0 1px 0 rgba(255,255,255,.4)}
+.jcirc:active{transform:scale(.94)}
+.jbtns.soft .jbtn{border-radius:18px;box-shadow:0 14px 22px -16px rgba(60,20,140,.8),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.jbtns.soft .jbtn:active{transform:scale(.97)}
 .jchips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 4px}
 .jchips button{padding:9px 15px;border:0;border-radius:999px;background:#F1E8FF;color:#5B1FD0;font:700 .78rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
 .jchips button.on{background:#7B2FF7;color:#fff}
@@ -1049,17 +1066,18 @@ body.prof-open.pm-open .nav{z-index:5}
           <div class="jsub2" id="jTimerState">Pilih durasi</div>
         </div>
       </div>
-      <div class="jchips" id="jPresets">
-        <button type="button" data-m="1">1 menit</button>
-        <button type="button" data-m="3">3 menit</button>
-        <button type="button" data-m="5">5 menit</button>
-        <button type="button" data-m="10">10 menit</button>
-        <button type="button" data-m="15">15 menit</button>
-        <button type="button" data-m="25">25 menit</button>
+      <div class="jcards" id="jPresets">
+        <button type="button" class="jc" data-m="1"><b>1</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="3"><b>3</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="5"><b>5</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="10"><b>10</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="15"><b>15</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="25"><b>25</b><span>mnt</span></button>
+        <button type="button" class="jc" data-m="45"><b>45</b><span>mnt</span></button>
       </div>
-      <div class="jbtns">
-        <button class="jbtn main" id="jTimerToggle" type="button">Mulai</button>
+      <div class="jbtns soft">
         <button class="jbtn ghost" id="jTimerReset" type="button">Ulang</button>
+        <button class="jbtn main" id="jTimerToggle" type="button">Mulai</button>
       </div>
     </div>
 
@@ -1071,10 +1089,10 @@ body.prof-open.pm-open .nav{z-index:5}
           <div class="jsub2" id="jSwState">Siap</div>
         </div>
       </div>
-      <div class="jbtns">
-        <button class="jbtn main" id="jSwToggle" type="button">Mulai</button>
-        <button class="jbtn ghost" id="jSwReset" type="button">Reset</button>
-        <button class="jbtn ghost" id="jSwLap" type="button">Catat</button>
+      <div class="jctrl">
+        <button class="jcirc" id="jSwReset" type="button" aria-label="Reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.6-5.7"/><path d="M4 5.5V11h5.5"/></svg></button>
+        <button class="jcirc big" id="jSwToggle" type="button">Mulai</button>
+        <button class="jcirc" id="jSwLap" type="button" aria-label="Catat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17"/><path d="M6 4.5h11l-2.6 4L17 12.5H6"/></svg></button>
       </div>
       <div id="jLaps"></div>
     </div>
@@ -1082,7 +1100,7 @@ body.prof-open.pm-open .nav{z-index:5}
   <nav class="jbar" id="jTabs" aria-label="Pilihan jam">
     <button type="button" data-p="clock" class="on" aria-label="Jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Jam</span></button>
     <button type="button" data-p="alarm" aria-label="Alarm"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 9.8v3.4l2.4 1.5"/><path d="M5.4 7.6L3.9 6M18.6 7.6L20.1 6"/><path d="M6.6 18.6l-1.2 1.6M17.4 18.6l1.2 1.6"/></svg><span>Alarm</span></button>
-    <button type="button" data-p="timer" aria-label="Hitung mundur"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M12 3v2.2"/><path d="M18.4 8.6a7.5 7.5 0 1 1-12.8 0"/><path d="M12 12l3.2-2"/></svg><span>Hitung</span></button>
+    <button type="button" data-p="timer" aria-label="Hitung mundur"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M12 3v2.2"/><path d="M18.4 8.6a7.5 7.5 0 1 1-12.8 0"/><path d="M12 12l3.2-2"/></svg><span>Timer</span></button>
     <button type="button" data-p="stopwatch" aria-label="Stopwatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="6.8"/><path d="M12 10.5v3.2l2 1.6"/><path d="M9.5 3h5"/><path d="M12 3v1.6"/><path d="M18.6 8.2l1.2-1.2"/></svg><span>Stopwatch</span></button>
   </nav>
   <div class="mdl" id="jAModal" hidden>
@@ -1674,14 +1692,14 @@ function updateNext(){
       arc.style.strokeDashoffset=(C*(1-ratio)).toFixed(1);
     }
     var st=$('jTimerState');
-    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Pilih durasi'):(tRun?'Berjalan':'Jeda');
+    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Atur waktu'):(tRun?'Berjalan':'Dijeda');
   }
   function tStop(){
     tRun=false;clearInterval(tInt);tInt=null;
     $('jTimerToggle').textContent='Lanjut';
   }
   function tStart(){
-    if(tLeftMs<=0){toast('Pilih durasi dulu');return}
+    if(tLeftMs<=0){toast('Atur waktu dulu');return}
     beepCtxInit();
     tRun=true;tEnd=Date.now()+tLeftMs;
     $('jTimerToggle').textContent='Jeda';
@@ -1702,11 +1720,11 @@ function updateNext(){
   Array.prototype.forEach.call($('jPresets').children,function(b){
     b.addEventListener('click',function(){
       var m=+b.dataset.m||0;
-      Array.prototype.forEach.call($('jPresets').children,function(x){x.className=x===b?'on':''});
+      Array.prototype.forEach.call($('jPresets').children,function(x){x.className=x===b?'jc on':'jc'});
       tStop();tLeftMs=m*60000;tTotal=tLeftMs;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
     });
   });
-  function clearChips(){Array.prototype.forEach.call($('jPresets').children,function(x){x.className=''})}
+  function clearChips(){Array.prototype.forEach.call($('jPresets').children,function(x){x.className='jc'})}
   // ---- stopwatch
   var swAcc=0,swStart=0,swRun=false,swInt=null,laps=[];
   function swVal(){return swAcc+(swRun?Date.now()-swStart:0)}
