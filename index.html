@@ -580,6 +580,37 @@ body.prof-open.pm-open .nav{z-index:5}
 .jadays button.on{background:#7B2FF7;color:#fff}
 .jarow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding:14px 16px;border-radius:16px;background:#FAF7FF;font:600 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
 .japrev{margin-top:16px;padding:13px 16px;border-radius:14px;background:#F1E8FF;color:#5B1FD0;font:600 .8rem 'Plus Jakarta Sans',sans-serif;text-align:center}
+/* ===== Form alarm rapi + pop-up pilih jam ===== */
+.jafm{padding-top:6px}
+.jabig{display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;padding:22px 18px 18px;border:0;border-radius:24px;background:linear-gradient(158deg,#F9F4FF 0%,#EEE3FF 100%);color:var(--ink);cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 #fff,0 14px 30px -26px rgba(60,20,140,.6);transition:transform .12s}
+.jabig:active{transform:scale(.986)}
+.jabig span{font:800 2.7rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.jabig.blank span{color:#BDB2D2}
+.jabig small{font:600 .72rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#9A8FB5}
+.jacard{margin-top:14px;padding:14px 16px 15px;border-radius:18px;background:#FAF7FF}
+.jacap{display:block;margin-bottom:9px;font:700 .68rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#A294BD}
+.jacard .jatext{background:#fff;box-shadow:inset 0 0 0 1px rgba(123,47,247,.10)}
+.jacard.jarow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;font:600 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.japrev{margin-top:16px;padding:13px 16px;border-radius:16px;background:#F1E8FF;color:#5B1FD0;font:600 .8rem 'Plus Jakarta Sans',sans-serif;text-align:center;line-height:1.45}
+.jpick{position:fixed;inset:0;z-index:95;display:grid;align-items:end;background:rgba(20,8,50,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.jpick[hidden]{display:none}
+.jpick-sheet{width:100%;max-width:640px;margin:0 auto;background:#fff;border-radius:28px 28px 0 0;padding:6px 18px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 46px rgba(20,8,50,.28);animation:jUp .26s cubic-bezier(.2,.85,.3,1)}
+.jpick-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 4px}
+.jpick-hd button{padding:8px 10px;border:0;border-radius:999px;background:none;font:700 .84rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none}
+#jPickNo{color:#8E82AB}
+#jPickOk{color:#5B1FD0;background:#F3ECFF}
+.jpick-t{font:700 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.jpick-pre{margin:6px 0 10px;text-align:center;font:800 1.9rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#5B1FD0;font-variant-numeric:tabular-nums}
+.jpick-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.jpick-col{min-width:0}
+.jpick-cap{margin-bottom:7px;text-align:center;font:700 .64rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#A294BD}
+.jpick-wrap{position:relative}
+.jpick-band{position:absolute;left:4px;right:4px;top:50%;height:44px;margin-top:-22px;border-radius:14px;background:#F3ECFF;pointer-events:none}
+.jpick-list{position:relative;height:216px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:86px 0;box-sizing:content-box}
+.jpick-list::-webkit-scrollbar{display:none}
+.jpick-list button{display:block;width:100%;height:44px;border:0;border-radius:14px;background:none;color:#BDB2D2;font:700 1.06rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;outline:none;scroll-snap-align:center;transition:color .15s,transform .15s}
+.jpick-list button.on{color:#5B1FD0;transform:scale(1.08)}
+@keyframes jUp{from{transform:translateY(26px);opacity:0}to{transform:translateY(0);opacity:1}}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
@@ -1024,25 +1055,51 @@ body.prof-open.pm-open .nav{z-index:5}
       <span class="ctl" id="jaTitle">Alarm baru</span>
       <button class="hsv" id="jaSave" type="submit" form="jaForm" disabled>Simpan</button>
     </div>
-    <form class="mbox" id="jaForm">
-      <div class="klbl">Waktu alarm</div>
-      <input class="jatime" id="jaTime" type="time" aria-label="Waktu alarm">
-      <div class="klbl">Nama alarm</div>
-      <input class="jatext" id="jaName" type="text" maxlength="30" placeholder="Misal: Bangun pagi" autocomplete="off" aria-label="Nama alarm">
-      <div class="klbl">Ulangi</div>
-      <div class="jadays" id="jaDays">
-        <button type="button" data-d="all" class="on">Setiap hari</button>
-        <button type="button" data-d="1">Sen</button>
-        <button type="button" data-d="2">Sel</button>
-        <button type="button" data-d="3">Rab</button>
-        <button type="button" data-d="4">Kam</button>
-        <button type="button" data-d="5">Jum</button>
-        <button type="button" data-d="6">Sab</button>
-        <button type="button" data-d="0">Min</button>
+    <form class="mbox jafm" id="jaForm">
+      <button class="jabig blank" id="jaTime" type="button" aria-label="Pilih waktu alarm">
+        <span id="jaTimeV">--:--</span>
+        <small>Ketuk untuk memilih jam</small>
+      </button>
+      <div class="jacard">
+        <label class="jacap" for="jaName">Nama alarm</label>
+        <input class="jatext" id="jaName" type="text" maxlength="30" placeholder="Misal: Bangun pagi" autocomplete="off" aria-label="Nama alarm">
       </div>
-      <div class="jarow"><span>Getar saat berbunyi</span><button type="button" class="jsw on" id="jaVib" aria-label="Getar saat berbunyi"></button></div>
+      <div class="jacard">
+        <div class="jacap">Ulangi</div>
+        <div class="jadays" id="jaDays">
+          <button type="button" data-d="all" class="on">Setiap hari</button>
+          <button type="button" data-d="1">Sen</button>
+          <button type="button" data-d="2">Sel</button>
+          <button type="button" data-d="3">Rab</button>
+          <button type="button" data-d="4">Kam</button>
+          <button type="button" data-d="5">Jum</button>
+          <button type="button" data-d="6">Sab</button>
+          <button type="button" data-d="0">Min</button>
+        </div>
+      </div>
+      <div class="jacard jarow"><span>Getar saat berbunyi</span><button type="button" class="jsw on" id="jaVib" aria-label="Getar saat berbunyi"></button></div>
       <div class="japrev" id="jaPrev">Pilih jam dulu</div>
     </form>
+  </div>
+  <div class="jpick" id="jPick" hidden>
+    <div class="jpick-sheet">
+      <div class="jpick-hd">
+        <button type="button" id="jPickNo">Batal</button>
+        <span class="jpick-t">Pilih waktu</span>
+        <button type="button" id="jPickOk">Selesai</button>
+      </div>
+      <div class="jpick-pre" id="jPickPre">--:--</div>
+      <div class="jpick-cols">
+        <div class="jpick-col">
+          <div class="jpick-cap">Jam</div>
+          <div class="jpick-wrap"><div class="jpick-band"></div><div class="jpick-list" id="jPickH"></div></div>
+        </div>
+        <div class="jpick-col">
+          <div class="jpick-cap">Menit</div>
+          <div class="jpick-wrap"><div class="jpick-band"></div><div class="jpick-list" id="jPickM"></div></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="toast" id="jToast" hidden role="status"><span id="jMsg"></span><button type="button" id="jUndo">Urungkan</button></div>
   <div class="jring" id="jRing" hidden>
@@ -1386,18 +1443,18 @@ function updateNext(){
     el.textContent='Alarm berikutnya '+(best.l?best.l+' \u00b7 ':'')+pad(d.getHours())+'.'+pad(d.getMinutes())+(d.getDate()!==new Date().getDate()?' besok':'');
   }
   var ja=$('jAModal'),jaTime=$('jaTime'),jaName=$('jaName'),jaDays=$('jaDays'),jaVib=$('jaVib'),jaSave=$('jaSave'),jaTitle=$('jaTitle'),jaPrev=$('jaPrev');
-  var editA=null,daysSel=[];
+  var editA=null,daysSel=[],formTime='';
   function paintDays(){
     Array.prototype.forEach.call(jaDays.children,function(b){
       var d=b.dataset.d;
       b.className=d==='all'?(daysSel.length?'':'on'):(daysSel.indexOf(+d)>=0?'on':'');
     });
-    jaSave.disabled=!/^\d{2}:\d{2}$/.test(jaTime.value);
+    jaSave.disabled=!/^\d{2}:\d{2}$/.test(formTime);
     previewA();
   }
   function previewA(){
-    if(!/^\d{2}:\d{2}$/.test(jaTime.value)){jaPrev.textContent='Pilih jam dulu';return}
-    var d=new Date(nextAt({t:jaTime.value,days:daysSel.slice()}));
+    if(!/^\d{2}:\d{2}$/.test(formTime)){jaPrev.textContent='Pilih jam dulu';return}
+    var d=new Date(nextAt({t:formTime,days:daysSel.slice()}));
     var now=new Date();
     var same=d.toDateString()===now.toDateString();
     var msg='Berbunyi '+(same?'hari ini':DN[d.getDay()]+', '+d.getDate()+' '+MN[d.getMonth()]);
@@ -1417,26 +1474,73 @@ function updateNext(){
     }
     paintDays();
   });
-  jaTime.addEventListener('input',paintDays);
-  jaTime.addEventListener('change',paintDays);
+  function setTime(v){
+    formTime=/^\d{2}:\d{2}$/.test(v)?v:'';
+    var el=$('jaTimeV'),btn=$('jaTime');
+    el.textContent=formTime?formTime:'--:--';
+    btn.className='jabig'+(formTime?'':' blank');
+    paintDays();
+  }
+  var jp=$('jPick'),jpH=$('jPickH'),jPM=$('jPickM'),jpPre=$('jPickPre');
+  var selH=7,selM=0;
+  function buildPick(){
+    if(jpH.children.length)return;
+    for(var h=0;h<24;h++){
+      (function(v){
+        var b=document.createElement('button');b.type='button';b.dataset.v=v;b.textContent=pad(v);
+        b.addEventListener('click',function(){selH=v;paintPick()});
+        jpH.appendChild(b);
+      })(h);
+    }
+    for(var m=0;m<60;m++){
+      (function(v){
+        var b=document.createElement('button');b.type='button';b.dataset.v=v;b.textContent=pad(v);
+        b.addEventListener('click',function(){selM=v;paintPick()});
+        jPM.appendChild(b);
+      })(m);
+    }
+  }
+  function paintPick(){
+    Array.prototype.forEach.call(jpH.children,function(b){b.className=+b.dataset.v===selH?'on':''});
+    Array.prototype.forEach.call(jPM.children,function(b){b.className=+b.dataset.v===selM?'on':''});
+    jpPre.textContent=pad(selH)+':'+pad(selM);
+  }
+  function centerPick(){
+    var hb=jpH.querySelector('[data-v="'+selH+'"]'),mb=jPM.querySelector('[data-v="'+selM+'"]');
+    if(hb)jpH.scrollTop=hb.offsetTop-(jpH.clientHeight-44)/2;
+    if(mb)jPM.scrollTop=mb.offsetTop-(jPM.clientHeight-44)/2;
+  }
+  function openPick(){
+    buildPick();
+    var p=(formTime||'07:00').split(':');
+    selH=+p[0];selM=+p[1];
+    paintPick();
+    jp.hidden=false;
+    setTimeout(centerPick,40);
+  }
+  function closePick(){jp.hidden=true}
+  $('jaTime').addEventListener('click',openPick);
+  $('jPickNo').addEventListener('click',closePick);
+  $('jPickOk').addEventListener('click',function(){setTime(pad(selH)+':'+pad(selM));closePick()});
+  jp.addEventListener('click',function(e){if(e.target===jp)closePick()});
   jaVib.addEventListener('click',function(){jaVib.classList.toggle('on')});
   function openForm(item){
     editA=item||null;
     jaTitle.textContent=item?'Ubah alarm':'Alarm baru';
-    jaTime.value=item?String(item.t):'';
+    setTime(item?String(item.t):'');
     jaName.value=item?(item.l||''):'';
     daysSel=item?alarmDays(item).slice():[];
     jaVib.classList.toggle('on',item?(item.v!==false):true);
     paintDays();
     ja.hidden=false;document.body.classList.add('ja-open');
-    if(!item)setTimeout(function(){try{jaTime.focus()}catch(e){}},140);
+    if(!item)setTimeout(function(){try{$('jaTime').focus()}catch(e){}},120);
   }
   function closeForm(){
     ja.hidden=true;document.body.classList.remove('ja-open');
     if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   }
   function saveForm(){
-    var t=jaTime.value;
+    var t=formTime;
     if(!/^\d{2}:\d{2}$/.test(t)){toast('Pilih jam alarm dulu');return}
     var l=jaName.value.trim().slice(0,30);
     var vib=jaVib.classList.contains('on');
