@@ -798,13 +798,14 @@ body.prof-open.pm-open .nav{z-index:5}
 .mhead{display:flex;align-items:baseline;justify-content:space-between;width:100%;margin:26px 2px 12px}
 .mhead span{font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#A99CC0}
 .mhead b{font-size:.68rem;font-weight:700;color:#C4B4E8}
-#mList{width:100%;display:grid;gap:6px}
-.mrow{display:grid;grid-template-columns:24px minmax(0,1fr) 20px;align-items:center;gap:11px;padding:13px 14px;border-radius:15px;background:#FAF7FF;cursor:pointer;transition:background .15s ease,transform .12s ease}
-.mrow:active{transform:scale(.99);background:#F3EBFF}
-.mrow i{font-style:normal;font-size:.7rem;font-weight:700;color:#C4B4E8;text-align:center;font-variant-numeric:tabular-nums}
-.mrow .mn{font-size:.88rem;font-weight:600;color:#3A2A5C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mrow.on{background:#F1E6FF}
-.mrow.on i{color:#8B45FF}
+#mList{width:100%;display:grid;gap:2px}
+.mrow{display:grid;grid-template-columns:42px minmax(0,1fr) 22px;align-items:center;gap:12px;padding:9px 10px;border-radius:18px;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .16s ease}
+.mrow:active{background:#F4ECFF}
+.mth{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(160deg,#F4ECFF 0%,#E8DBFB 100%);color:#8B45FF;transition:background .18s ease,color .18s ease,box-shadow .18s ease}
+.mth svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mn{font-size:.9rem;font-weight:600;color:#3A2A5C;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mrow.on{background:#F5EDFF}
+.mrow.on .mth{background:linear-gradient(140deg,#8B45FF 0%,#6A1FE0 100%);color:#fff;box-shadow:0 10px 18px -13px rgba(91,31,208,.95)}
 .mrow.on .mn{color:#5B1FD0;font-weight:700}
 .meq{display:flex;align-items:flex-end;justify-content:center;gap:2.5px;height:12px}
 .meq b{width:3px;border-radius:2px;background:#8B45FF;transform-origin:bottom;animation:meq .9s ease-in-out infinite}
@@ -3334,7 +3335,9 @@ window.PROFIL=(function(){
       var r=document.createElement('div');
       r.className='mrow'+(i===cur?' on':'');
       r.dataset.i=i;
-      var n=document.createElement('i');n.textContent=(i+1<10?'0':'')+(i+1);r.appendChild(n);
+      var th=document.createElement('span');th.className='mth';
+      th.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18.2" r="2.6" fill="currentColor" stroke="none"/><circle cx="16.5" cy="16.2" r="2.6" fill="currentColor" stroke="none"/></svg>';
+      r.appendChild(th);
       var nm=document.createElement('div');nm.className='mn';nm.textContent=name(t.name);r.appendChild(nm);
       if(i===cur){var eq=document.createElement('span');eq.className='meq';eq.innerHTML='<b></b><b></b><b></b>';r.appendChild(eq)}
       r.addEventListener('click',function(){play(i)});
