@@ -494,6 +494,7 @@ body.prof-open.pm-open .nav{z-index:5}
 .jtabs::-webkit-scrollbar{display:none}
 .jtabs button{flex:none}
 .jpanel[hidden]{display:none}
+#jam .cin{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
 .jbig{text-align:center;font:800 3.1rem/1.05 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:var(--ink);margin:10px 0 4px;font-variant-numeric:tabular-nums}
 .jdate{text-align:center;font-size:.86rem;font-weight:600;color:#8E82AB}
 .jnext{max-width:420px;margin:16px auto 0;padding:12px 16px;border-radius:16px;background:#F4F0FA;text-align:center;font-size:.8rem;font-weight:600;color:#5B1FD0}
@@ -525,6 +526,40 @@ body.prof-open.pm-open .nav{z-index:5}
 .jring-in{width:100%;max-width:340px;padding:26px 22px 20px;border-radius:26px;background:#fff;text-align:center;box-shadow:0 20px 50px rgba(20,8,50,.35)}
 .jring-t{font:800 1.05rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:var(--ink)}
 .jring-s{margin:8px 0 20px;font:800 2.2rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#7B2FF7;font-variant-numeric:tabular-nums}
+/* ===== Tampilan jam: dial 3D + cincin orbit ===== */
+.jstage{position:relative;width:min(76vw,286px);aspect-ratio:1;margin:18px auto 6px;perspective:900px;animation:jbreathe 7s ease-in-out infinite}
+.jface{position:relative;width:100%;height:100%;border-radius:50%;transform-style:preserve-3d;transform:rotateX(10deg) rotateY(0deg);transition:transform .35s ease}
+.jface::before{content:"";position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(from 0deg,#7B2FF7,#C77DFF,#F6A5D6,#FFB9A8,#7B2FF7);filter:blur(18px);opacity:.42;animation:jspin 13s linear infinite}
+.jface::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FFFFFF 0%,#FCF9FF 44%,#F2EAFF 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 -14px 26px -18px rgba(91,31,208,.35),0 26px 46px -26px rgba(60,20,140,.55)}
+.jsheen{position:absolute;left:8%;top:6%;width:52%;height:38%;border-radius:50%;background:linear-gradient(140deg,rgba(255,255,255,.85),rgba(255,255,255,0) 72%);transform:translateZ(22px) rotate(-12deg);pointer-events:none;z-index:3}
+.jarc{position:absolute;inset:5%;z-index:2;transform:rotate(-90deg) translateZ(6px)}
+.jarc circle{fill:none;stroke-width:4}
+.jarc .tr{stroke:rgba(123,47,247,.10)}
+.jarc .pr{stroke-linecap:round;transition:stroke-dashoffset .95s linear,stroke-dasharray .4s}
+.jin{position:relative;z-index:4;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 20px;transform:translateZ(24px)}
+.jface .jbig{margin:0;font-size:clamp(2.5rem,13.5vw,3.3rem);letter-spacing:-.045em;text-shadow:0 10px 22px rgba(60,20,140,.20),0 1px 0 #fff}
+.jbig i{font-style:normal;display:inline-block;transform:translateY(-.04em);animation:jblink 2s steps(1,end) infinite;background:linear-gradient(180deg,#7B2FF7,#C77DFF);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#7B2FF7}
+.jbig.pop{animation:jpop .45s cubic-bezier(.2,.9,.3,1.4)}
+.jsec{margin-top:2px;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#A08FC9}
+.jface .jdate{margin-top:6px;font-size:.78rem;font-weight:600;color:#8E82AB;line-height:1.35}
+.jorb{position:absolute;inset:-4px;border-radius:50%;transform:rotateX(74deg);transform-style:preserve-3d;pointer-events:none;z-index:1}
+.jorb em{position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(123,47,247,.25);animation:jorbSpin 13s linear infinite}
+.jorb i{position:absolute;top:-4px;left:50%;margin-left:-4px;width:8px;height:8px;border-radius:50%;background:#7B2FF7;box-shadow:0 0 12px 3px rgba(123,47,247,.45)}
+.jorb.b{inset:-22px;transform:rotateX(72deg) rotateY(24deg)}
+.jorb.b em{border-style:solid;border-color:rgba(246,165,214,.45);animation-duration:19s;animation-direction:reverse}
+.jorb.b i{background:#F6A5D6;box-shadow:0 0 12px 3px rgba(246,165,214,.55)}
+.jbar{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:4;margin:0 auto;max-width:min(430px,calc(100% - 26px));display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px;border-radius:24px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 12px 32px -14px rgba(60,20,140,.38),inset 0 0 0 1px rgba(123,47,247,.08)}
+.jbar button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 4px 8px;border:0;border-radius:18px;background:none;color:#9A8FB5;font:600 .6rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .18s,background .18s,transform .16s}
+.jbar button svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round;transition:transform .24s cubic-bezier(.2,.9,.3,1.35)}
+.jbar button.on{color:#5B1FD0;background:#F3ECFF;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 14px -10px rgba(91,31,208,.7)}
+.jbar button.on svg{transform:translateY(-1px) scale(1.08)}
+.jbar button:active{transform:scale(.93)}
+@keyframes jspin{to{transform:rotate(360deg)}}
+@keyframes jbreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes jorbSpin{from{transform:rotateZ(0)}to{transform:rotateZ(360deg)}}
+@keyframes jblink{0%,49%{opacity:1}50%,100%{opacity:.28}}
+@keyframes jpop{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.jstage,.jface::before,.jorb em,.jbig i{animation:none}}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
@@ -894,17 +929,32 @@ body.prof-open.pm-open .nav{z-index:5}
       <span class="ctl">Jam</span>
       <button class="ib mv" id="jamMenu" type="button" aria-label="Menu jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
     </div>
-    <div class="ttabs jtabs" id="jTabs">
-      <button type="button" data-p="clock" class="on">Jam</button>
-      <button type="button" data-p="alarm">Alarm</button>
-      <button type="button" data-p="timer">Hitung mundur</button>
-      <button type="button" data-p="stopwatch">Stopwatch</button>
-    </div>
   </div></div>
   <div class="csheet"><div class="cin">
     <div class="jpanel" data-p="clock">
-      <div class="jbig" id="jNow">--:--</div>
-      <div class="jdate" id="jDate">Memuat tanggal</div>
+      <div class="jstage">
+      <div class="jorb"><em><i></i></em></div>
+      <div class="jorb b"><em><i></i></em></div>
+      <div class="jface">
+        <div class="jsheen"></div>
+        <svg class="jarc" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="jArcG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#7B2FF7"/>
+              <stop offset=".55" stop-color="#C77DFF"/>
+              <stop offset="1" stop-color="#F6A5D6"/>
+            </linearGradient>
+          </defs>
+          <circle class="tr" cx="100" cy="100" r="88"/>
+          <circle class="pr" id="jArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/>
+        </svg>
+        <div class="jin">
+          <div class="jbig" id="jDigits"><span id="jH">--</span><i>:</i><span id="jM">--</span></div>
+          <div class="jsec" id="jSecTxt">-- detik</div>
+          <div class="jdate" id="jDate">Memuat tanggal</div>
+        </div>
+      </div>
+      </div>
       <div class="jnext" id="jNext" hidden></div>
     </div>
 
@@ -944,6 +994,12 @@ body.prof-open.pm-open .nav{z-index:5}
       <div id="jLaps"></div>
     </div>
   </div></div>
+  <nav class="jbar" id="jTabs" aria-label="Pilihan jam">
+    <button type="button" data-p="clock" class="on" aria-label="Jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Jam</span></button>
+    <button type="button" data-p="alarm" aria-label="Alarm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 17a5.5 5.5 0 0 1 11 0"/><path d="M4.5 17h15"/><path d="M12 11.5V8"/><path d="M4.8 6.2l1.9-1.5M19.2 6.2l-1.9-1.5"/><path d="M9.5 20.2h5"/></svg><span>Alarm</span></button>
+    <button type="button" data-p="timer" aria-label="Hitung mundur"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M12 3v2.2"/><path d="M18.4 8.6a7.5 7.5 0 1 1-12.8 0"/><path d="M12 12l3.2-2"/></svg><span>Hitung</span></button>
+    <button type="button" data-p="stopwatch" aria-label="Stopwatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="6.8"/><path d="M12 10.5v3.2l2 1.6"/><path d="M9.5 3h5"/><path d="M12 3v1.6"/><path d="M18.6 8.2l1.2-1.2"/></svg><span>Stopwatch</span></button>
+  </nav>
   <div class="toast" id="jToast" hidden role="status"><span id="jMsg"></span></div>
   <div class="jring" id="jRing" hidden>
     <div class="jring-in">
@@ -1272,10 +1328,27 @@ body.prof-open.pm-open .nav{z-index:5}
   });
   function syncNotif(){try{if(window.mdSyncReminders)window.mdSyncReminders()}catch(e){}}
   // ---- jam berjalan + cek alarm
+  var lastMin='';
   function tickClock(){
     var d=new Date();
-    $('jNow').textContent=pad(d.getHours())+':'+pad(d.getMinutes());
-    $('jDate').textContent=DN[d.getDay()]+', '+d.getDate()+' '+MN[d.getMonth()]+' '+d.getFullYear();
+    var hh=pad(d.getHours()),mm=pad(d.getMinutes()),ss=d.getSeconds();
+    var hEl=$('jH'),mEl=$('jM');
+    if(hEl&&hEl.textContent!==hh)hEl.textContent=hh;
+    if(mEl&&mEl.textContent!==mm){
+      mEl.textContent=mm;
+      if(lastMin)popDigits();
+      lastMin=mm;
+    }
+    var st=$('jSecTxt');
+    if(st)st.textContent=pad(ss)+' detik';
+    var dt=$('jDate');
+    if(dt)dt.textContent=DN[d.getDay()]+', '+d.getDate()+' '+MN[d.getMonth()]+' '+d.getFullYear();
+    var arc=$('jArc');
+    if(arc){
+      var C=2*Math.PI*88;
+      arc.style.strokeDasharray=C.toFixed(1);
+      arc.style.strokeDashoffset=(C*(1-(ss+d.getMilliseconds()/1000)/60)).toFixed(1);
+    }
     var key=pad(d.getHours())+':'+pad(d.getMinutes());
     if(d.getSeconds()===0){
       A.forEach(function(a){
@@ -1388,6 +1461,38 @@ body.prof-open.pm-open .nav{z-index:5}
       }}
     ]);
   });
+  function popDigits(){
+    var el=$('jDigits');
+    if(!el)return;
+    el.classList.remove('pop');
+    void el.offsetWidth;
+    el.classList.add('pop');
+    setTimeout(function(){el.classList.remove('pop')},480);
+  }
+  // kemiringan 3D mengikuti sentuhan / kursor
+  (function(){
+    var stage=sec.querySelector('.jstage');
+    var face=sec.querySelector('.jface');
+    if(!stage||!face)return;
+    function tilt(e){
+      var r=stage.getBoundingClientRect();
+      var pt=(e.touches&&e.touches[0])?e.touches[0]:e;
+      if(!pt)return;
+      var dx=(pt.clientX-r.left)/r.width-0.5;
+      var dy=(pt.clientY-r.top)/r.height-0.5;
+      face.style.transition='transform .08s linear';
+      face.style.transform='rotateX('+(9-dy*13).toFixed(2)+'deg) rotateY('+(dx*15).toFixed(2)+'deg)';
+    }
+    function rest(){
+      face.style.transition='transform .5s cubic-bezier(.2,.8,.2,1)';
+      face.style.transform='rotateX(10deg) rotateY(0deg)';
+    }
+    stage.addEventListener('pointermove',tilt);
+    stage.addEventListener('pointerdown',tilt);
+    stage.addEventListener('pointerleave',rest);
+    stage.addEventListener('pointerup',rest);
+    rest();
+  })();
   renderA();tickClock();tShow(0);swShow();
   setInterval(tickClock,1000);
 })();
