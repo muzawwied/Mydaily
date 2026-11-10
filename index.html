@@ -661,7 +661,7 @@ body.prof-open.pm-open .nav{z-index:5}
 .jlap .d{min-width:54px;text-align:right;font:600 .72rem 'Plus Jakarta Sans',sans-serif;color:#A294BD;font-variant-numeric:tabular-nums}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
-#chat{scrollbar-width:none;-ms-overflow-style:none}
+#chat{z-index:40;scrollbar-width:none;-ms-overflow-style:none}
 #chat::-webkit-scrollbar{width:0;height:0;display:none}
 #chat .csheet,#chatList{scrollbar-width:none;-ms-overflow-style:none}
 #chat .csheet::-webkit-scrollbar,#chatList::-webkit-scrollbar{width:0;height:0;display:none}
@@ -3064,7 +3064,7 @@ window.PROFIL=(function(){
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey&&window.matchMedia('(pointer:fine)').matches){e.preventDefault();if(!send.disabled)form.requestSubmit?form.requestSubmit():form.dispatchEvent(new Event('submit',{cancelable:true}))}});
   function navHome(){var nb=document.querySelectorAll('.nb');nb.forEach(function(x){x.classList.remove('on')});if(nb[0])nb[0].classList.add('on')}
   function openC(){render();chat.classList.add('open');chat.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';upd();end()}
-  function closeC(){closeAct();try{toggleSearch(false)}catch(e){}chat.classList.remove('open');chat.setAttribute('aria-hidden','true');document.body.style.overflow='';if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();navHome()}
+  function closeC(){closeAct();try{toggleSearch(false)}catch(e){}chat.classList.remove('open');chat.setAttribute('aria-hidden','true');var _o=document.querySelector('.cal.open:not(#chat)');document.body.style.overflow=_o?'hidden':'';if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();navHome()}
   $('openChat').addEventListener('click',openC);
   try{
     if(sessionStorage.getItem('md_reopen_chat')){
@@ -3630,6 +3630,8 @@ window.PROFIL=(function(){
   })});
 })();
 
+/* rute asli sebelum router menormalkan URL (dipakai skrip konverter di bawah) */
+window.__bootPath=(location.pathname||"/").replace(/\/{2,}/g,"/").replace(/\/+$/,"")||"/";
 /* Router: path bersih (History API), tanpa hash.
    /  /kalender  /kalender/agenda/baru
    /tugas  /tugas/belum  /tugas/selesai  /tugas/baru  /tugas/:id
@@ -3649,6 +3651,7 @@ window.PROFIL=(function(){
   function depth(p){return p==='/'?0:p.split('/').filter(Boolean).length}
   function title(p){var n=NAMES[p.split('/')[1]];document.title=n?n+' \u00b7 '+TITLE:TITLE}
   function st(){
+    if(isOpen(chat))return '/chat';
     if(isOpen(feed))return '/feed';
     if(isOpen(prof))return '/profil';
     if(isOpen(keu))return km.hidden?'/keuangan':'/keuangan/baru';
@@ -3657,7 +3660,6 @@ window.PROFIL=(function(){
     if(isOpen(satuan))return '/kalkulator/satuan';
     if(isOpen(kalk))return '/kalkulator';
     if(isOpen(musik))return '/musik';
-    if(isOpen(chat))return '/chat';
     if(isOpen(note))return nm.hidden?'/catatan':'/catatan/'+(nm.dataset.eid||'baru');
     if(isOpen(task)){
       if(!tm.hidden)return '/tugas/'+(tm.dataset.eid||'baru');
@@ -3739,7 +3741,8 @@ window.PROFIL=(function(){
     var from=cur;cur=d;title(d);
     if(norm(location.pathname)===d)return;
     try{
-      if(FIL[from]&&FIL[d]){history.replaceState({i:idx},'',d);stack[idx]=d}
+      if(d==='/chat'&&from!=='/chat'){idx++;stack.length=idx;stack[idx]=d;history.pushState({i:idx},'',d)}
+      else if(FIL[from]&&FIL[d]){history.replaceState({i:idx},'',d);stack[idx]=d}
       else if(depth(d)>depth(from)){idx++;stack.length=idx;stack[idx]=d;history.pushState({i:idx},'',d)}
       else if(idx>0&&stack[idx-1]===d){history.back()}
       else{history.replaceState({i:idx},'',d);stack[idx]=d}
@@ -3790,7 +3793,9 @@ window.PROFIL=(function(){
     b.addEventListener('click',function(){
       var want=MAP[b.id];
       if(!want)return;
-      closeAll(want);
+      /* Chat menumpuk di atas halaman aktif (z-index 40), bukan menggantikannya,
+         supaya tombol kembali langsung menampilkan halaman asal tanpa kedip. */
+      if(want!=='chat')closeAll(want);
       var guard=0;
       (function ensure(){
         var sec=document.getElementById(want);
@@ -3806,35 +3811,6 @@ window.PROFIL=(function(){
 </script>
 
 <script>
-/* Tombol kembali di halaman chat: balik ke halaman yang benar-benar dibuka sebelumnya. */
-(function(){
-  function norm(p){p=(p||'/').replace(/\/{2,}/g,'/').replace(/\/+$/,'');return p||'/'}
-  var trail=[];
-  function remember(path){
-    var p=norm(path);
-    if(p==='/chat')return;
-    if(trail[trail.length-1]!==p)trail.push(p);
-    if(trail.length>25)trail.shift();
-  }
-  remember(location.pathname);
-  var push=history.pushState.bind(history),rep_=history.replaceState.bind(history);
-  history.pushState=function(st,t,u){var r=push(st,t,u);remember(location.pathname);return r};
-  history.replaceState=function(st,t,u){var r=rep_(st,t,u);remember(location.pathname);return r};
-  var back=document.getElementById('chatBack');
-  if(!back)return;
-  back.addEventListener('click',function(){
-    var here=norm(location.pathname);
-    var target='/', idx=-1;
-    for(var i=trail.length-1;i>=0;i--){
-      if(trail[i]!==here&&trail[i]!=='/chat'){target=trail[i];idx=i;break}
-    }
-    if(idx>-1)trail=trail.slice(0,idx);
-    setTimeout(function(){
-      if(norm(location.pathname)===target)return;
-      if(typeof window.applyRoute==='function')window.applyRoute(target);
-    },40);
-  });
-})();
 </script>
 <script>
 /* Notifikasi perangkat (khusus APK). Di browser biasa blok ini tidak melakukan apa pun. */
@@ -4150,7 +4126,7 @@ window.PROFIL=(function(){
   page.addEventListener('click',function(e){if(pop&&!e.target.closest('.un-pop')&&!e.target.closest('.un-u'))closePop()});
   /* Router sudah jalan lebih dulu: terapkan ulang rute setelah tombol konverter siap. */
   if(window.applyRoute){
-    var pth=location.pathname.replace(/\/+$/,'');
+    var pth=window.__bootPath||'';
     if(pth==='/kalkulator/mata-uang'||pth==='/kalkulator/satuan'){window.applyRoute(pth)}
   }
 })();
