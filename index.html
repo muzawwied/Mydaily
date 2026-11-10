@@ -7,7 +7,7 @@
 <style>html.rboot{background:#F4F0FA}html.rboot body{visibility:hidden}
 .cal,.mdl{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 </style>
-<script>document.documentElement.className+=" rboot";setTimeout(function(){document.documentElement.classList.remove("rboot")},1800);</script>
+<script>document.documentElement.className+=" rboot";window.addEventListener("error",function(){document.documentElement.classList.remove("rboot")});setTimeout(function(){document.documentElement.classList.remove("rboot")},700);</script>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#6A2BDB">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -1427,39 +1427,6 @@ body.prof-open.pm-open .nav{z-index:5}
     tEl.hidden=false;clearTimeout(tmr);tmr=setTimeout(hideToast,5000);
   }
   function hideToast(){tEl.hidden=true;clearTimeout(tmr)}
-  function saveState(){
-    if(cur<0||!tracks[cur])return;
-    try{localStorage.setItem(STATE,JSON.stringify({id:String(tracks[cur].id),pos:audio.currentTime||0,ts:Date.now()}))}catch(e){}
-  }
-  function clearState(){try{localStorage.removeItem(STATE)}catch(e){}}
-  function restoreLast(){
-    if(restored)return;
-    restored=true;
-    var raw=null;
-    try{raw=localStorage.getItem(STATE)}catch(e){}
-    if(!raw)return;
-    var st=null;
-    try{st=JSON.parse(raw)}catch(e){return}
-    if(!st||st.id==null)return;
-    var idx=-1;
-    for(var k=0;k<tracks.length;k++){if(String(tracks[k].id)===String(st.id)){idx=k;break}}
-    if(idx<0){clearState();return}
-    var t=tracks[idx],pos=Math.max(0,+st.pos||0);
-    cur=idx;
-    if(objUrl)URL.revokeObjectURL(objUrl);
-    objUrl=URL.createObjectURL(t.blob);
-    audio.src=objUrl;
-    tEl.textContent=name(t.name);
-    sEl.textContent='Melanjutkan';
-    function apply(){
-      try{audio.currentTime=pos}catch(e){}
-      cEl.textContent=tstr(pos);
-      if(audio.duration>0){dEl.textContent=tstr(audio.duration);seek.value=Math.round(pos/audio.duration*1000)}
-    }
-    if(audio.readyState>=1)apply();else audio.addEventListener('loadedmetadata',apply,{once:true});
-    render();
-    audio.play().catch(function(){setPlay(false);sEl.textContent='Terakhir diputar \u00b7 ketuk putar'});
-  }
   function render(){
     var tin=0,tout=0;
     K.forEach(function(x){if(x.k==='in')tin+=+x.n;else tout+=+x.n});
@@ -3323,6 +3290,39 @@ window.PROFIL=(function(){
     if(!isFinite(v)||v<0)v=0;
     var m=Math.floor(v/60),s2=Math.floor(v%60);
     return m+':'+(s2<10?'0':'')+s2;
+  }
+  function saveState(){
+    if(cur<0||!tracks[cur])return;
+    try{localStorage.setItem(STATE,JSON.stringify({id:String(tracks[cur].id),pos:audio.currentTime||0,ts:Date.now()}))}catch(e){}
+  }
+  function clearState(){try{localStorage.removeItem(STATE)}catch(e){}}
+  function restoreLast(){
+    if(restored)return;
+    restored=true;
+    var raw=null;
+    try{raw=localStorage.getItem(STATE)}catch(e){}
+    if(!raw)return;
+    var st=null;
+    try{st=JSON.parse(raw)}catch(e){return}
+    if(!st||st.id==null)return;
+    var idx=-1;
+    for(var k=0;k<tracks.length;k++){if(String(tracks[k].id)===String(st.id)){idx=k;break}}
+    if(idx<0){clearState();return}
+    var t=tracks[idx],pos=Math.max(0,+st.pos||0);
+    cur=idx;
+    if(objUrl)URL.revokeObjectURL(objUrl);
+    objUrl=URL.createObjectURL(t.blob);
+    audio.src=objUrl;
+    tEl.textContent=name(t.name);
+    sEl.textContent='Melanjutkan';
+    function apply(){
+      try{audio.currentTime=pos}catch(e){}
+      cEl.textContent=tstr(pos);
+      if(audio.duration>0){dEl.textContent=tstr(audio.duration);seek.value=Math.round(pos/audio.duration*1000)}
+    }
+    if(audio.readyState>=1)apply();else audio.addEventListener('loadedmetadata',apply,{once:true});
+    render();
+    audio.play().catch(function(){setPlay(false);sEl.textContent='Terakhir diputar \u00b7 ketuk putar'});
   }
   function render(){
     listEl.innerHTML='';
