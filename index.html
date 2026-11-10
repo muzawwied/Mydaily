@@ -613,6 +613,25 @@ body.prof-open.pm-open .nav{z-index:5}
 .jpick-list button{display:block;width:100%;height:44px;border:0;border-radius:14px;background:none;color:#BDB2D2;font:700 1.06rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;outline:none;scroll-snap-align:center;transition:color .15s,transform .15s}
 .jpick-list button.on{color:#5B1FD0;transform:scale(1.08)}
 @keyframes jUp{from{transform:translateY(26px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* ===== Dial hitung mundur & stopwatch ===== */
+.jdial{position:relative;width:min(70vw,252px);aspect-ratio:1;margin:16px auto 2px;display:grid;place-items:center}
+.jdial::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,#7B2FF7,#C77DFF,#F6A5D6,#FFB9A8,#7B2FF7);filter:blur(17px);opacity:.3;animation:jspin 14s linear infinite}
+.jdial::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FFFFFF 0%,#FCF9FF 46%,#F1E8FF 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -14px 24px -20px rgba(91,31,208,.4),0 22px 42px -28px rgba(60,20,140,.55)}
+.jdials{position:absolute;inset:4%;z-index:2;transform:rotate(-90deg)}
+.jdials circle{fill:none;stroke-width:5}
+.jdials .tr{stroke:rgba(123,47,247,.10)}
+.jdials .pr{stroke-linecap:round;transition:stroke-dashoffset .18s linear}
+.jin2{position:relative;z-index:3;text-align:center;padding:0 14px}
+.jbig2{font:800 2.25rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--ink);text-shadow:0 8px 18px rgba(60,20,140,.16)}
+.jms{font:800 1.15rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#A08FC9;margin-left:1px}
+.jsub2{margin-top:8px;font:700 .62rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#A08FC9}
+.jpanel[data-p="timer"] .jbtns,.jpanel[data-p="stopwatch"] .jbtns{margin-top:18px}
+.jpanel[data-p="timer"] .jchips{margin-top:16px}
+#jLaps{margin-top:20px;display:grid;gap:8px}
+.jlap{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:16px;background:#FAF7FF}
+.jlap b{flex:none;width:26px;height:26px;border-radius:50%;background:#F1E8FF;color:#5B1FD0;display:grid;place-items:center;font:800 .7rem 'Plus Jakarta Sans',sans-serif}
+.jlap .t{margin-left:auto;font:700 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums}
+.jlap .d{min-width:54px;text-align:right;font:600 .72rem 'Plus Jakarta Sans',sans-serif;color:#A294BD;font-variant-numeric:tabular-nums}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
@@ -1020,7 +1039,13 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="timer" hidden>
-      <div class="jbig" id="jTimer">00:00</div>
+      <div class="jdial">
+        <svg class="jdials" viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="88"/><circle class="pr" id="jTimerArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/></svg>
+        <div class="jin2">
+          <div class="jbig2" id="jTimer">00:00</div>
+          <div class="jsub2" id="jTimerState">Pilih durasi</div>
+        </div>
+      </div>
       <div class="jchips" id="jPresets">
         <button type="button" data-m="1">1 menit</button>
         <button type="button" data-m="3">3 menit</button>
@@ -1036,7 +1061,13 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="stopwatch" hidden>
-      <div class="jbig" id="jSw">00:00.0</div>
+      <div class="jdial">
+        <svg class="jdials" viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="88"/><circle class="pr" id="jSwArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/></svg>
+        <div class="jin2">
+          <div class="jbig2"><span id="jSw">00:00</span><span class="jms" id="jSwMs">.0</span></div>
+          <div class="jsub2" id="jSwState">Siap</div>
+        </div>
+      </div>
       <div class="jbtns">
         <button class="jbtn main" id="jSwToggle" type="button">Mulai</button>
         <button class="jbtn ghost" id="jSwReset" type="button">Reset</button>
@@ -1627,11 +1658,20 @@ function updateNext(){
     updateNext();
   }
   // ---- hitung mundur
-  var tEnd=0,tLeftMs=0,tRun=false,tInt=null;
+  var tEnd=0,tLeftMs=0,tTotal=0,tRun=false,tInt=null;
   function tShow(ms){
     ms=Math.max(0,ms);
     var s=Math.ceil(ms/1000);
     $('jTimer').textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+    var arc=$('jTimerArc');
+    if(arc){
+      var C=2*Math.PI*88;
+      arc.style.strokeDasharray=C.toFixed(1);
+      var ratio=tTotal>0?Math.min(1,ms/tTotal):0;
+      arc.style.strokeDashoffset=(C*(1-ratio)).toFixed(1);
+    }
+    var st=$('jTimerState');
+    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Pilih durasi'):(tRun?'Berjalan':'Jeda');
   }
   function tStop(){
     tRun=false;clearInterval(tInt);tInt=null;
@@ -1655,12 +1695,12 @@ function updateNext(){
     },200);
   }
   $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
-  $('jTimerReset').addEventListener('click',function(){tStop();tLeftMs=0;tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()});
+  $('jTimerReset').addEventListener('click',function(){tStop();tLeftMs=0;tTotal=0;tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()});
   Array.prototype.forEach.call($('jPresets').children,function(b){
     b.addEventListener('click',function(){
       var m=+b.dataset.m||0;
       Array.prototype.forEach.call($('jPresets').children,function(x){x.className=x===b?'on':''});
-      tStop();tLeftMs=m*60000;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
+      tStop();tLeftMs=m*60000;tTotal=tLeftMs;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
     });
   });
   function clearChips(){Array.prototype.forEach.call($('jPresets').children,function(x){x.className=''})}
@@ -1669,7 +1709,17 @@ function updateNext(){
   function swVal(){return swAcc+(swRun?Date.now()-swStart:0)}
   function swShow(){
     var v=swVal(),m=Math.floor(v/60000),sec=Math.floor(v/1000)%60,ds=Math.floor(v%1000/100);
-    $('jSw').textContent=pad(m)+':'+pad(sec)+'.'+ds;
+    $('jSw').textContent=pad(m)+':'+pad(sec);
+    var ms=$('jSwMs');
+    if(ms)ms.textContent='.'+ds;
+    var arc=$('jSwArc');
+    if(arc){
+      var C=2*Math.PI*88;
+      arc.style.strokeDasharray=C.toFixed(1);
+      arc.style.strokeDashoffset=(C*(1-(v%60000)/60000)).toFixed(1);
+    }
+    var st=$('jSwState');
+    if(st)st.textContent=v<=0?'Siap':(swRun?'Berjalan':'Jeda');
   }
   function swStop(){swAcc=swVal();swRun=false;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai'}
   function swGo(){swRun=true;swStart=Date.now();$('jSwToggle').textContent='Jeda';clearInterval(swInt);swInt=setInterval(swShow,100)}
@@ -1683,12 +1733,16 @@ function updateNext(){
     laps.unshift(swVal());
     var box=$('jLaps');box.innerHTML='';
     laps.slice(0,30).forEach(function(v,i){
+      var prev=i<laps.length-1?laps[i+1]:0;
       var d=document.createElement('div');d.className='jlap';
-      var a=document.createElement('span');a.textContent='Catatan '+(laps.length-i);
-      var b=document.createElement('span');
+      var n=document.createElement('b');n.textContent=String(laps.length-i);
+      var t=document.createElement('span');t.className='t';
       var m=Math.floor(v/60000),sec=Math.floor(v/1000)%60,ds=Math.floor(v%1000/100);
-      b.textContent=pad(m)+':'+pad(sec)+'.'+ds;
-      d.appendChild(a);d.appendChild(b);box.appendChild(d);
+      t.textContent=pad(m)+':'+pad(sec)+'.'+ds;
+      var dl=document.createElement('span');dl.className='d';
+      var delta=v-prev,dm=Math.floor(delta/60000),dsec=Math.floor(delta/1000)%60;
+      dl.textContent='+'+(dm?dm+'m ':'')+(dsec%60)+'s';
+      d.appendChild(n);d.appendChild(t);d.appendChild(dl);box.appendChild(d);
     });
   });
   // ---- buka / tutup halaman
