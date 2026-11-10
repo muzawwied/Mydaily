@@ -3692,15 +3692,19 @@ window.__bootPath=(location.pathname||"/").replace(/\/{2,}/g,"/").replace(/\/+$/
     busy=true;
     try{
       var seg=path.split('/').filter(Boolean),pg=seg[0],sub=seg.slice(1).join('/');
-      if(pg!=='jam'&&isOpen(jam))click($('jamBack'));
-      if(pg!=='kalkulator'){if(isOpen(kurs))click($('kursBack'));if(isOpen(satuan))click($('satuanBack'));if(isOpen(kalk))click($('kalkBack'))}
-      if(pg!=='musik'&&isOpen(musik))click($('musikBack'));
-      if(pg!=='keuangan'&&isOpen(keu)){if(!km.hidden)click($('kNo'));click($('keuBack'))}
-      if(pg!=='feed'&&isOpen(feed))click($('feedBack'));
-      if(pg!=='profil'&&isOpen(prof))click($('profBack'));
-      if(pg!=='catatan'&&isOpen(note)){if(!nm.hidden)click($('nNo'));click($('noteBack'))}
-      if(pg!=='tugas'&&isOpen(task)){if(!tm.hidden)click($('tNo'));click($('taskBack'))}
-      if(pg!=='kalender'&&isOpen(cal)){if(!ag.hidden)click($('agNo'));click($('calBack'))}
+      /* Chat adalah lapisan di atas halaman aktif: membukanya tidak boleh menutup
+         halaman asal, supaya tombol kembali balik ke halaman itu. */
+      if(pg!=='chat'){
+        if(pg!=='jam'&&isOpen(jam))click($('jamBack'));
+        if(pg!=='kalkulator'){if(isOpen(kurs))click($('kursBack'));if(isOpen(satuan))click($('satuanBack'));if(isOpen(kalk))click($('kalkBack'))}
+        if(pg!=='musik'&&isOpen(musik))click($('musikBack'));
+        if(pg!=='keuangan'&&isOpen(keu)){if(!km.hidden)click($('kNo'));click($('keuBack'))}
+        if(pg!=='feed'&&isOpen(feed))click($('feedBack'));
+        if(pg!=='profil'&&isOpen(prof))click($('profBack'));
+        if(pg!=='catatan'&&isOpen(note)){if(!nm.hidden)click($('nNo'));click($('noteBack'))}
+        if(pg!=='tugas'&&isOpen(task)){if(!tm.hidden)click($('tNo'));click($('taskBack'))}
+        if(pg!=='kalender'&&isOpen(cal)){if(!ag.hidden)click($('agNo'));click($('calBack'))}
+      }
       if(pg==='kalender'){
         if(!isOpen(cal))click($('openCal'));
         var wa=sub==='agenda/baru';
