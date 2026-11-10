@@ -2763,7 +2763,6 @@ window.PROFIL=(function(){
       if(pg!=='keuangan'&&isOpen(keu)){if(!km.hidden)click($('kNo'));click($('keuBack'))}
       if(pg!=='feed'&&isOpen(feed))click($('feedBack'));
       if(pg!=='profil'&&isOpen(prof))click($('profBack'));
-      if(pg!=='chat'&&isOpen(chat))click($('chatBack'));
       if(pg!=='catatan'&&isOpen(note)){if(!nm.hidden)click($('nNo'));click($('noteBack'))}
       if(pg!=='tugas'&&isOpen(task)){if(!tm.hidden)click($('tNo'));click($('taskBack'))}
       if(pg!=='kalender'&&isOpen(cal)){if(!ag.hidden)click($('agNo'));click($('calBack'))}
@@ -2809,6 +2808,7 @@ window.PROFIL=(function(){
       if(pg==='feed'&&!isOpen(feed))click($('openFeed'));
       if(pg==='profil'&&!isOpen(prof))click($('openProf'));
       if(pg==='chat'&&!isOpen(chat))click($('openChat'));
+      if(pg!=='chat'&&isOpen(chat))click($('chatBack'));
     }catch(e){}
     var d=st();cur=d;stack[idx]=d;
     if(norm(location.pathname)!==d){try{history.replaceState({i:idx},'',d)}catch(e){}}
