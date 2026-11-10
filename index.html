@@ -2999,6 +2999,8 @@ window.PROFIL=(function(){
       if(pg==='profil'&&!isOpen(prof))click($('openProf'));
       if(pg==='chat'&&!isOpen(chat))click($('openChat'));
       if(pg!=='chat'&&isOpen(chat))click($('chatBack'));
+      var anyOv=[feed,prof,keu,jam,chat,note,task,cal].some(function(e){return e&&e.classList.contains('open')});
+      document.body.style.overflow=anyOv?'hidden':'';
     }catch(e){}
     var d=st();cur=d;stack[idx]=d;
     if(norm(location.pathname)!==d){try{history.replaceState({i:idx},'',d)}catch(e){}}
