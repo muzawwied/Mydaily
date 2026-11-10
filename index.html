@@ -520,16 +520,30 @@ body.prof-open.pm-open .nav{z-index:5}
 .jsw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(60,20,140,.28);transition:transform .18s}
 .jsw.on{background:#7B2FF7}
 .jsw.on::after{transform:translateX(18px)}
-@keyframes jcIn{from{opacity:0;transform:translateY(12px) scale(.94)}to{opacity:1;transform:none}}
-.jcards{display:flex;gap:10px;overflow-x:auto;padding:8px 4px 14px;margin:14px -8px 0;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.jcards::-webkit-scrollbar{display:none}
-.jc{flex:0 0 auto;scroll-snap-align:center;width:72px;padding:14px 8px 12px;border:0;border-radius:20px;background:#F7F2FF;color:#5B1FD0;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;display:grid;justify-items:center;gap:2px;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 10px 18px -14px rgba(60,20,140,.65),inset 0 1px 0 #fff;transition:transform .24s cubic-bezier(.2,.8,.2,1),background .24s,color .24s,box-shadow .24s;animation:jcIn .42s cubic-bezier(.2,.8,.2,1) both}
-.jc:nth-child(1){animation-delay:.02s}.jc:nth-child(2){animation-delay:.06s}.jc:nth-child(3){animation-delay:.1s}.jc:nth-child(4){animation-delay:.14s}.jc:nth-child(5){animation-delay:.18s}.jc:nth-child(6){animation-delay:.22s}.jc:nth-child(7){animation-delay:.26s}
-.jc b{font:800 1.32rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.03em}
-.jc span{font:700 .58rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.11em;text-transform:uppercase;color:#A08FC9;transition:color .24s}
-.jc.on{background:linear-gradient(158deg,#8B4BF0,#5B1FD0);color:#fff;transform:translateY(-4px) scale(1.05);box-shadow:0 18px 26px -16px rgba(91,31,208,.85),inset 0 1px 0 rgba(255,255,255,.45)}
-.jc.on span{color:rgba(255,255,255,.86)}
-.jc:active{transform:scale(.95)}
+
+.jtp{position:relative;max-width:300px;margin:10px auto 0}
+.jtp[hidden]{display:none}
+.jdial[hidden]{display:none}
+.jcols{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;position:relative;z-index:1}
+.jcol{position:relative}
+.jwheel{height:190px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:70px 0;text-align:center;mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent);-webkit-mask-image:linear-gradient(180deg,transparent,#000 24%,#000 76%,transparent)}
+.jwheel::-webkit-scrollbar{display:none}
+.jwheel button{display:block;width:100%;height:50px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.5rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
+.jwheel button.on{color:#5B1FD0;transform:scale(1.06)}
+.jcu{display:block;text-align:center;font:700 .55rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A08FC9;padding-top:8px}
+.jband{position:absolute;left:0;right:0;top:95px;height:50px;margin-top:-25px;border-radius:16px;background:#F7F2FF;box-shadow:inset 0 1px 0 #fff;pointer-events:none}
+.jpres{display:flex;gap:10px;overflow-x:auto;padding:6px 4px 12px;margin:16px -8px 0;scrollbar-width:none}
+.jpres::-webkit-scrollbar{display:none}
+.jpc{flex:0 0 auto;width:104px;padding:12px 10px;border:0;border-radius:18px;background:#F7F2FF;color:#5B1FD0;text-align:left;cursor:pointer;display:grid;gap:4px;justify-items:start;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 10px 18px -14px rgba(60,20,140,.6),inset 0 1px 0 #fff;transition:transform .2s,background .2s,color .2s}
+.jpc.on{background:linear-gradient(158deg,#8B4BF0,#5B1FD0);color:#fff;transform:translateY(-3px)}
+.jpci{display:grid;place-items:center;width:26px;height:26px;border-radius:9px;background:rgba(123,47,247,.12);color:inherit}
+.jpc.on .jpci{background:rgba(255,255,255,.22)}
+.jpci svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.jpc b{font:700 .72rem 'Plus Jakarta Sans',sans-serif}
+.jpct{font:700 .62rem 'Plus Jakarta Sans',sans-serif;color:#A08FC9;font-variant-numeric:tabular-nums}
+.jpc.on .jpct{color:rgba(255,255,255,.85)}
+.jadd{background:#EFE7FB;justify-items:center;text-align:center}
+.jcirc.off{opacity:.42}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px}
 .jcirc{width:58px;height:58px;display:grid;place-items:center;border:0;border-radius:50%;background:#F7F2FF;color:#5B1FD0;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 12px 20px -14px rgba(60,20,140,.75),inset 0 1px 0 #fff;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
 .jcirc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -538,9 +552,9 @@ body.prof-open.pm-open .nav{z-index:5}
 .jcirc:disabled{opacity:.36;box-shadow:none;cursor:default;transform:none}
 .jbtns.soft .jbtn{border-radius:18px;box-shadow:0 14px 22px -16px rgba(60,20,140,.8),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
 .jbtns.soft .jbtn:active{transform:scale(.97)}
-.jchips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 4px}
-.jchips button{padding:9px 15px;border:0;border-radius:999px;background:#F1E8FF;color:#5B1FD0;font:700 .78rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
-.jchips button.on{background:#7B2FF7;color:#fff}
+
+
+
 .jbtns{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
 .jbtn{flex:1;min-width:0;padding:14px 18px;border:0;border-radius:999px;font:700 .9rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:opacity .15s,transform .12s}
 .jbtn:active{transform:scale(.97);opacity:.9}
@@ -647,7 +661,7 @@ body.prof-open.pm-open .nav{z-index:5}
 .jms{font:800 1.15rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#A08FC9;margin-left:1px}
 .jsub2{margin-top:8px;font:700 .62rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#A08FC9}
 .jpanel[data-p="timer"] .jbtns,.jpanel[data-p="stopwatch"] .jbtns{margin-top:18px}
-.jpanel[data-p="timer"] .jchips{margin-top:16px}
+
 #jLaps{margin-top:20px;display:grid;gap:8px}
 .jlap{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:16px;background:#FAF7FF}
 .jlap b{flex:none;width:26px;height:26px;border-radius:50%;background:#F1E8FF;color:#5B1FD0;display:grid;place-items:center;font:800 .7rem 'Plus Jakarta Sans',sans-serif}
@@ -1060,25 +1074,26 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="timer" hidden>
-      <div class="jdial">
+      <div class="jtp" id="jTp">
+        <div class="jcols">
+          <div class="jcol"><div class="jwheel" data-u="h"></div><span class="jcu">jam</span></div>
+          <div class="jcol"><div class="jwheel" data-u="m"></div><span class="jcu">menit</span></div>
+          <div class="jcol"><div class="jwheel" data-u="s"></div><span class="jcu">detik</span></div>
+        </div>
+        <div class="jband" aria-hidden="true"></div>
+      </div>
+      <div class="jdial" id="jRun" hidden>
         <svg class="jdials" viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="88"/><circle class="pr" id="jTimerArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/></svg>
         <div class="jin2">
           <div class="jbig2" id="jTimer">00:00</div>
-          <div class="jsub2" id="jTimerState">Pilih durasi</div>
+          <div class="jsub2" id="jTimerState">Siap dimulai</div>
         </div>
       </div>
-      <div class="jcards" id="jPresets">
-        <button type="button" class="jc" data-m="1"><b>1</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="3"><b>3</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="5"><b>5</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="10"><b>10</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="15"><b>15</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="25"><b>25</b><span>mnt</span></button>
-        <button type="button" class="jc" data-m="45"><b>45</b><span>mnt</span></button>
-      </div>
-      <div class="jbtns soft">
-        <button class="jbtn ghost" id="jTimerReset" type="button">Ulang</button>
-        <button class="jbtn main" id="jTimerToggle" type="button">Mulai</button>
+      <div class="jpres" id="jPresets"></div>
+      <div class="jctrl">
+        <button class="jcirc" id="jTimerReset" type="button" aria-label="Reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4.6V10h-5.4"/></svg></button>
+        <button class="jcirc big" id="jTimerToggle" type="button">Mulai</button>
+        <button class="jcirc" id="jTimerBell" type="button" aria-label="Suara"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15.5V11a6 6 0 1 0-12 0v4.5L4.5 18h15z"/><path d="M10 21h4"/></svg></button>
       </div>
     </div>
 
@@ -1425,6 +1440,7 @@ body.prof-open.pm-open .nav{z-index:5}
     Array.prototype.forEach.call(tabs.children,function(b){b.className=b.dataset.p===p?'on':''});
     Array.prototype.forEach.call(sec.querySelectorAll('.jpanel'),function(el){el.hidden=el.dataset.p!==p});
     if(p==='clock')tickClock();
+    if(p==='timer')setTimeout(function(){setWheel(tPick);if(!tRun)tArm(tPick)},0);
   }
   Array.prototype.forEach.call(tabs.children,function(b){b.addEventListener('click',function(){setPanel(b.dataset.p)})});
   // ---- alarm
@@ -1682,11 +1698,16 @@ function updateNext(){
     updateNext();
   }
   // ---- hitung mundur
-  var tEnd=0,tLeftMs=0,tTotal=0,tRun=false,tInt=null;
+  var tEnd=0,tLeftMs=0,tTotal=0,tRun=false,tInt=null,tPick=300;
+  var BELL_KEY='timer_bell',PRESET_KEY='timer_presets',bellOn=true;
+  try{bellOn=localStorage.getItem(BELL_KEY)!=='0'}catch(e){}
+  function W(u){return document.querySelector('.jwheel[data-u="'+u+'"]')}
+  function hms(sec){return pad(Math.floor(sec/3600))+':'+pad(Math.floor(sec%3600/60))+':'+pad(sec%60)}
   function tShow(ms){
     ms=Math.max(0,ms);
     var s=Math.ceil(ms/1000);
-    $('jTimer').textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+    var big=$('jTimer');
+    if(big)big.textContent=s>=3600?(Math.floor(s/3600)+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60)):(pad(Math.floor(s/60))+':'+pad(s%60));
     var arc=$('jTimerArc');
     if(arc){
       var C=2*Math.PI*88;
@@ -1695,39 +1716,153 @@ function updateNext(){
       arc.style.strokeDashoffset=(C*(1-ratio)).toFixed(1);
     }
     var st=$('jTimerState');
-    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Atur waktu'):(tRun?'Berjalan':'Dijeda');
+    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Siap dimulai'):(tRun?'Berjalan':'Dijeda');
+    var rs=$('jTimerReset');
+    if(rs)rs.disabled=!(ms>0||tTotal>0);
+  }
+  function tView(run){
+    var tp=$('jTp'),dl=$('jRun');
+    if(tp)tp.hidden=!!run;
+    if(dl)dl.hidden=!run;
   }
   function tStop(){
     tRun=false;clearInterval(tInt);tInt=null;
     $('jTimerToggle').textContent='Lanjut';
   }
+  function tArm(sec){
+    tRun=false;clearInterval(tInt);tInt=null;tTotal=0;
+    tLeftMs=Math.max(0,sec)*1000;
+    $('jTimerToggle').textContent='Mulai';
+    tView(false);tShow(0);
+    var st=$('jTimerState');
+    if(st)st.textContent=tLeftMs>0?'Siap dimulai':'Atur waktu';
+    var rs=$('jTimerReset');
+    if(rs)rs.disabled=tLeftMs<=0;
+  }
   function tStart(){
+    if(tLeftMs<=0)tLeftMs=wheelSec()*1000;
     if(tLeftMs<=0){toast('Atur waktu dulu');return}
     beepCtxInit();
-    tRun=true;tEnd=Date.now()+tLeftMs;
+    tRun=true;tEnd=Date.now()+tLeftMs;tTotal=tTotal||tLeftMs;
     $('jTimerToggle').textContent='Jeda';
+    tView(true);tShow(tLeftMs);
     clearInterval(tInt);
     tInt=setInterval(function(){
       var left=tEnd-Date.now();
       if(left<=0){
         tLeftMs=0;tShow(0);tStop();
         $('jTimerToggle').textContent='Mulai';
-        ring('Hitung mundur selesai','Waktunya habis');
+        if(bellOn)ring('Timer selesai','Waktunya habis');
         return;
       }
       tLeftMs=left;tShow(left);
     },200);
   }
-  $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
-  $('jTimerReset').addEventListener('click',function(){tStop();tLeftMs=0;tTotal=0;tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()});
-  Array.prototype.forEach.call($('jPresets').children,function(b){
-    b.addEventListener('click',function(){
-      var m=+b.dataset.m||0;
-      Array.prototype.forEach.call($('jPresets').children,function(x){x.className=x===b?'jc on':'jc'});
-      tStop();tLeftMs=m*60000;tTotal=tLeftMs;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
+  function buildWheel(el,max){
+    if(!el)return;
+    el.innerHTML='';
+    for(var v=0;v<max;v++){
+      var b=document.createElement('button');
+      b.type='button';b.textContent=pad(v);b.dataset.v=v;
+      el.appendChild(b);
+    }
+  }
+  function wheelIdx(el){
+    if(!el)return 0;
+    return Math.max(0,Math.min(el.children.length-1,Math.round(el.scrollTop/50)));
+  }
+  function wheelSec(){
+    return wheelIdx(W('h'))*3600+wheelIdx(W('m'))*60+wheelIdx(W('s'));
+  }
+  function setWheel(sec){
+    tPick=sec;
+    var vals=[Math.floor(sec/3600),Math.floor(sec%3600/60),sec%60],us=['h','m','s'];
+    us.forEach(function(u,i){
+      var el=W(u);
+      if(!el)return;
+      var v=Math.min(vals[i],el.children.length-1);
+      el.scrollTop=v*50;
+      Array.prototype.forEach.call(el.children,function(c,ix){c.classList.toggle('on',ix===v)});
+    });
+  }
+  ['h','m','s'].forEach(function(u,i){
+    var el=W(u);
+    if(!el)return;
+    buildWheel(el,i===0?24:60);
+    var tm=null;
+    el.addEventListener('scroll',function(){
+      clearTimeout(tm);
+      tm=setTimeout(function(){
+        var ix=wheelIdx(el);
+        Array.prototype.forEach.call(el.children,function(c,k){c.classList.toggle('on',k===ix)});
+        tPick=wheelSec();
+        if(!tRun)tArm(tPick);
+      },120);
     });
   });
-  function clearChips(){Array.prototype.forEach.call($('jPresets').children,function(x){x.className='jc'})}
+  var PICON={
+    rapat:'<path d="M4 19V9"/><path d="M9 19V5"/><path d="M14 19v-6"/><path d="M19 19v-9"/>',
+    tidur:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+    latihan:'<path d="M6.5 7.5v9"/><path d="M17.5 7.5v9"/><path d="M4 10.5v3"/><path d="M20 10.5v3"/><path d="M6.5 12h11"/>'
+  };
+  function presetList(){
+    try{
+      var r=JSON.parse(localStorage.getItem(PRESET_KEY));
+      if(Array.isArray(r)&&r.length)return r;
+    }catch(e){}
+    return [{n:'Rapat',i:'rapat',s:1200},{n:'Tidur',i:'tidur',s:600},{n:'Latihan',i:'latihan',s:900}];
+  }
+  function renderPresets(){
+    var box=$('jPresets');
+    if(!box)return;
+    box.innerHTML='';
+    presetList().forEach(function(pr){
+      var b=document.createElement('button');
+      b.type='button';b.className='jpc';
+      b.innerHTML='<span class="jpci"><svg viewBox="0 0 24 24" aria-hidden="true">'+(PICON[pr.i]||PICON.rapat)+'</svg></span><b></b><span class="jpct">'+hms(pr.s)+'</span>';
+      b.querySelector('b').textContent=pr.n;
+      b.addEventListener('click',function(){
+        if(tRun)tStop();
+        Array.prototype.forEach.call(box.children,function(x){x.classList.remove('on')});
+        b.classList.add('on');
+        setWheel(pr.s);tArm(pr.s);
+      });
+      box.appendChild(b);
+    });
+    var add=document.createElement('button');
+    add.type='button';add.className='jpc jadd';
+    add.innerHTML='<span class="jpci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><b>Tambah</b>';
+    add.addEventListener('click',function(){
+      var sec=wheelSec();
+      if(!sec){toast('Atur waktu dulu');return}
+      var nama='';
+      try{nama=(window.prompt('Nama preset','Timer '+Math.round(sec/60)+' menit')||'').trim()}catch(e){}
+      if(!nama)return;
+      var l=presetList();l.push({n:nama,i:'rapat',s:sec});
+      try{localStorage.setItem(PRESET_KEY,JSON.stringify(l))}catch(e){}
+      renderPresets();toast('Preset disimpan');
+    });
+    box.appendChild(add);
+  }
+  $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
+  $('jTimerReset').addEventListener('click',function(){
+    if(tRun)tStop();
+    tTotal=0;tLeftMs=0;
+    $('jTimerToggle').textContent='Mulai';
+    Array.prototype.forEach.call($('jPresets').children,function(x){x.classList.remove('on')});
+    setWheel(0);tView(false);tShow(0);
+  });
+  var bellBtn=$('jTimerBell');
+  function paintBell(){if(bellBtn)bellBtn.classList.toggle('off',!bellOn)}
+  if(bellBtn)bellBtn.addEventListener('click',function(){
+    bellOn=!bellOn;
+    try{localStorage.setItem(BELL_KEY,bellOn?'1':'0')}catch(e){}
+    paintBell();toast(bellOn?'Suara aktif':'Suara dimatikan');
+  });
+  renderPresets();
+  setWheel(300);
+  tArm(300);
+  paintBell();
   // ---- stopwatch
   var swAcc=0,swStart=0,swRun=false,swInt=null,laps=[];
   function swVal(){return swAcc+(swRun?Date.now()-swStart:0)}
@@ -1798,7 +1933,7 @@ function updateNext(){
   $('jamMenu').addEventListener('click',function(){
     window.popMenu(this,[
       {l:'Alarm baru',f:function(){setPanel('alarm');openForm(null)}},
-      {l:'Hentikan hitung mundur',f:function(){tStop();tLeftMs=0;setTimeTotal();tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()}},
+      {l:'Hentikan hitung mundur',f:function(){tStop();tTotal=0;tLeftMs=0;tShow(0);tView(false);$('jTimerToggle').textContent='Mulai'}},
       {l:'Reset stopwatch',f:function(){swRun=false;swAcc=0;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai';laps=[];$('jLaps').innerHTML='';swShow()}},
       {l:'Hapus semua alarm',d:1,f:function(){
         if(!A.length)return;
