@@ -550,11 +550,12 @@ body.prof-open.pm-open .nav{z-index:5}
 .jorb.b{inset:-22px;transform:rotateX(72deg) rotateY(24deg)}
 .jorb.b em{border-style:solid;border-color:rgba(246,165,214,.45);animation-duration:19s;animation-direction:reverse}
 .jorb.b i{background:#F6A5D6;box-shadow:0 0 12px 3px rgba(246,165,214,.55)}
-.jbar{position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:4;margin:0 auto;max-width:min(430px,calc(100% - 26px));display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:8px;border-radius:24px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:0 12px 32px -14px rgba(60,20,140,.38),inset 0 0 0 1px rgba(123,47,247,.08)}
-.jbar button{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 4px 8px;border:0;border-radius:18px;background:none;color:#9A8FB5;font:600 .6rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .18s,background .18s,transform .16s}
+.jbar{position:fixed;left:0;right:0;bottom:calc(6px + env(safe-area-inset-bottom,0px));z-index:4;margin:0 auto;max-width:min(430px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0;background:none;box-shadow:none}
+.jbar button{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px 12px;border:0;border-radius:0;background:none;color:#9A8FB5;font:600 .6rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .16s}
 .jbar button svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round;transition:transform .24s cubic-bezier(.2,.9,.3,1.35)}
-.jbar button.on{color:#5B1FD0;background:#F3ECFF;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 6px 14px -10px rgba(91,31,208,.7)}
+.jbar button.on{color:#5B1FD0;background:none;box-shadow:none}
 .jbar button.on svg{transform:translateY(-1px) scale(1.08)}
+.jbar button.on::after{content:"";position:absolute;bottom:4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#7B2FF7}
 .jbar button:active{transform:scale(.93)}
 @keyframes jspin{to{transform:rotate(360deg)}}
 @keyframes jbreathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
