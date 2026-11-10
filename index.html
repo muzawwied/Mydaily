@@ -3431,7 +3431,24 @@ window.PROFIL=(function(){
     seeking=false;
   });
   seek.addEventListener('pointerup',function(){setTimeout(function(){seeking=false},60)});
-  playBtn.addEventListener('click',toggle);
+  function pushMusic(){
+    try{
+      var BM=window.MdNotify;
+      if(!BM||typeof BM.setMusic!=='function')return;
+      var tr=tracks[cur];
+      BM.setMusic(tr?name(tr.name):'',audio.paused?'0':'1');
+    }catch(e){}
+  }
+  window.mdMusic=function(a){
+    if(a==='toggle'){toggle()}
+    else if(a==='next'){if(tracks.length)play(cur+1)}
+    else if(a==='prev'){if(audio.currentTime>4){audio.currentTime=0}else if(tracks.length){play(cur-1)}}
+    pushMusic();
+  };
+  audio.addEventListener('play',pushMusic);
+  audio.addEventListener('pause',pushMusic);
+  audio.addEventListener('ended',pushMusic);
+  playBtn.addEventListener('click',function(){toggle();pushMusic()});
   $('mNext').addEventListener('click',function(){if(tracks.length)play(cur+1)});
   $('mPrev').addEventListener('click',function(){
     if(audio.currentTime>4){audio.currentTime=0;return}
@@ -3818,7 +3835,15 @@ window.PROFIL=(function(){
       var sisa=T.filter(function(x){return x&&!x.d}).length;
       var alarmText=next?('Alarm '+(next.b||'').replace(/^Alarm\s*/,'').replace(/^pukul\s*/,'pukul ')):'Belum ada alarm';
       var taskText=sisa===0?'Semua tugas beres':(sisa+' tugas belum selesai');
-      B.setWidget(alarmText,taskText);
+      if(typeof B.setWidgetEx==='function'){
+        var done=T.filter(function(x){return x&&x.d}).length;
+        var dd=new Date();
+        var DN2=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+        var tgl=DN2[dd.getDay()]+', '+(dd.getMonth()+1)+'/'+dd.getDate();
+        B.setWidgetEx(tgl,alarmText,done,T.length);
+      }else{
+        B.setWidget(alarmText,taskText);
+      }
     }catch(e){}
   }
   window.mdSyncReminders=sync;
