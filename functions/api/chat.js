@@ -79,12 +79,25 @@ function cleanText(v) {
 }
 
 function splitBubbles(text) {
-  const parts = cleanText(text)
-    .split(/\s*\|{3}\s*|\s*\|\|\|\s*/)
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const norm = (s) => String(s || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  const dropDupes = (arr) => {
+    const seen = new Set();
+    const out = [];
+    for (const s of arr) {
+      const k = norm(s);
+      if (!k || seen.has(k)) continue;
+      seen.add(k);
+      out.push(s);
+    }
+    return out;
+  };
+  let clean = cleanText(text).replace(/^\s*\[\]\s*$/gm, '').trim();
+  // model kadang mengulang kalimat yang sama dua kali -> simpan sekali saja
+  const halves = clean.split(/\n{2,}/).map((s) => s.trim()).filter(Boolean);
+  if (halves.length === 2 && norm(halves[0]) === norm(halves[1])) clean = halves[0];
+  const parts = dropDupes(clean.split(/\s*\|{3}\s*|\s*\|\|\|\s*/).map((s) => s.trim()).filter(Boolean));
   if (parts.length > 1) return parts.slice(0, 3);
-  return [cleanText(text)].filter(Boolean);
+  return dropDupes([clean]).filter(Boolean);
 }
 
 export async function onRequestOptions() {
