@@ -1002,6 +1002,12 @@ body.prof-open.pm-open .nav{z-index:5}
   }
   $('openKeu').addEventListener('click',function(){
     if(!sec.classList.contains('open')){
+      ['feed','chat','prof','cal','task','note'].forEach(function(k){
+        var el=document.getElementById(k);
+        if(!el||!el.classList.contains('open'))return;
+        var back=document.getElementById(k+'Back');
+        if(back)back.click();
+      });
       render();
       sec.classList.add('open');
       sec.setAttribute('aria-hidden','false');
