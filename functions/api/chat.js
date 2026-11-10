@@ -146,9 +146,7 @@ const LEARN_PROMPT = [
   'Kalau data tidak cukup untuk menyimpulkan, balas [].',
 ].join('\n');
 
-async function handleLearn(request, env, key) {
-  let body = null;
-  try { body = await request.json(); } catch (e) { return json({ error: 'Format tidak valid' }, 400); }
+async function handleLearn(body, env, key) {
   const events = Array.isArray(body && body.events) ? body.events.slice(0, 120) : [];
   if (!events.length) return json({ facts: [] });
   const lines = events.map((e) => {
@@ -197,7 +195,7 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'Format pesannya gak kebaca.' }, 400);
   }
 
-  if (body && body.action === 'learn') return handleLearn(request, env, key);
+  if (body && body.action === 'learn') return handleLearn(body, env, key);
 
   const extra = String((body && body.system) || '').slice(0, MAX_CHARS);
   const memory = String((body && body.memory) || '').slice(0, 1600);
