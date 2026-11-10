@@ -2801,7 +2801,9 @@ window.PROFIL=(function(){
   });
   document.getElementById('feedBack').addEventListener('click',closeF);
   document.querySelectorAll('.nb')[0].addEventListener('click',function(){if(feed.classList.contains('open'))closeF(true)});
-  document.getElementById('openChat').addEventListener('click',function(){if(feed.classList.contains('open'))closeF(true)});
+  /* Clara menumpuk di atas Feed: cukup tutup form posting, Feed tetap terbuka
+     supaya tombol kembali dari chat balik ke Feed. */
+  document.getElementById('openChat').addEventListener('click',function(){if(!fm.hidden)closeC()});
   var fm=document.getElementById('fModal'),fin=document.getElementById('fInp'),fsv=document.getElementById('fSave'),ferr=document.getElementById('fErr'),ffm=document.getElementById('fForm'),fem=document.getElementById('fEm'),fbe=document.getElementById('fBtnEm'),fimg=document.getElementById('fImg'),fie=document.getElementById('fImgEl'),pic='',picW=0,picH=0;
   var EM='😀😂🥰😍😎🤔😴😢😤🙏👍👏🔥✨❤️🎉☕🍜🌧️☀️🌙📚💪🏃🎵🌸🐱🐶🍰🎮✈️🏠'.match(/(\p{Extended_Pictographic}(\uFE0F|\u200D\p{Extended_Pictographic})*)/gu)||[];
   EM.forEach(function(e){var b=document.createElement('button');b.type='button';b.textContent=e;b.setAttribute('aria-label','Emoji '+e);fem.appendChild(b)});
