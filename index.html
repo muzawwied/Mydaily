@@ -507,6 +507,8 @@ body.prof-open.pm-open .nav{z-index:5}
 .jrow{display:grid;grid-template-columns:66px minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:#FAF7FF;margin-bottom:8px;cursor:pointer;transition:background .15s,transform .12s}
 .jrow:active{background:#F3ECFF;transform:scale(.996)}
 .jrow.mati{background:#F7F4FB}
+.jrow.demo{background:#F8F5FD;box-shadow:inset 0 0 0 1px rgba(123,47,247,.10)}
+.jrow.demo .km2{color:#AC9EC6}
 .jrow.mati .jrow-t,.jrow.mati .kt{color:#BCB1D0;filter:blur(.5px)}
 .jrow.mati .km2{color:#C9C0DA}
 .jrow.mati .jsw{background:#E6DFF2}
@@ -1407,12 +1409,27 @@ body.prof-open.pm-open .nav{z-index:5}
       row.appendChild(sw);
       list.appendChild(row);
     });
-    $('jAlarmEmpty').hidden=A.length>0;
+    if(!A.length){
+      var dm=document.createElement('div');dm.className='jrow mati demo';dm.dataset.demo='1';
+      var dt=document.createElement('div');dt.className='jrow-t';dt.textContent='07.00';dm.appendChild(dt);
+      var db=document.createElement('div');db.style.minWidth='0';
+      var dl=document.createElement('div');dl.className='kt';dl.textContent='Contoh alarm';db.appendChild(dl);
+      var ds=document.createElement('div');ds.className='km2';ds.textContent='Ketuk untuk membuat alarm pertamamu';db.appendChild(ds);
+      dm.appendChild(db);
+      var dsw=document.createElement('button');dsw.type='button';dsw.className='jsw';dsw.setAttribute('aria-label','Contoh alarm');
+      dm.appendChild(dsw);
+      list.appendChild(dm);
+    }
+    $('jAlarmEmpty').hidden=true;
     updateNext();
   }
   $('jAlarmList').addEventListener('click',function(e){
     var row=e.target.closest?e.target.closest('.jrow'):null;
     if(!row)return;
+    if(row.dataset.demo){
+      openForm(null);setTime('07:00');
+      return;
+    }
     var a=findA(row.dataset.id);
     if(!a)return;
     if(e.target.closest('.jsw')){
