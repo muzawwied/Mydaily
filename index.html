@@ -4148,6 +4148,11 @@ window.PROFIL=(function(){
   }
   document.getElementById('satuanBack').addEventListener('click',close);
   page.addEventListener('click',function(e){if(pop&&!e.target.closest('.un-pop')&&!e.target.closest('.un-u'))closePop()});
+  /* Router sudah jalan lebih dulu: terapkan ulang rute setelah tombol konverter siap. */
+  if(window.applyRoute){
+    var pth=location.pathname.replace(/\/+$/,'');
+    if(pth==='/kalkulator/mata-uang'||pth==='/kalkulator/satuan'){window.applyRoute(pth)}
+  }
 })();
 </script>
 <script>
