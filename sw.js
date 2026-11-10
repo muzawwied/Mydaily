@@ -1,11 +1,14 @@
 /* Service worker My Daily: seluruh aplikasi (HTML, ikon, dan gambar) tetap hidup tanpa internet. */
-const VERSION = 'mydaily-v3';
+const VERSION = 'mydaily-v4';
 const CACHE = VERSION;
-const EXT_CACHE = 'mydaily-ext-v3';
+const EXT_CACHE = 'mydaily-ext-v4';
 const SHELL = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
+  '/favicon.ico',
+  '/assets/img/favicon-32.png',
+  '/assets/img/apple-touch-icon.png',
   '/assets/img/icon-192.png',
   '/assets/img/icon-512.png',
   '/assets/img/shortcut-kalender.png',

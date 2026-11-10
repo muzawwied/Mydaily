@@ -6,10 +6,13 @@
 <title>My Daily</title>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#6A2BDB">
-<link rel="apple-touch-icon" href="/assets/img/icon-192.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="My Daily">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22%236A2BDB%22/%3E%3Cg transform=%22translate(32 32) scale(.44) translate(-190 -110)%22 fill=%22none%22 stroke=%22%23fff%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M232.6 90.1A47 47 0 1 1 209.1 67%22 stroke-width=%2214%22/%3E%3Cg stroke-width=%2210%22%3E%3Cpath d=%22M166.5 89.5L172.5 96.5L185 83.5%22/%3E%3Cpath d=%22M166.5 108L172.5 115L185 102%22/%3E%3Cpath d=%22M166.5 126.5L172.5 133.5L185 120.5%22/%3E%3Cpath d=%22M196 89.5H213M196 108H213M196 126.5H213%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
+
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Dancing+Script:wght@700&family=Fredoka:wght@600&family=Bricolage+Grotesque:wght@800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -1616,7 +1619,7 @@ function updateNext(){
   window.mdNotifySources.push(function(){
     return A.filter(function(a){return a.on}).map(function(a){
       var p=String(a.t).split(':'),h=+p[0],m=+p[1];
-      return {id:'alarm|'+a.id,t:'Alarm',b:(a.l||'Alarm')+' pukul '+pad(h)+'.'+pad(m),w:nextAt(a)};
+      return {id:'alarm|'+a.id,t:'Alarm',b:(a.l||'Alarm')+' pukul '+pad(h)+'.'+pad(m),w:nextAt(a),days:alarmDays(a).join(',')};
     });
   });
   function syncNotif(){try{if(window.mdSyncReminders)window.mdSyncReminders()}catch(e){}}
@@ -1770,17 +1773,18 @@ function updateNext(){
     if(nb[0])nb[0].classList.add('on');
   });
   $('jamMenu').addEventListener('click',function(){
-    window.sheet('',[
-      {l:'Alarm baru',i:'pin',f:function(){setPanel('alarm');openForm(null)}},
-      {l:'Hentikan hitung mundur',i:'close',f:function(){tStop();tLeftMs=0;tShow(0);clearChips()}},
-      {l:'Reset stopwatch',i:'undo',f:function(){swRun=false;swAcc=0;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai';laps=[];$('jLaps').innerHTML='';swShow()}},
-      {l:'Hapus semua alarm',i:'del',d:1,f:function(){
+    window.popMenu(this,[
+      {l:'Alarm baru',f:function(){setPanel('alarm');openForm(null)}},
+      {l:'Hentikan hitung mundur',f:function(){tStop();tLeftMs=0;setTimeTotal();tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()}},
+      {l:'Reset stopwatch',f:function(){swRun=false;swAcc=0;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai';laps=[];$('jLaps').innerHTML='';swShow()}},
+      {l:'Hapus semua alarm',d:1,f:function(){
         if(!A.length)return;
-        var bak=A.slice();A=[];saveA();renderA();syncNotif();
-        toast('Alarm dihapus semua');
+        A=[];saveA();renderA();syncNotif();
+        toast('Semua alarm dihapus');
       }}
     ]);
   });
+  function setTimeTotal(){tTotal=0}
   function popDigits(){
     var el=$('jDigits');
     if(!el)return;
@@ -2862,26 +2866,30 @@ window.PROFIL=(function(){
 </script>
 
 <script>
-/* Tombol kembali di halaman chat: balik ke halaman sebelumnya, bukan selalu Beranda. */
+/* Tombol kembali di halaman chat: balik ke halaman yang benar-benar dibuka sebelumnya. */
 (function(){
-  var PAGES={'/profil':1,'/feed':1,'/kalender':1,'/tugas':1,'/catatan':1,'/keuangan':1,'/jam':1};
   function norm(p){p=(p||'/').replace(/\/{2,}/g,'/').replace(/\/+$/,'');return p||'/'}
-  var last='/';
-  var push=history.pushState.bind(history),rep_=history.replaceState.bind(history);
-  function recall(from,to){
-    if(from===to)return;
-    from=norm(from);
-    if(from==='/chat')return;
-    last=PAGES[from]?from:last;
+  var trail=[];
+  function remember(path){
+    var p=norm(path);
+    if(p==='/chat')return;
+    if(trail[trail.length-1]!==p)trail.push(p);
+    if(trail.length>25)trail.shift();
   }
-  history.pushState=function(st,t,u){var from=location.pathname;var r=push(st,t,u);recall(from,location.pathname);return r};
-  history.replaceState=function(st,t,u){var from=location.pathname;var r=rep_(st,t,u);recall(from,location.pathname);return r};
+  remember(location.pathname);
+  var push=history.pushState.bind(history),rep_=history.replaceState.bind(history);
+  history.pushState=function(st,t,u){var r=push(st,t,u);remember(location.pathname);return r};
+  history.replaceState=function(st,t,u){var r=rep_(st,t,u);remember(location.pathname);return r};
   var back=document.getElementById('chatBack');
   if(!back)return;
   back.addEventListener('click',function(){
-    var target=last;
+    var here=norm(location.pathname);
+    var target='/', idx=-1;
+    for(var i=trail.length-1;i>=0;i--){
+      if(trail[i]!==here&&trail[i]!=='/chat'){target=trail[i];idx=i;break}
+    }
+    if(idx>-1)trail=trail.slice(0,idx);
     setTimeout(function(){
-      if(!PAGES[target])return;
       if(norm(location.pathname)===target)return;
       if(typeof window.applyRoute==='function')window.applyRoute(target);
     },40);
@@ -2926,7 +2934,15 @@ window.PROFIL=(function(){
         try{var extra=f();if(Array.isArray(extra))items=items.concat(extra)}catch(e){}
       });
       B.clearAll();
-      items.forEach(function(x){try{B.schedule(x.id,x.t,x.b,x.w)}catch(e){}});
+      items.forEach(function(x){
+        try{
+          if(typeof x.days==='string' && typeof B.scheduleAlarm==='function'){
+            B.scheduleAlarm(x.id,x.t,x.b,x.w,x.days);
+          }else{
+            B.schedule(x.id,x.t,x.b,x.w);
+          }
+        }catch(e){}
+      });
     }catch(e){}
   }
   window.mdSyncReminders=sync;
