@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My Daily</title>
-<style>html.rboot{background:#F4F0FA}html.rboot body{visibility:hidden}html,body{overscroll-behavior-y:contain}
+<style>html.rboot{background:#F4F0FA}html.rboot body{visibility:hidden}
 .cal,.mdl{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 </style>
 <script>document.documentElement.className+=" rboot";setTimeout(function(){document.documentElement.classList.remove("rboot")},1800);</script>
@@ -2945,8 +2945,6 @@ window.PROFIL=(function(){
       if(pg==='profil'&&!isOpen(prof))click($('openProf'));
       if(pg==='chat'&&!isOpen(chat))click($('openChat'));
       if(pg!=='chat'&&isOpen(chat))click($('chatBack'));
-      var anyOv=[feed,prof,keu,jam,chat,note,task,cal].some(function(e){return e&&e.classList.contains('open')});
-      document.body.style.overflow=anyOv?'hidden':'';
     }catch(e){}
     var d=st();cur=d;stack[idx]=d;
     if(norm(location.pathname)!==d){try{history.replaceState({i:idx},'',d)}catch(e){}}
