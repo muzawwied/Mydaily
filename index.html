@@ -776,7 +776,18 @@ body.prof-open.pm-open .nav{z-index:5}
 .cv-row{display:flex;align-items:center;gap:10px;background:#FAF8FF;border-radius:16px;padding:10px 12px}
 .cv-in{flex:1 1 auto;min-width:0;width:100%;border:0;background:transparent;font:800 1.24rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#241542;outline:none;font-variant-numeric:tabular-nums}
 .cv-out{flex:1 1 auto;min-width:0;font:800 1.24rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#6A1FE0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
-.cv-sel{flex:none;max-width:41%;border:0;border-radius:999px;background:#fff;padding:9px 10px;font:600 .84rem 'Plus Jakarta Sans',sans-serif;color:#241542;box-shadow:0 1px 2px rgba(20,8,50,.09);outline:none}
+.cv-sel{flex:none;display:flex;align-items:center;gap:7px;max-width:48%;border:0;border-radius:999px;background:#fff;padding:9px 12px;font:700 .9rem 'Plus Jakarta Sans',sans-serif;color:#241542;box-shadow:0 1px 2px rgba(20,8,50,.09);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cv-sel i{flex:none;width:0;height:0;border-left:5px solid #8B84A3;border-top:4px solid transparent;border-bottom:4px solid transparent;transform:rotate(90deg)}
+.cv-sel span{font-weight:500;color:#8B84A3;font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#kurs .cin{position:relative}
+.cv-pop{position:absolute;right:18px;z-index:5;width:min(300px,calc(100% - 36px));max-height:min(340px,52vh);overflow-y:auto;background:#fff;border-radius:18px;padding:6px;box-shadow:0 14px 38px rgba(36,21,66,.22),0 0 0 1px rgba(36,21,66,.05);-webkit-overflow-scrolling:touch}
+.cv-pop::-webkit-scrollbar{width:0}
+.cv-pop button{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border:0;border-radius:12px;background:transparent;color:#241542;font:500 .92rem 'Plus Jakarta Sans',sans-serif;text-align:left;cursor:pointer}
+.cv-pop button:active{background:#F6F1FD}
+.cv-pop button em{flex:none;width:16px;font-style:normal;font-weight:800;color:#7B2FF7}
+.cv-pop button.on{color:#5B1FD0;font-weight:700}
+.cv-pop button b{flex:none;min-width:34px;font-weight:700}
+.cv-pop button span{flex:1 1 auto;min-width:0;color:#8B84A3;font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cv-swap{display:grid;place-items:center;margin:8px auto;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:#F1E8FF;color:#5B1FD0;cursor:pointer}
 .cv-swap svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .cv-note{margin-top:11px;font-size:.72rem;line-height:1.4;color:#8B84A3;text-align:center;cursor:pointer}
@@ -1387,9 +1398,9 @@ body.prof-open.pm-open .nav{z-index:5}
 <section class="cal" id="kurs" aria-label="Konversi mata uang" aria-hidden="true">
   <div class="chd"><div class="in"><div class="crow"><button class="ib" id="kursBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="ctl">Mata uang</span><span class="ib" style="visibility:hidden" aria-hidden="true"></span></div></div></div>
   <div class="csheet"><div class="cin cv-page" id="cvWrap">
-    <div class="cv-row"><input class="cv-in" id="cvAmt" type="text" inputmode="decimal" value="1" aria-label="Nominal"><select class="cv-sel" id="cvFrom" aria-label="Dari mata uang"></select></div>
+    <div class="cv-row"><input class="cv-in" id="cvAmt" type="text" inputmode="decimal" value="1" aria-label="Nominal"><button class="cv-sel" id="cvFrom" type="button" aria-label="Dari mata uang" aria-haspopup="listbox"></button></div>
     <button class="cv-swap" id="cvSwap" type="button" aria-label="Tukar mata uang"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-3.5-3.5"/><path d="M18 16H6l3.5 3.5"/></svg></button>
-    <div class="cv-row"><div class="cv-out" id="cvOut">&ndash;</div><select class="cv-sel" id="cvTo" aria-label="Ke mata uang"></select></div>
+    <div class="cv-row"><div class="cv-out" id="cvOut">&ndash;</div><button class="cv-sel" id="cvTo" type="button" aria-label="Ke mata uang" aria-haspopup="listbox"></button></div>
     <div class="cv-note" id="cvNote">Memuat kurs&hellip;</div>
   </div></div>
 </section>
@@ -3935,12 +3946,42 @@ window.PROFIL=(function(){
   var CUR=[['IDR','IDR · Rupiah'],['USD','USD · Dolar AS'],['EUR','EUR · Euro'],['SGD','SGD · Dolar Singapura'],['MYR','MYR · Ringgit'],['JPY','JPY · Yen'],['GBP','GBP · Pound'],['AUD','AUD · Dolar Australia'],['CNY','CNY · Yuan'],['SAR','SAR · Riyal'],['HKD','HKD · Dolar Hong Kong'],['THB','THB · Baht'],['KRW','KRW · Won'],['INR','INR · Rupee'],['PHP','PHP · Peso'],['VND','VND · Dong'],['AED','AED · Dirham'],['CAD','CAD · Dolar Kanada'],['CHF','CHF · Franc Swiss'],['NZD','NZD · Dolar Selandia Baru']];
   var SIM={IDR:'Rp',USD:'$',EUR:'\u20ac',GBP:'\u00a3',JPY:'\u00a5',KRW:'\u20a9',THB:'\u0e3f',INR:'\u20b9',PHP:'\u20b1',VND:'\u20ab',CNY:'\u00a5'};
   var KEY='md_kurs_idr',SEL='md_konversi',rates=null,stamp=0;
-  CUR.forEach(function(c){
-    [from,to].forEach(function(sel){var o=document.createElement('option');o.value=c[0];o.textContent=c[1];sel.appendChild(o)});
-  });
+  var NAMA={};CUR.forEach(function(c){NAMA[c[0]]=c[1].split(' \u00b7 ')[1]});
+  var pop=null;
+  function setVal(btn,code){
+    btn.value=code;
+    btn.innerHTML=code+'<span>'+NAMA[code]+'</span><i></i>';
+  }
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function openPop(btn){
+    var same=pop&&pop._b===btn;closePop();if(same)return;
+    var p=document.createElement('div');p.className='cv-pop';p._b=btn;p.setAttribute('role','listbox');
+    CUR.forEach(function(c){
+      var on=c[0]===btn.value;
+      var b=document.createElement('button');b.type='button';b.setAttribute('role','option');if(on)b.className='on';
+      b.innerHTML='<em>'+(on?'\u2713':'')+'</em><b>'+c[0]+'</b><span>'+NAMA[c[0]]+'</span>';
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        var other=btn===from?to:from;
+        if(other.value===c[0])setVal(other,btn.value);
+        setVal(btn,c[0]);closePop();save();render();
+      });
+      p.appendChild(b);
+    });
+    var host=document.querySelector('#kurs .cin');host.appendChild(p);
+    var r=btn.getBoundingClientRect(),h=host.getBoundingClientRect();
+    var top=r.bottom-h.top+8;
+    p.style.top=top+'px';
+    if(r.bottom+p.offsetHeight+16>window.innerHeight){p.style.top=Math.max(8,r.top-h.top-p.offsetHeight-8)+'px'}
+    var cur=p.querySelector('.on');if(cur)p.scrollTop=Math.max(0,cur.offsetTop-p.clientHeight/2+20);
+    pop=p;
+  }
+  from.addEventListener('click',function(e){e.stopPropagation();openPop(from)});
+  to.addEventListener('click',function(e){e.stopPropagation();openPop(to)});
+  document.getElementById('kurs').addEventListener('click',function(e){if(pop&&!e.target.closest('.cv-pop'))closePop()});
   var st={a:'IDR',b:'USD',x:'1'};
   try{var raw=JSON.parse(localStorage.getItem(SEL));if(raw&&raw.a&&raw.b){st.a=raw.a;st.b=raw.b;st.x=String(raw.x||'1')}}catch(e){}
-  from.value=st.a;to.value=st.b;amt.value=st.x;
+  setVal(from,st.a);setVal(to,st.b);amt.value=st.x;
   function num(v){v=String(v).replace(/[^0-9.,]/g,'').replace(/\./g,'').replace(',','.');var n=parseFloat(v);return isFinite(n)?n:0}
   function fmt(v,code){
     var d=(code==='IDR'||code==='JPY'||code==='KRW'||code==='VND')?0:2;
@@ -3984,15 +4025,13 @@ window.PROFIL=(function(){
     page.classList.add('open');page.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
     save();load(false);
   }
-  function close(){page.classList.remove('open');page.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+  function close(){closePop();page.classList.remove('open');page.setAttribute('aria-hidden','true');document.body.style.overflow=''}
   var btn=document.getElementById('kConv');
   if(btn)btn.addEventListener('click',open);
   document.getElementById('kursBack').addEventListener('click',close);
   amt.addEventListener('input',function(){save();render()});
-  from.addEventListener('change',function(){save();render()});
-  to.addEventListener('change',function(){save();render()});
   document.getElementById('cvSwap').addEventListener('click',function(){
-    var a=from.value;from.value=to.value;to.value=a;save();render();
+    var a=from.value;setVal(from,to.value);setVal(to,a);save();render();
     if(navigator.vibrate)try{navigator.vibrate(10)}catch(e){}
   });
   note.addEventListener('click',function(){if(!rates||Date.now()-stamp>60000)load(true)});
