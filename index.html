@@ -546,7 +546,6 @@ body.prof-open.pm-open .nav{z-index:5}
 .jpc.on{color:#5B1FD0;transform:translateY(-1px)}
 .jpc.on .jpci{color:#7B2FF7}
 .jpc.on .jpct{color:#8B6FC4}
-.jadd{color:#7B2FF7}
 .jcirc.off{opacity:.42}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px}
 .jcirc{width:58px;height:58px;display:grid;place-items:center;border:0;border-radius:50%;background:#F7F2FF;color:#5B1FD0;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 12px 20px -14px rgba(60,20,140,.75),inset 0 1px 0 #fff;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
@@ -1702,7 +1701,7 @@ function updateNext(){
   }
   // ---- hitung mundur
   var tEnd=0,tLeftMs=0,tTotal=0,tRun=false,tInt=null,tPick=300;
-  var BELL_KEY='timer_bell',PRESET_KEY='timer_presets',bellOn=true;
+  var BELL_KEY='timer_bell',bellOn=true;
   try{bellOn=localStorage.getItem(BELL_KEY)!=='0'}catch(e){}
   function W(u){return document.querySelector('.jwheel[data-u="'+u+'"]')}
   function hms(sec){return pad(Math.floor(sec/3600))+':'+pad(Math.floor(sec%3600/60))+':'+pad(sec%60)}
@@ -1809,10 +1808,6 @@ function updateNext(){
     latihan:'<path d="M6.5 7.5v9"/><path d="M17.5 7.5v9"/><path d="M4 10.5v3"/><path d="M20 10.5v3"/><path d="M6.5 12h11"/>'
   };
   function presetList(){
-    try{
-      var r=JSON.parse(localStorage.getItem(PRESET_KEY));
-      if(Array.isArray(r)&&r.length)return r;
-    }catch(e){}
     return [{n:'Rapat',i:'rapat',s:1200},{n:'Tidur',i:'tidur',s:600},{n:'Latihan',i:'latihan',s:900}];
   }
   function renderPresets(){
@@ -1832,20 +1827,6 @@ function updateNext(){
       });
       box.appendChild(b);
     });
-    var add=document.createElement('button');
-    add.type='button';add.className='jpc jadd';
-    add.innerHTML='<span class="jpci"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></span><span class="jpct2"><b>Tambah</b></span>';
-    add.addEventListener('click',function(){
-      var sec=wheelSec();
-      if(!sec){toast('Atur waktu dulu');return}
-      var nama='';
-      try{nama=(window.prompt('Nama preset','Timer '+Math.round(sec/60)+' menit')||'').trim()}catch(e){}
-      if(!nama)return;
-      var l=presetList();l.push({n:nama,i:'rapat',s:sec});
-      try{localStorage.setItem(PRESET_KEY,JSON.stringify(l))}catch(e){}
-      renderPresets();toast('Preset disimpan');
-    });
-    box.appendChild(add);
   }
   $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
   $('jTimerReset').addEventListener('click',function(){
