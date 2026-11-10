@@ -563,6 +563,18 @@ body.prof-open.pm-open .nav{z-index:5}
 @keyframes jblink{0%,49%{opacity:1}50%,100%{opacity:.28}}
 @keyframes jpop{0%{transform:scale(1)}45%{transform:scale(1.07)}100%{transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){.jstage,.jface::before,.jorb em,.jbig i{animation:none}}
+/* ===== Form alarm (halaman sendiri) ===== */
+.hr{display:flex;align-items:center;gap:2px}
+#jamAdd{display:none}
+#jam[data-panel="alarm"] #jamAdd{display:grid}
+.jatime{display:block;width:100%;padding:16px 18px;border:0;border-radius:20px;background:#F6F1FF;color:var(--ink);font:800 2.1rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;text-align:center;outline:none;-webkit-appearance:none;appearance:none;font-variant-numeric:tabular-nums}
+.jatext{display:block;width:100%;padding:14px 16px;border:0;border-radius:16px;background:#F6F1FF;color:var(--ink);font:600 .95rem 'Plus Jakarta Sans',sans-serif;outline:none}
+.jadays{display:flex;flex-wrap:wrap;gap:7px}
+.jadays button{min-width:46px;padding:9px 12px;border:0;border-radius:12px;background:#F4F0FA;color:#7C6E97;font:700 .78rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:background .16s,color .16s,transform .12s}
+.jadays button:active{transform:scale(.95)}
+.jadays button.on{background:#7B2FF7;color:#fff}
+.jarow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding:14px 16px;border-radius:16px;background:#FAF7FF;font:600 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.japrev{margin-top:16px;padding:13px 16px;border-radius:14px;background:#F1E8FF;color:#5B1FD0;font:600 .8rem 'Plus Jakarta Sans',sans-serif;text-align:center}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
@@ -884,6 +896,7 @@ body.prof-open.pm-open .nav{z-index:5}
       <button class="ib" id="keuBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <span class="ctl">Keuangan</span>
       <button class="ib mv" id="keuMenu" type="button" aria-label="Menu keuangan"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
+      </span>
     </div>
   </div></div>
   <div class="csheet"><div class="cin">
@@ -930,6 +943,8 @@ body.prof-open.pm-open .nav{z-index:5}
     <div class="crow">
       <button class="ib" id="jamBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <span class="ctl">Jam</span>
+      <span class="hr">
+      <button class="ib" id="jamAdd" type="button" aria-label="Alarm baru"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
       <button class="ib mv" id="jamMenu" type="button" aria-label="Menu jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
     </div>
   </div></div>
@@ -962,13 +977,8 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="alarm" hidden>
-      <div class="jadd">
-        <input class="jtime" id="jAlarmTime" type="time" aria-label="Waktu alarm">
-        <input class="jname" id="jAlarmLabel" type="text" maxlength="30" placeholder="Nama alarm (opsional)" autocomplete="off" aria-label="Nama alarm">
-        <button class="jbtn main" id="jAlarmAdd" type="button">Tambah</button>
-      </div>
       <div id="jAlarmList"></div>
-      <div class="tsem" id="jAlarmEmpty" hidden><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="46" fill="#F1E8FF"/><circle cx="48" cy="46" r="24" fill="#fff" stroke="#C4BBD8" stroke-width="2"/><path d="M48 32v14l9 6" fill="none" stroke="#7B2FF7" stroke-width="3.4" stroke-linecap="round"/><path d="M34 16l-6 6M62 16l6 6" stroke="#C4BBD8" stroke-width="3.4" stroke-linecap="round"/></svg><b>Belum ada alarm</b><span>Pilih jam di atas lalu tekan Tambah untuk menyiapkan alarm pertamamu.</span></div>
+      <div class="tsem" id="jAlarmEmpty" hidden><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="46" fill="#F1E8FF"/><circle cx="48" cy="46" r="24" fill="#fff" stroke="#C4BBD8" stroke-width="2"/><path d="M48 32v14l9 6" fill="none" stroke="#7B2FF7" stroke-width="3.4" stroke-linecap="round"/><path d="M34 16l-6 6M62 16l6 6" stroke="#C4BBD8" stroke-width="3.4" stroke-linecap="round"/></svg><b>Belum ada alarm</b><span>Tekan tombol + di kanan atas untuk membuat alarm pertamamu.</span></div>
     </div>
 
     <div class="jpanel" data-p="timer" hidden>
@@ -1003,6 +1013,32 @@ body.prof-open.pm-open .nav{z-index:5}
     <button type="button" data-p="timer" aria-label="Hitung mundur"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M12 3v2.2"/><path d="M18.4 8.6a7.5 7.5 0 1 1-12.8 0"/><path d="M12 12l3.2-2"/></svg><span>Hitung</span></button>
     <button type="button" data-p="stopwatch" aria-label="Stopwatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="6.8"/><path d="M12 10.5v3.2l2 1.6"/><path d="M9.5 3h5"/><path d="M12 3v1.6"/><path d="M18.6 8.2l1.2-1.2"/></svg><span>Stopwatch</span></button>
   </nav>
+  <div class="mdl" id="jAModal" hidden>
+    <div class="mhd">
+      <button class="ib" id="jaNo" type="button" aria-label="Tutup"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="ctl" id="jaTitle">Alarm baru</span>
+      <button class="hsv" id="jaSave" type="submit" form="jaForm" disabled>Simpan</button>
+    </div>
+    <form class="mbox" id="jaForm">
+      <div class="klbl">Waktu alarm</div>
+      <input class="jatime" id="jaTime" type="time" aria-label="Waktu alarm">
+      <div class="klbl">Nama alarm</div>
+      <input class="jatext" id="jaName" type="text" maxlength="30" placeholder="Misal: Bangun pagi" autocomplete="off" aria-label="Nama alarm">
+      <div class="klbl">Ulangi</div>
+      <div class="jadays" id="jaDays">
+        <button type="button" data-d="all" class="on">Setiap hari</button>
+        <button type="button" data-d="1">Sen</button>
+        <button type="button" data-d="2">Sel</button>
+        <button type="button" data-d="3">Rab</button>
+        <button type="button" data-d="4">Kam</button>
+        <button type="button" data-d="5">Jum</button>
+        <button type="button" data-d="6">Sab</button>
+        <button type="button" data-d="0">Min</button>
+      </div>
+      <div class="jarow"><span>Getar saat berbunyi</span><button type="button" class="jsw on" id="jaVib" aria-label="Getar saat berbunyi"></button></div>
+      <div class="japrev" id="jaPrev">Pilih jam dulu</div>
+    </form>
+  </div>
   <div class="toast" id="jToast" hidden role="status"><span id="jMsg"></span></div>
   <div class="jring" id="jRing" hidden>
     <div class="jring-in">
@@ -1224,7 +1260,7 @@ body.prof-open.pm-open .nav{z-index:5}
   try{var raw=JSON.parse(localStorage.getItem(KEY));if(Array.isArray(raw))A=raw.filter(function(x){return x&&/^\d{1,2}:\d{2}$/.test(String(x.t))})}catch(e){A=[]}
   var DN=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
   var MN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-  var ac=null,ringTimer=null,lastFire='';
+  var ac=null,ringTimer=null,lastFire='',ringVib=true;
   function pad(n){return n<10?'0'+n:''+n}
   function saveA(){try{localStorage.setItem(KEY,JSON.stringify(A))}catch(e){}}
   function toast(m){var t=$('jToast');$('jMsg').textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){t.hidden=true},3200)}
@@ -1246,7 +1282,7 @@ body.prof-open.pm-open .nav{z-index:5}
   function ring(title,sub){
     $('jRingT').textContent=title;$('jRingS').textContent=sub;$('jRing').hidden=false;
     beep(3);
-    try{if(navigator.vibrate)navigator.vibrate([220,120,220])}catch(e){}
+    try{if(ringVib&&navigator.vibrate)navigator.vibrate([220,120,220])}catch(e){}
     clearInterval(ringTimer);
     ringTimer=setInterval(function(){
       if($('jRing').hidden){clearInterval(ringTimer);return}
@@ -1257,17 +1293,30 @@ body.prof-open.pm-open .nav{z-index:5}
   // ---- panel
   var tabs=$('jTabs');
   function setPanel(p){
+    sec.dataset.panel=p;
     Array.prototype.forEach.call(tabs.children,function(b){b.className=b.dataset.p===p?'on':''});
     Array.prototype.forEach.call(sec.querySelectorAll('.jpanel'),function(el){el.hidden=el.dataset.p!==p});
     if(p==='clock')tickClock();
   }
   Array.prototype.forEach.call(tabs.children,function(b){b.addEventListener('click',function(){setPanel(b.dataset.p)})});
   // ---- alarm
+  var DAYN=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  function alarmDays(a){return Array.isArray(a.days)?a.days.filter(function(x){return x>=0&&x<=6}):[]}
+  function daysLabel(a){
+    var d=alarmDays(a);
+    if(!d.length||d.length>=7)return 'Setiap hari';
+    return d.slice().sort().map(function(x){return DAYN[x]}).join(', ');
+  }
   function nextAt(a){
     var p=String(a.t).split(':'),h=+p[0],m=+p[1];
     if(isNaN(h)||isNaN(m))return 0;
+    var days=alarmDays(a);
     var d=new Date();d.setHours(h,m,0,0);
     if(d.getTime()<=Date.now())d.setDate(d.getDate()+1);
+    if(days.length&&days.length<7){
+      var guard=0;
+      while(days.indexOf(d.getDay())<0&&guard++<8)d.setDate(d.getDate()+1);
+    }
     return d.getTime();
   }
   function renderA(){
@@ -1277,7 +1326,7 @@ body.prof-open.pm-open .nav{z-index:5}
       var tm=document.createElement('div');tm.className='jrow-t';tm.textContent=String(a.t).replace(':','.');row.appendChild(tm);
       var b=document.createElement('div');b.style.minWidth='0';
       var lb=document.createElement('div');lb.className='kt';lb.textContent=a.l||'Alarm';b.appendChild(lb);
-      var st=document.createElement('div');st.className='km2';st.textContent=a.on?'Aktif':'Mati';b.appendChild(st);
+      var st=document.createElement('div');st.className='km2';st.textContent=a.on?daysLabel(a):'Mati \u00b7 '+daysLabel(a);b.appendChild(st);
       row.appendChild(b);
       var sw=document.createElement('button');sw.type='button';sw.className='jsw'+(a.on?' on':'');sw.setAttribute('aria-label',a.on?'Matikan alarm':'Aktifkan alarm');
       sw.addEventListener('click',function(e){
@@ -1288,6 +1337,7 @@ body.prof-open.pm-open .nav{z-index:5}
       row.appendChild(sw);
       row.addEventListener('click',function(){
         window.sheet(String(a.t).replace(':','.')+(a.l?' \u00b7 '+a.l:''),[
+          {l:'Ubah alarm',i:'edit',f:function(){openForm(a)}},
           {l:'Hapus alarm',i:'del',d:1,f:function(){
             var i=A.indexOf(a);if(i>=0)A.splice(i,1);
             saveA();renderA();syncNotif();toast('Alarm dihapus');
@@ -1310,16 +1360,75 @@ body.prof-open.pm-open .nav{z-index:5}
     el.hidden=false;
     el.textContent='Alarm berikutnya '+(best.l?best.l+' \u00b7 ':'')+pad(d.getHours())+'.'+pad(d.getMinutes())+(d.getDate()!==new Date().getDate()?' besok':'');
   }
-  $('jAlarmAdd').addEventListener('click',function(){
-    var t=$('jAlarmTime').value;
-    if(!/^\d{2}:\d{2}$/.test(t)){toast('Pilih jam alarm dulu');return}
-    var l=$('jAlarmLabel').value.trim().slice(0,30);
-    A.push({id:(Math.random().toString(36)+'000000').slice(2,9),t:t,l:l,on:true});
-    saveA();renderA();syncNotif();
-    $('jAlarmLabel').value='';
-    beepCtxInit();
-    toast('Alarm '+t.replace(':','.')+' disiapkan');
+  var ja=$('jAModal'),jaTime=$('jaTime'),jaName=$('jaName'),jaDays=$('jaDays'),jaVib=$('jaVib'),jaSave=$('jaSave'),jaTitle=$('jaTitle'),jaPrev=$('jaPrev');
+  var editA=null,daysSel=[];
+  function paintDays(){
+    Array.prototype.forEach.call(jaDays.children,function(b){
+      var d=b.dataset.d;
+      b.className=d==='all'?(daysSel.length?'':'on'):(daysSel.indexOf(+d)>=0?'on':'');
+    });
+    jaSave.disabled=!/^\d{2}:\d{2}$/.test(jaTime.value);
+    previewA();
+  }
+  function previewA(){
+    if(!/^\d{2}:\d{2}$/.test(jaTime.value)){jaPrev.textContent='Pilih jam dulu';return}
+    var d=new Date(nextAt({t:jaTime.value,days:daysSel.slice()}));
+    var now=new Date();
+    var same=d.toDateString()===now.toDateString();
+    var msg='Berbunyi '+(same?'hari ini':DN[d.getDay()]+', '+d.getDate()+' '+MN[d.getMonth()]);
+    msg+=' pukul '+pad(d.getHours())+'.'+pad(d.getMinutes())+' \u00b7 ';
+    msg+=(daysSel.length?daysSel.slice().sort().map(function(x){return DAYN[x]}).join(', '):'setiap hari');
+    jaPrev.textContent=msg;
+  }
+  jaDays.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button'):null;
+    if(!b||!jaDays.contains(b))return;
+    var d=b.dataset.d;
+    if(d==='all'){daysSel=[]}
+    else{
+      var n=+d,i=daysSel.indexOf(n);
+      if(i>=0)daysSel.splice(i,1);else daysSel.push(n);
+      if(daysSel.length>=7)daysSel=[];
+    }
+    paintDays();
   });
+  jaTime.addEventListener('input',paintDays);
+  jaTime.addEventListener('change',paintDays);
+  jaVib.addEventListener('click',function(){jaVib.classList.toggle('on')});
+  function openForm(item){
+    editA=item||null;
+    jaTitle.textContent=item?'Ubah alarm':'Alarm baru';
+    jaTime.value=item?String(item.t):'';
+    jaName.value=item?(item.l||''):'';
+    daysSel=item?alarmDays(item).slice():[];
+    jaVib.classList.toggle('on',item?(item.v!==false):true);
+    paintDays();
+    ja.hidden=false;document.body.classList.add('ja-open');
+    if(!item)setTimeout(function(){try{jaTime.focus()}catch(e){}},140);
+  }
+  function closeForm(){
+    ja.hidden=true;document.body.classList.remove('ja-open');
+    if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
+  }
+  function saveForm(){
+    var t=jaTime.value;
+    if(!/^\d{2}:\d{2}$/.test(t)){toast('Pilih jam alarm dulu');return}
+    var l=jaName.value.trim().slice(0,30);
+    var vib=jaVib.classList.contains('on');
+    var days=daysSel.slice().sort();
+    if(editA){
+      editA.t=t;editA.l=l;editA.days=days;editA.v=vib;
+    }else{
+      A.push({id:(Math.random().toString(36)+'000000').slice(2,9),t:t,l:l,on:true,days:days,v:vib});
+    }
+    saveA();renderA();syncNotif();closeForm();
+    toast((editA?'Alarm diperbarui':'Alarm '+t.replace(':','.')+' disiapkan'));
+    editA=null;
+  }
+  $('jaNo').addEventListener('click',closeForm);
+  $('jaSave').addEventListener('click',function(e){e.preventDefault();saveForm()});
+  $('jaForm').addEventListener('submit',function(e){e.preventDefault();saveForm()});
+  $('jamAdd').addEventListener('click',function(){setPanel('alarm');openForm(null)});
   function beepCtxInit(){try{var C=window.AudioContext||window.webkitAudioContext;if(C&&!ac)ac=new C();if(ac&&ac.state==='suspended')ac.resume()}catch(e){}}
   // sumber notifikasi untuk APK
   window.mdNotifySources=window.mdNotifySources||[];
@@ -1356,9 +1465,12 @@ body.prof-open.pm-open .nav{z-index:5}
     if(d.getSeconds()===0){
       A.forEach(function(a){
         if(!a.on||a.t!==key)return;
+        var dl=alarmDays(a);
+        if(dl.length&&dl.length<7&&dl.indexOf(d.getDay())<0)return;
         var tag=a.id+'|'+new Date().toDateString()+'|'+key;
         if(lastFire===tag)return;
         lastFire=tag;
+        ringVib=a.v!==false;
         ring('Alarm',(a.l?a.l+' \u00b7 ':'')+key.replace(':','.'));
       });
     }
@@ -1455,6 +1567,7 @@ body.prof-open.pm-open .nav{z-index:5}
   });
   $('jamMenu').addEventListener('click',function(){
     window.sheet('',[
+      {l:'Alarm baru',i:'pin',f:function(){setPanel('alarm');openForm(null)}},
       {l:'Hentikan hitung mundur',i:'close',f:function(){tStop();tLeftMs=0;tShow(0);clearChips()}},
       {l:'Reset stopwatch',i:'undo',f:function(){swRun=false;swAcc=0;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai';laps=[];$('jLaps').innerHTML='';swShow()}},
       {l:'Hapus semua alarm',i:'del',d:1,f:function(){
@@ -2390,7 +2503,7 @@ window.PROFIL=(function(){
 (function(){
   if(!/^https?:$/.test(location.protocol)||!window.history||!history.pushState)return;
   var $=function(i){return document.getElementById(i)};
-  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs');
+  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ja=$('jAModal'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs');
   var TITLE='My Daily',NAMES={kalender:'Kalender',tugas:'Tugas',catatan:'Catatan',keuangan:'Keuangan',jam:'Jam',chat:'Chat',feed:'Feed',profil:'Profil'};
   var FIL={'/tugas':1,'/tugas/belum':1,'/tugas/selesai':1};
   var busy=false,cur='/',idx=0,stack=[];
@@ -2405,7 +2518,7 @@ window.PROFIL=(function(){
     if(isOpen(feed))return '/feed';
     if(isOpen(prof))return '/profil';
     if(isOpen(keu))return km.hidden?'/keuangan':'/keuangan/baru';
-    if(isOpen(jam))return '/jam';
+    if(isOpen(jam))return ja.hidden?'/jam':'/jam/alarm/baru';
     if(isOpen(chat))return '/chat';
     if(isOpen(note))return nm.hidden?'/catatan':'/catatan/'+(nm.dataset.eid||'baru');
     if(isOpen(task)){
@@ -2452,7 +2565,16 @@ window.PROFIL=(function(){
           if(nm.hidden)click(byId('#nList .nt',sub));
         }
       }
-      if(pg==='jam'&&!isOpen(jam))click($('openJam'));
+      if(pg==='jam'){
+        if(!isOpen(jam))click($('openJam'));
+        if(sub==='alarm/baru'){
+          if(ja.hidden){
+            var at=$('jTabs').querySelector('[data-p="alarm"]');
+            if(at)at.click();
+            click($('jamAdd'));
+          }
+        }else if(!ja.hidden)click($('jaNo'));
+      }
       if(pg==='keuangan'){
         if(!isOpen(keu))click($('openKeu'));
         if(sub==='baru'){if(km.hidden)click($('addKeu'))}
@@ -2477,7 +2599,7 @@ window.PROFIL=(function(){
     }catch(e){}
   }
   var mo=new MutationObserver(function(){if(busy)return;var d=st();if(d!==cur)navigate(d)});
-  [cal,task,note,keu,jam,chat,feed,prof,ag,tm,nm,km].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
+  [cal,task,note,keu,jam,ja,chat,feed,prof,ag,tm,nm,km].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
   mo.observe(tabs,{attributes:true,attributeFilter:['class'],subtree:true});
   window.applyRoute=apply;
   window.addEventListener('popstate',function(e){idx=(e.state&&e.state.i)||0;apply(norm(location.pathname))});
