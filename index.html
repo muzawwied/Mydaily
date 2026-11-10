@@ -980,7 +980,7 @@ body.prof-open.pm-open .nav{z-index:5}
   <div class="chd"><div class="in">
     <div class="crow">
       <button class="ib" id="jamBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <span class="ctl">Jam</span>
+      <span class="ctl" id="jamTitle">Jam</span>
       <span class="hr">
       <button class="ib" id="jamAdd" type="button" aria-label="Alarm baru"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
       <button class="ib mv" id="jamMenu" type="button" aria-label="Menu jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
@@ -1361,8 +1361,12 @@ body.prof-open.pm-open .nav{z-index:5}
   $('jRingStop').addEventListener('click',function(){$('jRing').hidden=true;clearInterval(ringTimer)});
   // ---- panel
   var tabs=$('jTabs');
+  var PTITLE={clock:'Jam',alarm:'Alarm',timer:'Hitung mundur',stopwatch:'Stopwatch'};
   function setPanel(p){
     sec.dataset.panel=p;
+    var tt=$('jamTitle');
+    if(tt)tt.textContent=PTITLE[p]||'Jam';
+    if(sec.classList.contains('open'))document.title=(PTITLE[p]||'Jam')+' \u00b7 My Daily';
     Array.prototype.forEach.call(tabs.children,function(b){b.className=b.dataset.p===p?'on':''});
     Array.prototype.forEach.call(sec.querySelectorAll('.jpanel'),function(el){el.hidden=el.dataset.p!==p});
     if(p==='clock')tickClock();
