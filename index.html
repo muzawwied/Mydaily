@@ -1441,7 +1441,7 @@ body.prof-open.pm-open .nav{z-index:5}
   function uid(){return (Math.random().toString(36)+'000000').slice(2,9)}
   function pad(n){return n<10?'0'+n:''+n}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(K))}catch(e){}}
-  function rp(n){return 'Rp'+Math.round(+n||0).toLocaleString('id-ID')}
+  function rp(n){var v=Math.round(+n||0);return (v<0?'-':'')+'Rp'+Math.abs(v).toLocaleString('id-ID')}
   function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
   function gl(s){
     var t=todayStr();
