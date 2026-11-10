@@ -535,17 +535,17 @@ body.prof-open.pm-open .nav{z-index:5}
 .jwheel button{display:block;width:100%;height:50px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.5rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
 .jwheel button.on{color:#5B1FD0;transform:scale(1.06)}
 .jcu{display:block;text-align:center;font:700 .55rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A08FC9;padding-top:8px}
-.jpres{display:flex;gap:16px;overflow-x:auto;padding:2px 4px 12px;margin:16px -8px 0;scrollbar-width:none}
-.jpres::-webkit-scrollbar{display:none}
-.jpc{flex:0 0 auto;display:flex;align-items:center;gap:9px;padding:2px 0;border:0;border-radius:0;background:none;box-shadow:none;color:#4B3B63;text-align:left;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .2s,transform .2s}
-.jpc .jpci{display:grid;place-items:center;width:19px;height:19px;background:none;color:#9A8AB8}
-.jpci svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.jpct2{display:grid;gap:1px}
+.jpres{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:18px 0 0;padding:0}
+.jpc{display:grid;justify-items:center;gap:5px;padding:10px 4px;border:0;background:none;color:#4B3B63;text-align:center;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;transition:color .2s,transform .2s}
+.jpc .jpci{display:grid;place-items:center;width:20px;height:20px;background:none;color:#9A8AB8;transition:color .2s}
+.jpci svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.jpct2{display:grid;justify-items:center;gap:2px}
 .jpc b{font:700 .72rem 'Plus Jakarta Sans',sans-serif;color:inherit;white-space:nowrap}
 .jpc .jpct{font:700 .6rem 'Plus Jakarta Sans',sans-serif;font-style:normal;color:#A796C0;font-variant-numeric:tabular-nums}
 .jpc.on{color:#5B1FD0;transform:translateY(-1px)}
 .jpc.on .jpci{color:#7B2FF7}
 .jpc.on .jpct{color:#8B6FC4}
+.jpc:active{transform:scale(.96)}
 .jcirc.off{opacity:.42}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px}
 .jcirc{width:58px;height:58px;display:grid;place-items:center;border:0;border-radius:50%;background:#F7F2FF;color:#5B1FD0;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:0 12px 20px -14px rgba(60,20,140,.75),inset 0 1px 0 #fff;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
