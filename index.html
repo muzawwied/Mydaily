@@ -4043,7 +4043,7 @@ window.PROFIL=(function(){
         else{try{inp.select()}catch(e){}}
       });
       inp.addEventListener('input',function(){
-        txt=inp.value.replace(/[^0-9.,\-]/g,'');if(inp.value!==txt)inp.value=txt;
+        txt=inp.value.replace(/[^0-9.,\-]/g,'').replace(/^(-?)0+(?=\d)/,'$1');if(inp.value!==txt)inp.value=txt;
         var nb=parse(txt);
         Array.prototype.forEach.call(rowsEl.querySelectorAll('.un-v'),function(el,k){
           if(k===i)return;
