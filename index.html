@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My Daily</title>
+<style>html.rboot{background:#F4F0FA}html.rboot body{visibility:hidden}html,body{overscroll-behavior-y:contain}
+.cal,.mdl{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+</style>
+<script>document.documentElement.className+=" rboot";setTimeout(function(){document.documentElement.classList.remove("rboot")},1800);</script>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#6A2BDB">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -3016,6 +3020,7 @@ window.PROFIL=(function(){
   window.applyRoute=apply;
   window.addEventListener('popstate',function(e){idx=(e.state&&e.state.i)||0;apply(norm(location.pathname))});
   apply(norm(location.pathname));
+  requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('rboot')})});
 })();
 ;
 (function(){
