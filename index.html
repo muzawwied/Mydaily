@@ -748,6 +748,18 @@ body.prof-open.pm-open .nav{z-index:5}
 .kic{width:34px;height:34px;font-size:.9rem}
 .kt{font-size:.9rem;font-weight:600;color:#241542}
 .kn{font-size:.88rem;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ===== Kalkulator ===== */
+#kalk .cin{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+.klc{margin-top:6px;padding:20px 18px 16px;border:1px solid #F1E8FF;border-radius:24px;background:linear-gradient(160deg,#FFFFFF 0%,#FBF7FF 100%);box-shadow:0 18px 34px -28px rgba(60,20,140,.55);text-align:right}
+.klc-ex{min-height:22px;font:600 .95rem/1.4 'Plus Jakarta Sans',sans-serif;color:#8E82AB;word-break:break-all}
+.klc-res{margin-top:6px;font:800 2.1rem/1.15 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.03em;color:#241542;font-variant-numeric:tabular-nums;word-break:break-all}
+.klc-pad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.klc-pad button{height:60px;padding:0;border:1px solid #F1E8FF;border-radius:18px;background:#fff;color:#241542;font:700 1.16rem 'Plus Jakarta Sans',sans-serif;box-shadow:0 2px 8px rgba(60,20,140,.04);transition:transform .1s ease,background .15s ease;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.klc-pad button:active{transform:scale(.96);background:#F7F2FF}
+.klc-pad button.op{color:#7B2FF7;background:#F9F4FF;border-color:#EDE3FF;font-size:1.28rem}
+.klc-pad button.fn{color:#8E82AB;background:#FCFAFF;font-size:1.02rem}
+.klc-pad button.eq{color:#fff;background:linear-gradient(135deg,#7B2FF7 0%,#A45BFF 100%);border-color:transparent;box-shadow:0 12px 22px -14px rgba(91,31,208,.85);font-size:1.3rem}
 </style>
 </head>
 <body>
@@ -799,6 +811,7 @@ body.prof-open.pm-open .nav{z-index:5}
 <button class="item" id="openNote2" type="button"><span class="tile"><svg viewBox="128 28 134 160" aria-hidden="true"><defs><linearGradient id="gS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset="1" stop-color="#F7A81B"/></linearGradient></defs><ellipse cx="190" cy="178" rx="52" ry="7" fill="#000" opacity="0.12"/><path d="M156 38H210L240 68V150a16 16 0 0 1-16 16H156a16 16 0 0 1-16-16V54a16 16 0 0 1 16-16Z" fill="url(#gS)"/><path d="M210 38V54a14 14 0 0 0 14 14H240Z" fill="#FFF4C9"/><path d="M210 54a14 14 0 0 0 14 14H240" fill="none" stroke="#E79A12" stroke-width="2" opacity="0.35"/><rect x="156" y="82" width="50" height="8" rx="4" fill="#7B3FE9"/><rect x="156" y="104" width="38" height="8" rx="4" fill="#9B5CF0"/><rect x="156" y="126" width="24" height="8" rx="4" fill="#B98CF5"/><g transform="translate(224 136) rotate(45)"><path d="M-8 -30V-36a4 4 0 0 1 4-4H4a4 4 0 0 1 4 4V-30Z" fill="#F77FB0"/><rect x="-8" y="-30" width="16" height="7" fill="#DCCBFF"/><rect x="-8" y="-23" width="16" height="43" fill="#A66BFF"/><rect x="0" y="-23" width="8" height="43" fill="#8444E8"/><polygon points="-8,20 8,20 0,36" fill="#FFE0A8"/><polygon points="0,20 8,20 0,36" fill="#F2C880"/><polygon points="-3,30 3,30 0,36" fill="#4B2A9E"/></g></svg></span>Catatan</button>
 <button class="item" id="openKeu" type="button"><span class="tile"><svg viewBox="32 62 148 126" aria-hidden="true"><defs><linearGradient id="gB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C93E6"/><stop offset="1" stop-color="#245DB3"/></linearGradient><linearGradient id="gBt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6CAAF0"/><stop offset="1" stop-color="#4C93E6"/></linearGradient></defs><ellipse cx="100" cy="176" rx="54" ry="7" fill="#000" opacity="0.12"/><rect x="40" y="72" width="120" height="92" rx="12" fill="url(#gB1)"/><rect x="40" y="72" width="120" height="22" rx="12" fill="url(#gBt1)"/><rect x="40" y="84" width="120" height="10" fill="url(#gBt1)"/><rect x="50" y="104" width="44" height="4" rx="2" fill="#fff" opacity="0.28"/><rect x="122" y="108" width="50" height="34" rx="10" fill="#1D4A94"/><circle cx="140" cy="125" r="7" fill="#F7BE3E"/><circle cx="140" cy="125" r="3" fill="#D9961A"/></svg></span>Keuangan</button>
 <button class="item" id="openJam" type="button"><span class="tile"><svg viewBox="220 44 130 144" aria-hidden="true"><defs><linearGradient id="gP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="285" cy="176" rx="52" ry="7" fill="#000" opacity="0.12"/><circle cx="256" cy="58" r="10" fill="#8A4DF0"/><circle cx="314" cy="58" r="10" fill="#8A4DF0"/><circle cx="285" cy="110" r="58" fill="url(#gP)"/><circle cx="285" cy="110" r="45" fill="#F7F2FF"/><circle cx="285" cy="72" r="2.5" fill="#CDB6FA"/><circle cx="323" cy="110" r="2.5" fill="#CDB6FA"/><circle cx="285" cy="148" r="2.5" fill="#CDB6FA"/><circle cx="247" cy="110" r="2.5" fill="#CDB6FA"/><path d="M285 86V110l16 10" fill="none" stroke="#7B3FE9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="285" cy="110" r="5" fill="#7B3FE9"/></svg></span>Jam</button>
+<button class="item" id="openKalk" type="button"><span class="tile"><svg viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="gK" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="48" cy="88" rx="30" ry="4.5" fill="#2A0F66" opacity=".14"/><rect x="16" y="8" width="64" height="76" rx="14" fill="url(#gK)"/><rect x="25" y="17" width="46" height="17" rx="6" fill="#F7F2FF"/><g fill="#fff" opacity=".92"><rect x="23" y="40" width="11" height="11" rx="4"/><rect x="38" y="40" width="11" height="11" rx="4"/><rect x="53" y="40" width="11" height="11" rx="4"/><rect x="68" y="40" width="11" height="11" rx="4"/><rect x="23" y="54" width="11" height="11" rx="4"/><rect x="38" y="54" width="11" height="11" rx="4"/><rect x="53" y="54" width="11" height="11" rx="4"/><rect x="68" y="54" width="11" height="11" rx="4"/><rect x="23" y="68" width="11" height="9" rx="4"/><rect x="38" y="68" width="26" height="9" rx="4"/></g><rect x="68" y="68" width="11" height="9" rx="4" fill="#FFD66B"/></svg></span>Kalkulator</button>
 </div></div></div>
 
 <nav class="nav" aria-label="Navigasi bawah">
@@ -1212,6 +1225,44 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
   </div>
 </section>
+<section class="cal" id="kalk" aria-label="Kalkulator" aria-hidden="true">
+  <div class="chd"><div class="in">
+    <div class="crow">
+      <button class="ib" id="kalkBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <span class="ctl">Kalkulator</span>
+      <button class="ib mv" id="kalkMenu" type="button" aria-label="Menu kalkulator"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
+    </div>
+  </div></div>
+  <div class="csheet"><div class="cin">
+    <div class="klc">
+      <div class="klc-ex" id="kExpr">0</div>
+      <div class="klc-res" id="kRes">&nbsp;</div>
+    </div>
+    <div class="klc-pad" id="kPad">
+      <button type="button" class="fn" data-k="ac">AC</button>
+      <button type="button" class="fn" data-k="del">&#9003;</button>
+      <button type="button" class="fn" data-k="pct">%</button>
+      <button type="button" class="op" data-k="/">&divide;</button>
+      <button type="button" data-k="7">7</button>
+      <button type="button" data-k="8">8</button>
+      <button type="button" data-k="9">9</button>
+      <button type="button" class="op" data-k="*">&times;</button>
+      <button type="button" data-k="4">4</button>
+      <button type="button" data-k="5">5</button>
+      <button type="button" data-k="6">6</button>
+      <button type="button" class="op" data-k="-">&minus;</button>
+      <button type="button" data-k="1">1</button>
+      <button type="button" data-k="2">2</button>
+      <button type="button" data-k="3">3</button>
+      <button type="button" class="op" data-k="+">+</button>
+      <button type="button" class="fn" data-k="neg">&plusmn;</button>
+      <button type="button" data-k="0">0</button>
+      <button type="button" data-k=".">,</button>
+      <button type="button" class="eq" data-k="eq">=</button>
+    </div>
+  </div></div>
+</section>
+
 <section class="cal" id="prof" aria-label="Profil" aria-hidden="true">
   <button id="profBack" type="button" aria-hidden="true" tabindex="-1" style="display:none"></button>
   <header class="pf-bar" id="pfBar"><div class="in">
@@ -2965,6 +3016,153 @@ window.PROFIL=(function(){
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeAct()});
 })();
 ;
+
+/* Kalkulator: ekspresi aman tanpa eval, hasil langsung terlihat. */
+(function(){
+  var sec=document.getElementById('kalk');
+  if(!sec)return;
+  var $=function(i){return document.getElementById(i)};
+  var exEl=$('kExpr'),resEl=$('kRes'),pad=$('kPad');
+  var expr='',done=false;
+  var OPS={'+':1,'-':1,'*':1,'/':1};
+  function isOp(c){return !!OPS[c]}
+  function fmt(n){
+    if(!isFinite(n))return 'Tidak terdefinisi';
+    var neg=n<0;n=Math.abs(n);
+    var str=n.toFixed(8).replace(/0+$/,'').replace(/\.$/,'');
+    var pt=str.split('.'),ip=pt[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.'),dp=pt[1];
+    return (neg?'-':'')+ip+(dp?','+dp:'');
+  }
+  function ev(src){
+    var i=0,t=[],num='';
+    while(i<src.length){
+      var c=src.charAt(i);
+      if('0123456789.'.indexOf(c)>=0){num+=c;i++;continue}
+      if(c==='%'){
+        if(num!==''){num=String(parseFloat(num)/100)}
+        else if(t.length&&typeof t[t.length-1]==='number'){t[t.length-1]=t[t.length-1]/100}
+        i++;continue;
+      }
+      if(isOp(c)){
+        if(num!==''&&num!=='-'){t.push(parseFloat(num));num=''}
+        else if(num==='-'&&c==='-'){num='';continue}
+        if(!t.length||typeof t[t.length-1]==='string'){if(c==='-'){num='-';i++;continue}if(!t.length)return NaN}
+        if(typeof t[t.length-1]==='string')t[t.length-1]=c;
+        else t.push(c);
+        i++;continue;
+      }
+      i++;
+    }
+    if(num!==''&&num!=='-')t.push(parseFloat(num));
+    if(!t.length)return NaN;
+    if(typeof t[t.length-1]==='string')t.pop();
+    var st=[t[0]];
+    for(var j=1;j<t.length;j+=2){
+      var o=t[j],v=t[j+1];
+      if(o==='*')st[st.length-1]*=v;
+      else if(o==='/')st[st.length-1]/=v;
+      else if(o==='-')st.push(-v);
+      else st.push(v);
+    }
+    var out=st[0];
+    for(var m=1;m<st.length;m++)out+=st[m];
+    return out;
+  }
+  function show(){
+    var disp=expr.replace(/\*/g,'\u00d7').replace(/\//g,'\u00f7').replace(/-/g,'\u2212').replace(/\./g,',');
+    exEl.textContent=disp||'0';
+    if(done){resEl.innerHTML='&nbsp;';return}
+    if(!/[+\-*/]/.test(expr)){resEl.innerHTML='&nbsp;';return}
+    var v=ev(expr);
+    resEl.textContent=isFinite(v)?'= '+fmt(v):'';
+  }
+  function key(k){
+    if(k==='ac'){expr='';done=false;show();return}
+    if(k==='del'){if(done){expr='';done=false}else expr=expr.slice(0,-1);show();return}
+    if(k==='eq'){
+      if(!expr||isOp(expr.charAt(expr.length-1)))return;
+      var v=ev(expr);
+      exEl.textContent=expr.replace(/\*/g,'\u00d7').replace(/\//g,'\u00f7').replace(/-/g,'\u2212').replace(/\./g,',')+' =';
+      resEl.textContent=fmt(v);
+      if(isFinite(v)){expr=String(+v.toFixed(10));done=true}
+      else{done=true;expr=''}
+      return;
+    }
+    if(k==='pct'){
+      var pm=expr.match(/(\d*\.?\d+)$/);
+      if(!pm)return;
+      var num=parseFloat(pm[1])/100;
+      expr=expr.slice(0,expr.length-pm[1].length)+String(num);
+      show();return;
+    }
+    if(k==='neg'){
+      var nm=expr.match(/(\d*\.?\d+)$/);
+      if(!nm)return;
+      var val=parseFloat(nm[1]);
+      var rep=String(-val);
+      if(nm[1].indexOf('.')<0)rep=String(-val);
+      expr=expr.slice(0,expr.length-nm[1].length)+(val===0?'-0':rep);
+      show();return;
+    }
+    if(done){expr='';done=false}
+    if(isOp(k)){
+      if(!expr){if(k==='-')expr='-';show();return}
+      if(isOp(expr.charAt(expr.length-1)))expr=expr.slice(0,-1);
+      if(expr==='-'&&k!=='-'){expr='';show();return}
+      expr+=k;show();return;
+    }
+    if(k==='.'){
+      var tail=expr.match(/(\d*\.?\d*)$/)[0];
+      if(tail.indexOf('.')>=0)return;
+      if(!tail)expr+='0';
+      expr+='.';show();return;
+    }
+    expr+=k;show();
+  }
+  pad.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('button[data-k]');
+    if(!b)return;
+    if(navigator.vibrate)try{navigator.vibrate(8)}catch(x){}
+    key(b.dataset.k);
+  });
+  document.addEventListener('keydown',function(e){
+    if(!sec.classList.contains('open'))return;
+    var k=e.key;
+    if(/^[0-9]$/.test(k)||k==='.'||k==='+'||k==='-'||k==='*'||k==='/'){key(k);e.preventDefault()}
+    else if(k==='Enter'||k==='='){key('eq');e.preventDefault()}
+    else if(k==='Backspace'){key('del');e.preventDefault()}
+    else if(k==='Escape'){key('ac')}
+  });
+  $('openKalk').addEventListener('click',function(){
+    if(sec.classList.contains('open'))return;
+    ['keu','feed','chat','prof','cal','task','note','jam'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el||!el.classList.contains('open'))return;
+      var back=document.getElementById(id+'Back');
+      if(back)back.click();
+    });
+    sec.classList.add('open');sec.setAttribute('aria-hidden','false');sec.scrollTop=0;
+    document.body.style.overflow='hidden';
+  });
+  $('kalkBack').addEventListener('click',function(){
+    sec.classList.remove('open');sec.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    var nb=document.querySelectorAll('.nav .nb');
+    Array.prototype.forEach.call(nb,function(x){x.classList.remove('on')});
+    if(nb[0])nb[0].classList.add('on');
+  });
+  $('kalkMenu').addEventListener('click',function(){
+    window.popMenu(this,[
+      {l:'Salin hasil',f:function(){
+        var t=resEl.textContent.replace('= ','').trim()||exEl.textContent;
+        if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){if(window.toast)toast('Hasil disalin')},function(){})}
+      }},
+      {l:'Bersihkan',f:function(){expr='';done=false;show()}}
+    ]);
+  });
+  show();
+})();
+
 /* Router: path bersih (History API), tanpa hash.
    /  /kalender  /kalender/agenda/baru
    /tugas  /tugas/belum  /tugas/selesai  /tugas/baru  /tugas/:id
@@ -2972,8 +3170,8 @@ window.PROFIL=(function(){
 (function(){
   if(!/^https?:$/.test(location.protocol)||!window.history||!history.pushState)return;
   var $=function(i){return document.getElementById(i)};
-  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ja=$('jAModal'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs');
-  var TITLE='My Daily',NAMES={kalender:'Kalender',tugas:'Tugas',catatan:'Catatan',keuangan:'Keuangan',jam:'Jam',chat:'Clara',feed:'Feed',profil:'Profil'};
+  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ja=$('jAModal'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs'),kalk=$('kalk');
+  var TITLE='My Daily',NAMES={kalender:'Kalender',tugas:'Tugas',catatan:'Catatan',keuangan:'Keuangan',jam:'Jam',chat:'Clara',kalkulator:'Kalkulator',feed:'Feed',profil:'Profil'};
   var FIL={'/tugas':1,'/tugas/belum':1,'/tugas/selesai':1};
   var busy=false,cur='/',idx=0,stack=[];
   function isOpen(e){return e.classList.contains('open')}
@@ -2988,6 +3186,7 @@ window.PROFIL=(function(){
     if(isOpen(prof))return '/profil';
     if(isOpen(keu))return km.hidden?'/keuangan':'/keuangan/baru';
     if(isOpen(jam))return ja.hidden?'/jam':'/jam/alarm/baru';
+    if(isOpen(kalk))return '/kalkulator';
     if(isOpen(chat))return '/chat';
     if(isOpen(note))return nm.hidden?'/catatan':'/catatan/'+(nm.dataset.eid||'baru');
     if(isOpen(task)){
@@ -3003,6 +3202,7 @@ window.PROFIL=(function(){
     try{
       var seg=path.split('/').filter(Boolean),pg=seg[0],sub=seg.slice(1).join('/');
       if(pg!=='jam'&&isOpen(jam))click($('jamBack'));
+      if(pg!=='kalkulator'&&isOpen(kalk))click($('kalkBack'));
       if(pg!=='keuangan'&&isOpen(keu)){if(!km.hidden)click($('kNo'));click($('keuBack'))}
       if(pg!=='feed'&&isOpen(feed))click($('feedBack'));
       if(pg!=='profil'&&isOpen(prof))click($('profBack'));
@@ -3048,6 +3248,7 @@ window.PROFIL=(function(){
         if(sub==='baru'){if(km.hidden)click($('addKeu'))}
         else if(!km.hidden)click($('kNo'));
       }
+      if(pg==='kalkulator'&&!isOpen(kalk))click($('openKalk'));
       if(pg==='feed'&&!isOpen(feed))click($('openFeed'));
       if(pg==='profil'&&!isOpen(prof))click($('openProf'));
       if(pg==='chat'&&!isOpen(chat))click($('openChat'));
@@ -3068,7 +3269,7 @@ window.PROFIL=(function(){
     }catch(e){}
   }
   var mo=new MutationObserver(function(){if(busy)return;var d=st();if(d!==cur)navigate(d)});
-  [cal,task,note,keu,jam,ja,chat,feed,prof,ag,tm,nm,km].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
+  [cal,task,note,keu,jam,ja,chat,feed,prof,ag,tm,nm,km,kalk].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
   mo.observe(tabs,{attributes:true,attributeFilter:['class'],subtree:true});
   window.applyRoute=apply;
   window.addEventListener('popstate',function(e){idx=(e.state&&e.state.i)||0;apply(norm(location.pathname))});
