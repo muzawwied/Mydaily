@@ -507,6 +507,8 @@ body.prof-open.pm-open .nav{z-index:5}
 .jrow{display:grid;grid-template-columns:66px minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:#FAF7FF;margin-bottom:8px;cursor:pointer;transition:background .15s,transform .12s}
 .jrow:active{background:#F3ECFF;transform:scale(.996)}
 .jrow.mati{background:#F7F4FB}
+.jrow.demo{background:#F8F5FD;box-shadow:inset 0 0 0 1px rgba(123,47,247,.10)}
+.jrow.demo .km2{color:#AC9EC6}
 .jrow.mati .jrow-t,.jrow.mati .kt{color:#BCB1D0;filter:blur(.5px)}
 .jrow.mati .km2{color:#C9C0DA}
 .jrow.mati .jsw{background:#E6DFF2}
@@ -580,6 +582,56 @@ body.prof-open.pm-open .nav{z-index:5}
 .jadays button.on{background:#7B2FF7;color:#fff}
 .jarow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px;padding:14px 16px;border-radius:16px;background:#FAF7FF;font:600 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
 .japrev{margin-top:16px;padding:13px 16px;border-radius:14px;background:#F1E8FF;color:#5B1FD0;font:600 .8rem 'Plus Jakarta Sans',sans-serif;text-align:center}
+/* ===== Form alarm rapi + pop-up pilih jam ===== */
+.jafm{padding-top:6px}
+.jabig{display:flex;flex-direction:column;align-items:center;gap:7px;width:100%;padding:22px 18px 18px;border:0;border-radius:24px;background:linear-gradient(158deg,#F9F4FF 0%,#EEE3FF 100%);color:var(--ink);cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 #fff,0 14px 30px -26px rgba(60,20,140,.6);transition:transform .12s}
+.jabig:active{transform:scale(.986)}
+.jabig span{font:800 2.7rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.jabig.blank span{color:#BDB2D2}
+.jabig small{font:600 .72rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#9A8FB5}
+.jacard{margin-top:14px;padding:14px 16px 15px;border-radius:18px;background:#FAF7FF}
+.jacap{display:block;margin-bottom:9px;font:700 .68rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#A294BD}
+.jacard .jatext{background:#fff;box-shadow:inset 0 0 0 1px rgba(123,47,247,.10)}
+.jacard.jarow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;font:600 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.japrev{margin-top:16px;padding:13px 16px;border-radius:16px;background:#F1E8FF;color:#5B1FD0;font:600 .8rem 'Plus Jakarta Sans',sans-serif;text-align:center;line-height:1.45}
+.jpick{position:fixed;inset:0;z-index:95;display:grid;align-items:end;background:rgba(20,8,50,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.jpick[hidden]{display:none}
+.jpick-sheet{width:100%;max-width:640px;margin:0 auto;background:#fff;border-radius:28px 28px 0 0;padding:6px 18px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -20px 46px rgba(20,8,50,.28);animation:jUp .26s cubic-bezier(.2,.85,.3,1)}
+.jpick-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 2px 4px}
+.jpick-hd button{padding:8px 10px;border:0;border-radius:999px;background:none;font:700 .84rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;outline:none}
+#jPickNo{color:#8E82AB}
+#jPickOk{color:#5B1FD0;background:#F3ECFF}
+.jpick-t{font:700 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.jpick-pre{margin:6px 0 10px;text-align:center;font:800 1.9rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#5B1FD0;font-variant-numeric:tabular-nums}
+.jpick-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.jpick-col{min-width:0}
+.jpick-cap{margin-bottom:7px;text-align:center;font:700 .64rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#A294BD}
+.jpick-wrap{position:relative}
+.jpick-band{position:absolute;left:4px;right:4px;top:50%;height:44px;margin-top:-22px;border-radius:14px;background:#F3ECFF;pointer-events:none}
+.jpick-list{position:relative;height:216px;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:86px 0;box-sizing:content-box}
+.jpick-list::-webkit-scrollbar{display:none}
+.jpick-list button{display:block;width:100%;height:44px;border:0;border-radius:14px;background:none;color:#BDB2D2;font:700 1.06rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;outline:none;scroll-snap-align:center;transition:color .15s,transform .15s}
+.jpick-list button.on{color:#5B1FD0;transform:scale(1.08)}
+@keyframes jUp{from{transform:translateY(26px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* ===== Dial hitung mundur & stopwatch ===== */
+.jdial{position:relative;width:min(70vw,252px);aspect-ratio:1;margin:16px auto 2px;display:grid;place-items:center}
+.jdial::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,#7B2FF7,#C77DFF,#F6A5D6,#FFB9A8,#7B2FF7);filter:blur(17px);opacity:.3;animation:jspin 14s linear infinite}
+.jdial::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 26%,#FFFFFF 0%,#FCF9FF 46%,#F1E8FF 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -14px 24px -20px rgba(91,31,208,.4),0 22px 42px -28px rgba(60,20,140,.55)}
+.jdials{position:absolute;inset:4%;z-index:2;transform:rotate(-90deg)}
+.jdials circle{fill:none;stroke-width:5}
+.jdials .tr{stroke:rgba(123,47,247,.10)}
+.jdials .pr{stroke-linecap:round;transition:stroke-dashoffset .18s linear}
+.jin2{position:relative;z-index:3;text-align:center;padding:0 14px}
+.jbig2{font:800 2.25rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.035em;font-variant-numeric:tabular-nums;color:var(--ink);text-shadow:0 8px 18px rgba(60,20,140,.16)}
+.jms{font:800 1.15rem/1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#A08FC9;margin-left:1px}
+.jsub2{margin-top:8px;font:700 .62rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#A08FC9}
+.jpanel[data-p="timer"] .jbtns,.jpanel[data-p="stopwatch"] .jbtns{margin-top:18px}
+.jpanel[data-p="timer"] .jchips{margin-top:16px}
+#jLaps{margin-top:20px;display:grid;gap:8px}
+.jlap{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:16px;background:#FAF7FF}
+.jlap b{flex:none;width:26px;height:26px;border-radius:50%;background:#F1E8FF;color:#5B1FD0;display:grid;place-items:center;font:800 .7rem 'Plus Jakarta Sans',sans-serif}
+.jlap .t{margin-left:auto;font:700 .92rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);font-variant-numeric:tabular-nums}
+.jlap .d{min-width:54px;text-align:right;font:600 .72rem 'Plus Jakarta Sans',sans-serif;color:#A294BD;font-variant-numeric:tabular-nums}
 /* ===== Chat: layar putih, input pil, aksi pesan ===== */
 #chat,#chat .csheet{background:#fff;color:#1E1433}
 #chat{scrollbar-width:none;-ms-overflow-style:none}
@@ -947,7 +999,7 @@ body.prof-open.pm-open .nav{z-index:5}
   <div class="chd"><div class="in">
     <div class="crow">
       <button class="ib" id="jamBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <span class="ctl">Jam</span>
+      <span class="ctl" id="jamTitle">Jam</span>
       <span class="hr">
       <button class="ib" id="jamAdd" type="button" aria-label="Alarm baru"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
       <button class="ib mv" id="jamMenu" type="button" aria-label="Menu jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
@@ -987,7 +1039,13 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="timer" hidden>
-      <div class="jbig" id="jTimer">00:00</div>
+      <div class="jdial">
+        <svg class="jdials" viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="88"/><circle class="pr" id="jTimerArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/></svg>
+        <div class="jin2">
+          <div class="jbig2" id="jTimer">00:00</div>
+          <div class="jsub2" id="jTimerState">Pilih durasi</div>
+        </div>
+      </div>
       <div class="jchips" id="jPresets">
         <button type="button" data-m="1">1 menit</button>
         <button type="button" data-m="3">3 menit</button>
@@ -1003,7 +1061,13 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
 
     <div class="jpanel" data-p="stopwatch" hidden>
-      <div class="jbig" id="jSw">00:00.0</div>
+      <div class="jdial">
+        <svg class="jdials" viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="88"/><circle class="pr" id="jSwArc" cx="100" cy="100" r="88" stroke="url(#jArcG)"/></svg>
+        <div class="jin2">
+          <div class="jbig2"><span id="jSw">00:00</span><span class="jms" id="jSwMs">.0</span></div>
+          <div class="jsub2" id="jSwState">Siap</div>
+        </div>
+      </div>
       <div class="jbtns">
         <button class="jbtn main" id="jSwToggle" type="button">Mulai</button>
         <button class="jbtn ghost" id="jSwReset" type="button">Reset</button>
@@ -1014,7 +1078,7 @@ body.prof-open.pm-open .nav{z-index:5}
   </div></div>
   <nav class="jbar" id="jTabs" aria-label="Pilihan jam">
     <button type="button" data-p="clock" class="on" aria-label="Jam"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Jam</span></button>
-    <button type="button" data-p="alarm" aria-label="Alarm"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 17a5.5 5.5 0 0 1 11 0"/><path d="M4.5 17h15"/><path d="M12 11.5V8"/><path d="M4.8 6.2l1.9-1.5M19.2 6.2l-1.9-1.5"/><path d="M9.5 20.2h5"/></svg><span>Alarm</span></button>
+    <button type="button" data-p="alarm" aria-label="Alarm"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 9.8v3.4l2.4 1.5"/><path d="M5.4 7.6L3.9 6M18.6 7.6L20.1 6"/><path d="M6.6 18.6l-1.2 1.6M17.4 18.6l1.2 1.6"/></svg><span>Alarm</span></button>
     <button type="button" data-p="timer" aria-label="Hitung mundur"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6"/><path d="M12 3v2.2"/><path d="M18.4 8.6a7.5 7.5 0 1 1-12.8 0"/><path d="M12 12l3.2-2"/></svg><span>Hitung</span></button>
     <button type="button" data-p="stopwatch" aria-label="Stopwatch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13.5" r="6.8"/><path d="M12 10.5v3.2l2 1.6"/><path d="M9.5 3h5"/><path d="M12 3v1.6"/><path d="M18.6 8.2l1.2-1.2"/></svg><span>Stopwatch</span></button>
   </nav>
@@ -1024,25 +1088,51 @@ body.prof-open.pm-open .nav{z-index:5}
       <span class="ctl" id="jaTitle">Alarm baru</span>
       <button class="hsv" id="jaSave" type="submit" form="jaForm" disabled>Simpan</button>
     </div>
-    <form class="mbox" id="jaForm">
-      <div class="klbl">Waktu alarm</div>
-      <input class="jatime" id="jaTime" type="time" aria-label="Waktu alarm">
-      <div class="klbl">Nama alarm</div>
-      <input class="jatext" id="jaName" type="text" maxlength="30" placeholder="Misal: Bangun pagi" autocomplete="off" aria-label="Nama alarm">
-      <div class="klbl">Ulangi</div>
-      <div class="jadays" id="jaDays">
-        <button type="button" data-d="all" class="on">Setiap hari</button>
-        <button type="button" data-d="1">Sen</button>
-        <button type="button" data-d="2">Sel</button>
-        <button type="button" data-d="3">Rab</button>
-        <button type="button" data-d="4">Kam</button>
-        <button type="button" data-d="5">Jum</button>
-        <button type="button" data-d="6">Sab</button>
-        <button type="button" data-d="0">Min</button>
+    <form class="mbox jafm" id="jaForm">
+      <button class="jabig blank" id="jaTime" type="button" aria-label="Pilih waktu alarm">
+        <span id="jaTimeV">--:--</span>
+        <small>Ketuk untuk memilih jam</small>
+      </button>
+      <div class="jacard">
+        <label class="jacap" for="jaName">Nama alarm</label>
+        <input class="jatext" id="jaName" type="text" maxlength="30" placeholder="Misal: Bangun pagi" autocomplete="off" aria-label="Nama alarm">
       </div>
-      <div class="jarow"><span>Getar saat berbunyi</span><button type="button" class="jsw on" id="jaVib" aria-label="Getar saat berbunyi"></button></div>
+      <div class="jacard">
+        <div class="jacap">Ulangi</div>
+        <div class="jadays" id="jaDays">
+          <button type="button" data-d="all" class="on">Setiap hari</button>
+          <button type="button" data-d="1">Sen</button>
+          <button type="button" data-d="2">Sel</button>
+          <button type="button" data-d="3">Rab</button>
+          <button type="button" data-d="4">Kam</button>
+          <button type="button" data-d="5">Jum</button>
+          <button type="button" data-d="6">Sab</button>
+          <button type="button" data-d="0">Min</button>
+        </div>
+      </div>
+      <div class="jacard jarow"><span>Getar saat berbunyi</span><button type="button" class="jsw on" id="jaVib" aria-label="Getar saat berbunyi"></button></div>
       <div class="japrev" id="jaPrev">Pilih jam dulu</div>
     </form>
+  </div>
+  <div class="jpick" id="jPick" hidden>
+    <div class="jpick-sheet">
+      <div class="jpick-hd">
+        <button type="button" id="jPickNo">Batal</button>
+        <span class="jpick-t">Pilih waktu</span>
+        <button type="button" id="jPickOk">Selesai</button>
+      </div>
+      <div class="jpick-pre" id="jPickPre">--:--</div>
+      <div class="jpick-cols">
+        <div class="jpick-col">
+          <div class="jpick-cap">Jam</div>
+          <div class="jpick-wrap"><div class="jpick-band"></div><div class="jpick-list" id="jPickH"></div></div>
+        </div>
+        <div class="jpick-col">
+          <div class="jpick-cap">Menit</div>
+          <div class="jpick-wrap"><div class="jpick-band"></div><div class="jpick-list" id="jPickM"></div></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="toast" id="jToast" hidden role="status"><span id="jMsg"></span><button type="button" id="jUndo">Urungkan</button></div>
   <div class="jring" id="jRing" hidden>
@@ -1302,8 +1392,12 @@ body.prof-open.pm-open .nav{z-index:5}
   $('jRingStop').addEventListener('click',function(){$('jRing').hidden=true;clearInterval(ringTimer)});
   // ---- panel
   var tabs=$('jTabs');
+  var PTITLE={clock:'Jam',alarm:'Alarm',timer:'Hitung mundur',stopwatch:'Stopwatch'};
   function setPanel(p){
     sec.dataset.panel=p;
+    var tt=$('jamTitle');
+    if(tt)tt.textContent=PTITLE[p]||'Jam';
+    if(sec.classList.contains('open'))document.title=(PTITLE[p]||'Jam')+' \u00b7 My Daily';
     Array.prototype.forEach.call(tabs.children,function(b){b.className=b.dataset.p===p?'on':''});
     Array.prototype.forEach.call(sec.querySelectorAll('.jpanel'),function(el){el.hidden=el.dataset.p!==p});
     if(p==='clock')tickClock();
@@ -1350,12 +1444,27 @@ body.prof-open.pm-open .nav{z-index:5}
       row.appendChild(sw);
       list.appendChild(row);
     });
-    $('jAlarmEmpty').hidden=A.length>0;
+    if(!A.length){
+      var dm=document.createElement('div');dm.className='jrow mati demo';dm.dataset.demo='1';
+      var dt=document.createElement('div');dt.className='jrow-t';dt.textContent='07.00';dm.appendChild(dt);
+      var db=document.createElement('div');db.style.minWidth='0';
+      var dl=document.createElement('div');dl.className='kt';dl.textContent='Contoh alarm';db.appendChild(dl);
+      var ds=document.createElement('div');ds.className='km2';ds.textContent='Ketuk untuk membuat alarm pertamamu';db.appendChild(ds);
+      dm.appendChild(db);
+      var dsw=document.createElement('button');dsw.type='button';dsw.className='jsw';dsw.setAttribute('aria-label','Contoh alarm');
+      dm.appendChild(dsw);
+      list.appendChild(dm);
+    }
+    $('jAlarmEmpty').hidden=true;
     updateNext();
   }
   $('jAlarmList').addEventListener('click',function(e){
     var row=e.target.closest?e.target.closest('.jrow'):null;
     if(!row)return;
+    if(row.dataset.demo){
+      openForm(null);setTime('07:00');
+      return;
+    }
     var a=findA(row.dataset.id);
     if(!a)return;
     if(e.target.closest('.jsw')){
@@ -1386,18 +1495,18 @@ function updateNext(){
     el.textContent='Alarm berikutnya '+(best.l?best.l+' \u00b7 ':'')+pad(d.getHours())+'.'+pad(d.getMinutes())+(d.getDate()!==new Date().getDate()?' besok':'');
   }
   var ja=$('jAModal'),jaTime=$('jaTime'),jaName=$('jaName'),jaDays=$('jaDays'),jaVib=$('jaVib'),jaSave=$('jaSave'),jaTitle=$('jaTitle'),jaPrev=$('jaPrev');
-  var editA=null,daysSel=[];
+  var editA=null,daysSel=[],formTime='';
   function paintDays(){
     Array.prototype.forEach.call(jaDays.children,function(b){
       var d=b.dataset.d;
       b.className=d==='all'?(daysSel.length?'':'on'):(daysSel.indexOf(+d)>=0?'on':'');
     });
-    jaSave.disabled=!/^\d{2}:\d{2}$/.test(jaTime.value);
+    jaSave.disabled=!/^\d{2}:\d{2}$/.test(formTime);
     previewA();
   }
   function previewA(){
-    if(!/^\d{2}:\d{2}$/.test(jaTime.value)){jaPrev.textContent='Pilih jam dulu';return}
-    var d=new Date(nextAt({t:jaTime.value,days:daysSel.slice()}));
+    if(!/^\d{2}:\d{2}$/.test(formTime)){jaPrev.textContent='Pilih jam dulu';return}
+    var d=new Date(nextAt({t:formTime,days:daysSel.slice()}));
     var now=new Date();
     var same=d.toDateString()===now.toDateString();
     var msg='Berbunyi '+(same?'hari ini':DN[d.getDay()]+', '+d.getDate()+' '+MN[d.getMonth()]);
@@ -1417,26 +1526,73 @@ function updateNext(){
     }
     paintDays();
   });
-  jaTime.addEventListener('input',paintDays);
-  jaTime.addEventListener('change',paintDays);
+  function setTime(v){
+    formTime=/^\d{2}:\d{2}$/.test(v)?v:'';
+    var el=$('jaTimeV'),btn=$('jaTime');
+    el.textContent=formTime?formTime:'--:--';
+    btn.className='jabig'+(formTime?'':' blank');
+    paintDays();
+  }
+  var jp=$('jPick'),jpH=$('jPickH'),jPM=$('jPickM'),jpPre=$('jPickPre');
+  var selH=7,selM=0;
+  function buildPick(){
+    if(jpH.children.length)return;
+    for(var h=0;h<24;h++){
+      (function(v){
+        var b=document.createElement('button');b.type='button';b.dataset.v=v;b.textContent=pad(v);
+        b.addEventListener('click',function(){selH=v;paintPick()});
+        jpH.appendChild(b);
+      })(h);
+    }
+    for(var m=0;m<60;m++){
+      (function(v){
+        var b=document.createElement('button');b.type='button';b.dataset.v=v;b.textContent=pad(v);
+        b.addEventListener('click',function(){selM=v;paintPick()});
+        jPM.appendChild(b);
+      })(m);
+    }
+  }
+  function paintPick(){
+    Array.prototype.forEach.call(jpH.children,function(b){b.className=+b.dataset.v===selH?'on':''});
+    Array.prototype.forEach.call(jPM.children,function(b){b.className=+b.dataset.v===selM?'on':''});
+    jpPre.textContent=pad(selH)+':'+pad(selM);
+  }
+  function centerPick(){
+    var hb=jpH.querySelector('[data-v="'+selH+'"]'),mb=jPM.querySelector('[data-v="'+selM+'"]');
+    if(hb)jpH.scrollTop=hb.offsetTop-(jpH.clientHeight-44)/2;
+    if(mb)jPM.scrollTop=mb.offsetTop-(jPM.clientHeight-44)/2;
+  }
+  function openPick(){
+    buildPick();
+    var p=(formTime||'07:00').split(':');
+    selH=+p[0];selM=+p[1];
+    paintPick();
+    jp.hidden=false;
+    setTimeout(centerPick,40);
+  }
+  function closePick(){jp.hidden=true}
+  $('jaTime').addEventListener('click',openPick);
+  $('jPickNo').addEventListener('click',closePick);
+  $('jPickOk').addEventListener('click',function(){setTime(pad(selH)+':'+pad(selM));closePick()});
+  jp.addEventListener('click',function(e){if(e.target===jp)closePick()});
   jaVib.addEventListener('click',function(){jaVib.classList.toggle('on')});
   function openForm(item){
     editA=item||null;
     jaTitle.textContent=item?'Ubah alarm':'Alarm baru';
-    jaTime.value=item?String(item.t):'';
+    setTime(item?String(item.t):'');
     jaName.value=item?(item.l||''):'';
     daysSel=item?alarmDays(item).slice():[];
     jaVib.classList.toggle('on',item?(item.v!==false):true);
     paintDays();
     ja.hidden=false;document.body.classList.add('ja-open');
-    if(!item)setTimeout(function(){try{jaTime.focus()}catch(e){}},140);
+    if(!item)setTimeout(function(){try{$('jaTime').focus()}catch(e){}},120);
   }
   function closeForm(){
     ja.hidden=true;document.body.classList.remove('ja-open');
     if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
   }
   function saveForm(){
-    var t=jaTime.value;
+    var t=formTime;
     if(!/^\d{2}:\d{2}$/.test(t)){toast('Pilih jam alarm dulu');return}
     var l=jaName.value.trim().slice(0,30);
     var vib=jaVib.classList.contains('on');
@@ -1502,11 +1658,20 @@ function updateNext(){
     updateNext();
   }
   // ---- hitung mundur
-  var tEnd=0,tLeftMs=0,tRun=false,tInt=null;
+  var tEnd=0,tLeftMs=0,tTotal=0,tRun=false,tInt=null;
   function tShow(ms){
     ms=Math.max(0,ms);
     var s=Math.ceil(ms/1000);
     $('jTimer').textContent=pad(Math.floor(s/60))+':'+pad(s%60);
+    var arc=$('jTimerArc');
+    if(arc){
+      var C=2*Math.PI*88;
+      arc.style.strokeDasharray=C.toFixed(1);
+      var ratio=tTotal>0?Math.min(1,ms/tTotal):0;
+      arc.style.strokeDashoffset=(C*(1-ratio)).toFixed(1);
+    }
+    var st=$('jTimerState');
+    if(st)st.textContent=ms<=0?(tTotal?'Selesai':'Pilih durasi'):(tRun?'Berjalan':'Jeda');
   }
   function tStop(){
     tRun=false;clearInterval(tInt);tInt=null;
@@ -1530,12 +1695,12 @@ function updateNext(){
     },200);
   }
   $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
-  $('jTimerReset').addEventListener('click',function(){tStop();tLeftMs=0;tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()});
+  $('jTimerReset').addEventListener('click',function(){tStop();tLeftMs=0;tTotal=0;tShow(0);$('jTimerToggle').textContent='Mulai';clearChips()});
   Array.prototype.forEach.call($('jPresets').children,function(b){
     b.addEventListener('click',function(){
       var m=+b.dataset.m||0;
       Array.prototype.forEach.call($('jPresets').children,function(x){x.className=x===b?'on':''});
-      tStop();tLeftMs=m*60000;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
+      tStop();tLeftMs=m*60000;tTotal=tLeftMs;tShow(tLeftMs);$('jTimerToggle').textContent='Mulai';
     });
   });
   function clearChips(){Array.prototype.forEach.call($('jPresets').children,function(x){x.className=''})}
@@ -1544,7 +1709,17 @@ function updateNext(){
   function swVal(){return swAcc+(swRun?Date.now()-swStart:0)}
   function swShow(){
     var v=swVal(),m=Math.floor(v/60000),sec=Math.floor(v/1000)%60,ds=Math.floor(v%1000/100);
-    $('jSw').textContent=pad(m)+':'+pad(sec)+'.'+ds;
+    $('jSw').textContent=pad(m)+':'+pad(sec);
+    var ms=$('jSwMs');
+    if(ms)ms.textContent='.'+ds;
+    var arc=$('jSwArc');
+    if(arc){
+      var C=2*Math.PI*88;
+      arc.style.strokeDasharray=C.toFixed(1);
+      arc.style.strokeDashoffset=(C*(1-(v%60000)/60000)).toFixed(1);
+    }
+    var st=$('jSwState');
+    if(st)st.textContent=v<=0?'Siap':(swRun?'Berjalan':'Jeda');
   }
   function swStop(){swAcc=swVal();swRun=false;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai'}
   function swGo(){swRun=true;swStart=Date.now();$('jSwToggle').textContent='Jeda';clearInterval(swInt);swInt=setInterval(swShow,100)}
@@ -1558,12 +1733,16 @@ function updateNext(){
     laps.unshift(swVal());
     var box=$('jLaps');box.innerHTML='';
     laps.slice(0,30).forEach(function(v,i){
+      var prev=i<laps.length-1?laps[i+1]:0;
       var d=document.createElement('div');d.className='jlap';
-      var a=document.createElement('span');a.textContent='Catatan '+(laps.length-i);
-      var b=document.createElement('span');
+      var n=document.createElement('b');n.textContent=String(laps.length-i);
+      var t=document.createElement('span');t.className='t';
       var m=Math.floor(v/60000),sec=Math.floor(v/1000)%60,ds=Math.floor(v%1000/100);
-      b.textContent=pad(m)+':'+pad(sec)+'.'+ds;
-      d.appendChild(a);d.appendChild(b);box.appendChild(d);
+      t.textContent=pad(m)+':'+pad(sec)+'.'+ds;
+      var dl=document.createElement('span');dl.className='d';
+      var delta=v-prev,dm=Math.floor(delta/60000),dsec=Math.floor(delta/1000)%60;
+      dl.textContent='+'+(dm?dm+'m ':'')+(dsec%60)+'s';
+      d.appendChild(n);d.appendChild(t);d.appendChild(dl);box.appendChild(d);
     });
   });
   // ---- buka / tutup halaman
