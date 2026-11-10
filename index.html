@@ -1341,9 +1341,10 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
     <div class="mhead"><span>Daftar lagu</span><b id="mCount">0 lagu</b></div>
     <div id="mList"></div>
-    <div class="mempty" id="mEmpty"><svg viewBox="110 38 160 150" aria-hidden="true"><defs><linearGradient id="gMev" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B33B8"/><stop offset="1" stop-color="#1F0F4F"/></linearGradient><linearGradient id="gMesl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DFF8"/></linearGradient></defs><ellipse cx="190" cy="178" rx="62" ry="7" fill="#000" opacity="0.12"/><g transform="translate(9 0)"><circle cx="196" cy="104" r="50" fill="url(#gMev)"/><circle cx="196" cy="104" r="40" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><circle cx="196" cy="104" r="31" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><path d="M196 62A42 42 0 0 1 238 104" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.28"/><rect x="116" y="48" width="96" height="112" rx="18" fill="url(#gMesl)"/><ellipse cx="156" cy="122" rx="11" ry="8" transform="rotate(-20 156 122)" fill="#7B3FE9"/><rect x="163" y="78" width="5" height="42" fill="#7B3FE9"/><path d="M168 78q16 4 16 22q-7-11-16-11Z" fill="#7B3FE9"/></g></svg><b>Belum ada lagu</b><span>Tambahkan lagu dari perangkatmu, lalu putar kapan saja.</span><button class="mcta" id="mEmptyAdd" type="button">Tambah lagu</button></div>
+    <div class="mempty" id="mEmpty"><svg viewBox="110 38 160 150" aria-hidden="true"><defs><linearGradient id="gMev" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B33B8"/><stop offset="1" stop-color="#1F0F4F"/></linearGradient><linearGradient id="gMesl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DFF8"/></linearGradient></defs><ellipse cx="190" cy="178" rx="62" ry="7" fill="#000" opacity="0.12"/><g transform="translate(9 0)"><circle cx="196" cy="104" r="50" fill="url(#gMev)"/><circle cx="196" cy="104" r="40" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><circle cx="196" cy="104" r="31" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><path d="M196 62A42 42 0 0 1 238 104" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.28"/><rect x="116" y="48" width="96" height="112" rx="18" fill="url(#gMesl)"/><ellipse cx="156" cy="122" rx="11" ry="8" transform="rotate(-20 156 122)" fill="#7B3FE9"/><rect x="163" y="78" width="5" height="42" fill="#7B3FE9"/><path d="M168 78q16 4 16 22q-7-11-16-11Z" fill="#7B3FE9"/></g></svg><b>Belum ada lagu</b><span>Pilih lagu sekali di sini. Daftarnya tersimpan, jadi langsung muncul tiap buka aplikasi.</span><button class="mcta" id="mEmptyAdd" type="button">Tambah lagu</button></div>
   </div></div></div>
   <input type="file" id="mFile" accept="audio/*" multiple hidden>
+  <input type="file" id="mDir" webkitdirectory directory multiple hidden>
   <audio id="mAudio" preload="metadata"></audio>
 </section>
 
@@ -3254,7 +3255,7 @@ window.PROFIL=(function(){
   var sec=document.getElementById('musik');
   if(!sec)return;
   var $=function(i){return document.getElementById(i)};
-  var audio=$('mAudio'),fileInp=$('mFile'),listEl=$('mList'),emp=$('mEmpty');
+  var audio=$('mAudio'),fileInp=$('mFile'),dirInp=$('mDir'),listEl=$('mList'),emp=$('mEmpty');
   var tEl=$('mTitle'),sEl=$('mSub'),cEl=$('mCur'),dEl=$('mDur'),seek=$('mSeek'),playBtn=$('mPlay'),cnt=$('mCount');
   var DB='mydaily-musik',ST='tracks',db=null,mem=[],useMem=false;
   var tracks=[],cur=-1,objUrl=null,seeking=false,restored=false;
@@ -3411,18 +3412,21 @@ window.PROFIL=(function(){
   });
   $('mAdd').addEventListener('click',function(){fileInp.click()});
   $('mEmptyAdd').addEventListener('click',function(){fileInp.click()});
-  fileInp.addEventListener('change',function(){
-    var fs=Array.prototype.slice.call(fileInp.files||[]);
-    if(!fs.length)return;
+  function addFiles(list){
+    var fs=list.filter(function(f){return /^audio\//.test(f.type||'')||/\.(mp3|m4a|aac|wav|ogg|oga|opus|flac|wma|mp4|3gp|amr)$/i.test(f.name||'')});
+    if(!fs.length){if(window.toast)toast('Tidak ada berkas audio yang dipilih');return}
     put(fs.map(function(f){return {name:f.name,type:f.type,size:f.size}}),fs,function(){
-      fileInp.value='';
+      fileInp.value='';dirInp.value='';
       load(true);
       if(window.toast)toast(fs.length+' lagu ditambahkan');
     });
-  });
+  }
+  fileInp.addEventListener('change',function(){addFiles(Array.prototype.slice.call(fileInp.files||[]))});
+  dirInp.addEventListener('change',function(){addFiles(Array.prototype.slice.call(dirInp.files||[]))});
   $('mMenu').addEventListener('click',function(){
     window.popMenu(this,[
       {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}},
+      {l:'Impor folder musik',f:function(){dirInp.click()}},
       {l:'Hapus semua lagu',d:1,f:function(){
         if(!tracks.length)return;
         audio.pause();audio.removeAttribute('src');
