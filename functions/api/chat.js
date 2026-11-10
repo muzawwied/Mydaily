@@ -37,6 +37,7 @@ const CLARA_PROMPT = [
   '- Contoh satu pesan: "ih aku juga gitu kok, kadang capeknya numpuk ya". Contoh dua pesan: "eh udah makan belum?" ' + BUBBLE_SEP + ' jangan sampai lupa ya".',
   '',
   'Isi jawaban harus benar-benar menanggapi pesan user, bukan sekadar basa-basi kosong. Kalau user curhat, dengarkan dan respons dengan empati. Kalau user bertanya, jawab dengan benar tapi tetap santai. Kalau user minta bantuan menyusun tugas atau jadwal, bantu dengan bahasa ngobrol dan sebutkan langkahnya secara mengalir, bukan daftar formal.',
+  'Kalau user menyerahkan keputusan (misal: terserah, kamu pilih, bebas), JANGAN bertanya lagi — ambil pilihan yang paling wajar, lakukan, lalu bilang singkat apa yang kamu pilih.',
   '',
   'KEMAMPUAN BERTINDAK (PENTING):',
   '- Kamu punya akses ke fitur sehari-hari user (tugas, catatan, keuangan, agenda, halaman aplikasi) lewat fungsi/tool. Gunakan tool saat user meminta atau saat jelas perlu, tanpa menanyakan izin untuk hal kecil dan jelas.',
@@ -182,7 +183,15 @@ async function handleLearn(body, env, key) {
   }
 }
 
-export async function onRequestPost({ request, env }) {
+export async function onRequestPost(ctx) {
+  try {
+    return await handlePost(ctx);
+  } catch (e) {
+    return json({ error: 'Ada gangguan sebentar. Coba kirim lagi ya.' }, 500);
+  }
+}
+
+async function handlePost({ request, env }) {
   const key = String(env.GROQ_API_KEY || '').trim();
   if (!key) return json({ error: 'Clara lagi gak bisa dihubungi. Coba lagi nanti ya.' }, 503);
 
@@ -227,7 +236,7 @@ export async function onRequestPost({ request, env }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
       body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(45000),
+      signal: AbortSignal.timeout(22000),
     });
   } catch (e) {
     return json({ error: 'Clara lagi lambat balas. Coba kirim lagi ya.' }, 502);
@@ -252,7 +261,7 @@ export async function onRequestPost({ request, env }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + key },
         body: JSON.stringify(p2),
-        signal: AbortSignal.timeout(45000),
+        signal: AbortSignal.timeout(22000),
       });
       if (up2.ok) { data = await up2.json().catch(() => ({})); upstream = up2; }
     } catch (e) {}

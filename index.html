@@ -2705,12 +2705,18 @@ window.PROFIL=(function(){
     var mem='';try{mem=(window.Brain&&window.Brain.contextBlock())||''}catch(e){}
     var tools=[];try{tools=(window.AITools&&window.AITools.defs)||[]}catch(e){}
     var wire=msgs.slice();
-    function post(){
+    function post(n){
+      n=n||0;
+      function again(){return new Promise(function(res){setTimeout(res,1300)}).then(function(){return post(n+1)});}
       return fetch(CHAT_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:MODEL,max_tokens:1200,system:SYS,memory:mem,messages:wire,tools:tools})})
-        .then(function(r){return r.json().catch(function(){return{}}).then(function(d){
-          if(!r.ok||(d&&d.error))throw new Error((d&&d.error)||('Server error ('+r.status+')'));
-          return d;
-        })});
+        .catch(function(e){if(n<1)return again();throw e})
+        .then(function(r){
+          if((r.status===502||r.status===503||r.status===504)&&n<1)return again();
+          return r.json().catch(function(){return{}}).then(function(d){
+            if(!r.ok||(d&&d.error))throw new Error((d&&d.error)||('Server error ('+r.status+')'));
+            return d;
+          });
+        });
     }
     var rounds=0;
     function step(){
