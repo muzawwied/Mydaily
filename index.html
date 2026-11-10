@@ -535,22 +535,10 @@ body.prof-open.pm-open .nav{z-index:5}
 .jwheel button{display:block;width:100%;height:50px;border:0;background:none;scroll-snap-align:center;color:#C4BBD8;font:800 1.5rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .18s,transform .18s}
 .jwheel button.on{color:#5B1FD0;transform:scale(1.06)}
 .jcu{display:block;text-align:center;font:700 .55rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A08FC9;padding-top:8px}
-.jpres{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:22px 0 0;padding:0}
-.jpc{display:grid;justify-items:center;gap:6px;padding:13px 8px 11px;border:0;border-radius:12px;background:#F7F2FF;color:#4B3B63;text-align:center;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:inset 0 1px 0 #fff;transition:color .2s,background .2s,transform .2s,box-shadow .2s}
-.jpc .jpci{display:grid;place-items:center;width:22px;height:22px;background:none;color:#8B79A8;transition:color .2s}
-.jpci svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.jpct2{display:grid;justify-items:center;gap:2px}
-.jpc b{font:700 .8rem 'Plus Jakarta Sans',sans-serif;color:inherit;white-space:nowrap}
-.jpc .jpct{font:700 .66rem 'Plus Jakarta Sans',sans-serif;font-style:normal;color:#A796C0;font-variant-numeric:tabular-nums}
-.jpc.on{background:#ECE1FF;color:#4A17B8;transform:translateY(-2px);box-shadow:0 12px 20px -16px rgba(91,31,208,.8),inset 0 1px 0 #fff}
-.jpc.on .jpci{color:#6A22E0}
-.jpc.on .jpct{color:#8B6FC4}
-.jpc:active{transform:scale(.96)}
-.jcirc.off{opacity:.42}
 .jctrl{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:40px;padding-bottom:12px}
 .jcirc{width:48px;height:48px;display:grid;place-items:center;border:1px solid rgba(123,47,247,.16);border-radius:50%;background:none;color:#6B5A8A;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;box-shadow:none;transition:transform .2s cubic-bezier(.2,.8,.2,1),color .2s,border-color .2s}
 .jcirc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.jcirc.big{width:86px;height:86px;border:0;font:800 .84rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#fff;background:linear-gradient(152deg,#7B2FF7 0%,#B25CF0 58%,#E48FD9 100%);box-shadow:0 20px 30px -16px rgba(123,47,247,.6),inset 0 1px 0 rgba(255,255,255,.35)}
+.jcirc.big{width:86px;height:86px;border:0;font:800 .84rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#fff;border-radius:50%;overflow:hidden;isolation:isolate;background:radial-gradient(125% 125% at 32% 24%,#B65CF0 0%,#8B4BF0 46%,#6A22E0 100%);box-shadow:0 16px 26px -18px rgba(106,34,224,.55);-webkit-tap-highlight-color:transparent}
 .jcirc:active{transform:scale(.94)}
 .jcirc:disabled{opacity:.36;box-shadow:none;cursor:default;transform:none}
 .jbtns.soft .jbtn{border-radius:18px;box-shadow:0 14px 22px -16px rgba(60,20,140,.8),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
@@ -1091,7 +1079,6 @@ body.prof-open.pm-open .nav{z-index:5}
           <div class="jsub2" id="jTimerState">Siap dimulai</div>
         </div>
       </div>
-      <div class="jpres" id="jPresets"></div>
       <div class="jctrl">
         <button class="jcirc" id="jTimerReset" type="button" aria-label="Reset"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M12 14v-4"/><path d="M4 13a8 8 0 0 1 8-7 8 8 0 1 1-5.3 14L4 17.6"/><path d="M9 17H4v5"/></svg></button>
         <button class="jcirc big" id="jTimerToggle" type="button">Mulai</button>
@@ -1704,7 +1691,6 @@ function updateNext(){
   var BELL_KEY='timer_bell',bellOn=true;
   try{bellOn=localStorage.getItem(BELL_KEY)!=='0'}catch(e){}
   function W(u){return document.querySelector('.jwheel[data-u="'+u+'"]')}
-  function hms(sec){return pad(Math.floor(sec/3600))+':'+pad(Math.floor(sec%3600/60))+':'+pad(sec%60)}
   function tShow(ms){
     ms=Math.max(0,ms);
     var s=Math.ceil(ms/1000);
@@ -1802,38 +1788,11 @@ function updateNext(){
       },120);
     });
   });
-  var PICON={
-    rapat:'<path d="M4 19V9"/><path d="M9 19V5"/><path d="M14 19v-6"/><path d="M19 19v-9"/>',
-    tidur:'<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
-    latihan:'<path d="M6.5 7.5v9"/><path d="M17.5 7.5v9"/><path d="M4 10.5v3"/><path d="M20 10.5v3"/><path d="M6.5 12h11"/>'
-  };
-  function presetList(){
-    return [{n:'Rapat',i:'rapat',s:1200},{n:'Tidur',i:'tidur',s:600},{n:'Latihan',i:'latihan',s:900}];
-  }
-  function renderPresets(){
-    var box=$('jPresets');
-    if(!box)return;
-    box.innerHTML='';
-    presetList().forEach(function(pr){
-      var b=document.createElement('button');
-      b.type='button';b.className='jpc';
-      b.innerHTML='<span class="jpci"><svg viewBox="0 0 24 24" aria-hidden="true">'+(PICON[pr.i]||PICON.rapat)+'</svg></span><span class="jpct2"><b></b><i class="jpct">'+hms(pr.s)+'</i></span>';
-      b.querySelector('b').textContent=pr.n;
-      b.addEventListener('click',function(){
-        if(tRun)tStop();
-        Array.prototype.forEach.call(box.children,function(x){x.classList.remove('on')});
-        b.classList.add('on');
-        setWheel(pr.s);tArm(pr.s);
-      });
-      box.appendChild(b);
-    });
-  }
   $('jTimerToggle').addEventListener('click',function(){tRun?tStop():tStart()});
   $('jTimerReset').addEventListener('click',function(){
     if(tRun)tStop();
     tTotal=0;tLeftMs=0;
     $('jTimerToggle').textContent='Mulai';
-    Array.prototype.forEach.call($('jPresets').children,function(x){x.classList.remove('on')});
     setWheel(0);tView(false);tShow(0);
   });
   var bellBtn=$('jTimerBell');
@@ -1843,7 +1802,6 @@ function updateNext(){
     try{localStorage.setItem(BELL_KEY,bellOn?'1':'0')}catch(e){}
     paintBell();toast(bellOn?'Suara aktif':'Suara dimatikan');
   });
-  renderPresets();
   setWheel(300);
   tArm(300);
   paintBell();
