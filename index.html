@@ -535,6 +535,7 @@ body.prof-open.pm-open .nav{z-index:5}
 .jcirc svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .jcirc.big{width:82px;height:82px;font:800 .82rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.02em;color:#fff;background:linear-gradient(158deg,#8B4BF0,#5B1FD0);box-shadow:0 20px 28px -16px rgba(91,31,208,.9),inset 0 1px 0 rgba(255,255,255,.4)}
 .jcirc:active{transform:scale(.94)}
+.jcirc:disabled{opacity:.36;box-shadow:none;cursor:default;transform:none}
 .jbtns.soft .jbtn{border-radius:18px;box-shadow:0 14px 22px -16px rgba(60,20,140,.8),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
 .jbtns.soft .jbtn:active{transform:scale(.97)}
 .jchips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:18px 0 4px}
@@ -1090,7 +1091,7 @@ body.prof-open.pm-open .nav{z-index:5}
         </div>
       </div>
       <div class="jctrl">
-        <button class="jcirc" id="jSwReset" type="button" aria-label="Reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.5 6.5 6 12l5.5 5.5"/><path d="M18 6.5 12.5 12 18 17.5"/></svg></button>
+        <button class="jcirc" id="jSwReset" type="button" aria-label="Reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4.6V10h-5.4"/></svg></button>
         <button class="jcirc big" id="jSwToggle" type="button">Mulai</button>
         <button class="jcirc" id="jSwLap" type="button" aria-label="Catat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5v17"/><path d="M6 4.5h11l-2.6 4L17 12.5H6"/></svg></button>
       </div>
@@ -1731,6 +1732,7 @@ function updateNext(){
   var swAcc=0,swStart=0,swRun=false,swInt=null,laps=[];
   function swVal(){return swAcc+(swRun?Date.now()-swStart:0)}
   function swShow(){
+    var rs=$('jSwReset');if(rs)rs.disabled=swRun;
     var v=swVal(),m=Math.floor(v/60000),sec=Math.floor(v/1000)%60,ds=Math.floor(v%1000/100);
     $('jSw').textContent=pad(m)+':'+pad(sec);
     var ms=$('jSwMs');
@@ -1744,10 +1746,11 @@ function updateNext(){
     var st=$('jSwState');
     if(st)st.textContent=v<=0?'Siap':(swRun?'Berjalan':'Jeda');
   }
-  function swStop(){swAcc=swVal();swRun=false;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai'}
-  function swGo(){swRun=true;swStart=Date.now();$('jSwToggle').textContent='Jeda';clearInterval(swInt);swInt=setInterval(swShow,100)}
+  function swStop(){swAcc=swVal();swRun=false;clearInterval(swInt);swInt=null;$('jSwToggle').textContent='Mulai';var rs=$('jSwReset');if(rs)rs.disabled=false}
+  function swGo(){swRun=true;swStart=Date.now();$('jSwToggle').textContent='Jeda';var rs=$('jSwReset');if(rs)rs.disabled=true;clearInterval(swInt);swInt=setInterval(swShow,100)}
   $('jSwToggle').addEventListener('click',function(){swRun?swStop():swGo()});
   $('jSwReset').addEventListener('click',function(){
+    if(swRun){toast('Jeda stopwatch dulu untuk reset');return}
     swRun=false;swAcc=0;clearInterval(swInt);swInt=null;
     $('jSwToggle').textContent='Mulai';laps=[];$('jLaps').innerHTML='';swShow();
   });
