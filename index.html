@@ -2371,6 +2371,7 @@ window.PROFIL=(function(){
   var mo=new MutationObserver(function(){if(busy)return;var d=st();if(d!==cur)navigate(d)});
   [cal,task,note,keu,jam,chat,feed,prof,ag,tm,nm,km].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
   mo.observe(tabs,{attributes:true,attributeFilter:['class'],subtree:true});
+  window.applyRoute=apply;
   window.addEventListener('popstate',function(e){idx=(e.state&&e.state.i)||0;apply(norm(location.pathname))});
   apply(norm(location.pathname));
 })();
@@ -2426,6 +2427,33 @@ window.PROFIL=(function(){
 })();
 </script>
 
+<script>
+/* Tombol kembali di halaman chat: balik ke halaman sebelumnya, bukan selalu Beranda. */
+(function(){
+  var PAGES={'/profil':1,'/feed':1,'/kalender':1,'/tugas':1,'/catatan':1,'/keuangan':1,'/jam':1};
+  function norm(p){p=(p||'/').replace(/\/{2,}/g,'/').replace(/\/+$/,'');return p||'/'}
+  var last='/';
+  var push=history.pushState.bind(history),rep_=history.replaceState.bind(history);
+  function recall(from,to){
+    if(from===to)return;
+    from=norm(from);
+    if(from==='/chat')return;
+    last=PAGES[from]?from:last;
+  }
+  history.pushState=function(st,t,u){var from=location.pathname;var r=push(st,t,u);recall(from,location.pathname);return r};
+  history.replaceState=function(st,t,u){var from=location.pathname;var r=rep_(st,t,u);recall(from,location.pathname);return r};
+  var back=document.getElementById('chatBack');
+  if(!back)return;
+  back.addEventListener('click',function(){
+    var target=last;
+    setTimeout(function(){
+      if(!PAGES[target])return;
+      if(norm(location.pathname)===target)return;
+      if(typeof window.applyRoute==='function')window.applyRoute(target);
+    },40);
+  });
+})();
+</script>
 <script>
 /* Notifikasi perangkat (khusus APK). Di browser biasa blok ini tidak melakukan apa pun. */
 (function(){
