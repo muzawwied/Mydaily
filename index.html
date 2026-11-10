@@ -723,6 +723,11 @@ body.prof-open.pm-open .nav{z-index:5}
 .csrch button svg{position:static;width:16px;height:16px;margin:0;fill:none;stroke:#6B5A8A;stroke-width:2.2;stroke-linecap:round}
 .jpanel[data-p="timer"]:not([hidden]){display:flex;flex-direction:column;min-height:calc(100vh - 210px);min-height:calc(100dvh - 210px)}
 .jpanel[data-p="timer"]:not([hidden]) .jctrl{margin-top:auto}
+
+.nt{justify-content:flex-start;gap:5px}
+.nt-d{margin-top:auto}
+.nt-p{width:100%;flex:1;min-height:0;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:.72rem;line-height:1.45;color:#6B5A8A;word-break:break-word}
+.nt.pn .nt-p{padding-right:0}
 </style>
 </head>
 <body>
@@ -2363,6 +2368,8 @@ window.PROFIL=(function(){
       var x=o.x,r=document.createElement('button');r.type='button';r.className='nt'+(x.pin?' pn':'');r.dataset.i=o.i;r.dataset.id=x.id||'';
       var lines=(x.b||'').split('\n'),t=x.t||lines[0].trim().slice(0,70)||'Tanpa judul',rest=x.t?(x.b||''):lines.slice(1).join(' ');
       var h=document.createElement('div');h.className='nt-t';h.textContent=t;r.appendChild(h);
+      var cuplikan=(rest||'').replace(/\s+/g,' ').trim();
+      if(cuplikan){var pv=document.createElement('div');pv.className='nt-p';pv.textContent=cuplikan;r.appendChild(pv)}
       if(x.pin)r.insertAdjacentHTML('beforeend',window.PIN);
       if(x.m){var d=document.createElement('div');d.className='nt-d';var dt=new Date(x.m);d.textContent=('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2);r.appendChild(d)}
       list.appendChild(r);
