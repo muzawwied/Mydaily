@@ -2943,6 +2943,21 @@ window.PROFIL=(function(){
           }
         }catch(e){}
       });
+      pushWidget(items);
+    }catch(e){}
+  }
+  function pushWidget(items){
+    if(typeof B.setWidget!=='function') return;
+    try{
+      var next=null;
+      items.forEach(function(x){
+        if(x && typeof x.id==='string' && x.id.indexOf('alarm|')===0 && (next===null || x.w<next.w)) next=x;
+      });
+      var T=[];try{var raw=JSON.parse(localStorage.getItem('tugas'));T=Array.isArray(raw)?raw:[]}catch(e){}
+      var sisa=T.filter(function(x){return x&&!x.d}).length;
+      var alarmText=next?('Alarm '+(next.b||'').replace(/^Alarm\s*/,'').replace(/^pukul\s*/,'pukul ')):'Belum ada alarm';
+      var taskText=sisa===0?'Semua tugas beres':(sisa+' tugas belum selesai');
+      B.setWidget(alarmText,taskText);
     }catch(e){}
   }
   window.mdSyncReminders=sync;
