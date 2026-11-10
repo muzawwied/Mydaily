@@ -728,6 +728,26 @@ body.prof-open.pm-open .nav{z-index:5}
 .nt{aspect-ratio:auto;min-height:78px;padding:11px 12px;gap:6px;justify-content:flex-start;border-radius:14px}
 .nt-t{font-size:.8rem;font-weight:700;line-height:1.32;letter-spacing:-.01em;-webkit-line-clamp:3}
 .nt-d{margin-top:auto;align-self:flex-start;font-size:.6rem;padding:1px 7px}
+
+/* ===== Keuangan v2: kartu ringkas + daftar per tanggal ===== */
+.ksum{margin:2px 0 14px;padding:20px 20px 18px;border-radius:20px;background:#fff;border:1px solid #EFE7FB;box-shadow:0 2px 10px rgba(60,20,140,.05);color:var(--ink)}
+.ksum-l{font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8E82AB}
+.ksum-v{margin-top:7px;font:800 1.8rem/1.1 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.025em;font-variant-numeric:tabular-nums;color:#241542}
+.ksum-r{display:grid;grid-template-columns:1fr 1fr;margin-top:16px;padding-top:14px;border-top:1px solid #F1EAFA}
+.ksum-r>div{flex:none;min-width:0;padding:0;border-radius:0;background:none}
+.ksum-r>div+div{padding-left:16px;border-left:1px solid #F1EAFA}
+.ksum-r span{display:block;font-size:.66rem;font-weight:700;letter-spacing:.03em;color:#8E82AB;opacity:1}
+.ksum-r b{display:block;margin-top:5px;font-size:.9rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:1}
+.ksum-r .ki b{color:#12864A}
+.ksum-r .ko b{color:#D6263C}
+#kList{display:block;margin-top:4px}
+.kgrp{margin:16px 0 7px;padding:0 3px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8E82AB}
+.kgp{display:grid;gap:8px}
+.krow{grid-template-columns:34px minmax(0,1fr) auto;gap:12px;padding:12px 14px;border:1px solid #F1EAFA;border-radius:16px;background:#fff;box-shadow:none}
+.krow:active{background:#FAF6FF;transform:scale(.995)}
+.kic{width:34px;height:34px;font-size:.9rem}
+.kt{font-size:.9rem;font-weight:600;color:#241542}
+.kn{font-size:.88rem;font-weight:700;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -1003,7 +1023,6 @@ body.prof-open.pm-open .nav{z-index:5}
       <button class="ib" id="keuBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <span class="ctl">Keuangan</span>
       <button class="ib mv" id="keuMenu" type="button" aria-label="Menu keuangan"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
-      </span>
     </div>
   </div></div>
   <div class="csheet"><div class="cin">
@@ -1011,8 +1030,8 @@ body.prof-open.pm-open .nav{z-index:5}
       <div class="ksum-l">Saldo kamu</div>
       <div class="ksum-v" id="kSaldo">Rp0</div>
       <div class="ksum-r">
-        <div><span>Masuk</span><b id="kIn">Rp0</b></div>
-        <div><span>Keluar</span><b id="kOut">Rp0</b></div>
+        <div class="ki"><span>Masuk</span><b id="kIn">Rp0</b></div>
+        <div class="ko"><span>Keluar</span><b id="kOut">Rp0</b></div>
       </div>
     </div>
     <div class="ttabs" id="kTabs">
@@ -1262,6 +1281,14 @@ body.prof-open.pm-open .nav{z-index:5}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(K))}catch(e){}}
   function rp(n){return 'Rp'+Math.round(+n||0).toLocaleString('id-ID')}
   function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+  function gl(s){
+    var t=todayStr();
+    if(s===t)return 'Hari ini';
+    var d=new Date();d.setDate(d.getDate()-1);
+    var y=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    if(s===y)return 'Kemarin';
+    return fd(s)||'Tanpa tanggal';
+  }
   function fd(s){var p=String(s||'').split('-');if(p.length<3)return '';var b=MN[+p[1]-1];return b?(+p[2])+' '+b+' '+p[0]:''}
   function toast(msg,undo){
     tMsg.textContent=msg;tUndo.hidden=!undo;
@@ -1275,21 +1302,29 @@ body.prof-open.pm-open .nav{z-index:5}
     sEl.textContent=rp(tin-tout);inEl.textContent=rp(tin);outEl.textContent=rp(tout);
     Array.prototype.forEach.call(tabs.children,function(b){b.className=b.dataset.f===filt?'on':''});
     listEl.innerHTML='';
+    var grup=null,grupLab='',box=null;
     K.slice().sort(function(a,b){
       var da=String(a.d||''),db=String(b.d||'');
       if(da!==db)return da<db?1:-1;
       return (+b.c||0)-(+a.c||0);
     }).forEach(function(x){
       if(filt!=='all'&&x.k!==filt)return;
+      var lab=gl(x.d);
+      if(lab!==grupLab){
+        grupLab=lab;
+        grup=document.createElement('div');grup.className='kgrp';grup.textContent=lab;
+        listEl.appendChild(grup);
+        box=document.createElement('div');box.className='kgp';
+        listEl.appendChild(box);
+      }
       var r=document.createElement('div');r.className='krow';r.dataset.id=x.id;
       var ic=document.createElement('div');ic.className='kic '+x.k;ic.textContent=x.k==='in'?'+':'\u2212';r.appendChild(ic);
-      var b=document.createElement('div');
+      var b=document.createElement('div');b.className='kb';
       var t=document.createElement('div');t.className='kt';t.textContent=x.t;b.appendChild(t);
-      var m=document.createElement('div');m.className='km2';m.textContent=fd(x.d)||'Tanpa tanggal';b.appendChild(m);
       r.appendChild(b);
       var n=document.createElement('div');n.className='kn '+x.k;n.textContent=(x.k==='in'?'+':'\u2212')+rp(x.n);r.appendChild(n);
       r.addEventListener('click',function(){openRow(x)});
-      listEl.appendChild(r);
+      box.appendChild(r);
     });
     emp.hidden=listEl.children.length>0;
   }
