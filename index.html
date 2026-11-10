@@ -760,6 +760,38 @@ body.prof-open.pm-open .nav{z-index:5}
 .klc-pad button.op{color:#7B2FF7;background:#F9F4FF;border-color:#EDE3FF;font-size:1.28rem}
 .klc-pad button.fn{color:#8E82AB;background:#FCFAFF;font-size:1.02rem}
 .klc-pad button.eq{color:#fff;background:linear-gradient(135deg,#7B2FF7 0%,#A45BFF 100%);border-color:transparent;box-shadow:0 12px 22px -14px rgba(91,31,208,.85);font-size:1.3rem}
+
+/* ===== Musik ===== */
+#musik .cin{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+.mnow{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:center;gap:14px;margin-top:6px;padding:16px;border:1px solid #F1E8FF;border-radius:22px;background:linear-gradient(160deg,#FFFFFF 0%,#FBF7FF 100%);box-shadow:0 18px 34px -30px rgba(60,20,140,.5)}
+.mcover{width:64px;height:64px;border-radius:18px;background:#F7F2FF;display:grid;place-items:center;overflow:hidden}
+.mcover svg{width:100%;height:100%}
+.mtitle{font:700 1rem/1.3 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#241542;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.msub{margin-top:4px;font-size:.76rem;font-weight:600;color:#8E82AB;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mprog{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:16px}
+.mprog span{font-size:.7rem;font-weight:700;color:#8E82AB;font-variant-numeric:tabular-nums}
+#mSeek{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:#EDE3FF;outline:none}
+#mSeek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#7B2FF7;border:2px solid #fff;box-shadow:0 2px 6px rgba(91,31,208,.4)}
+#mSeek::-moz-range-thumb{width:14px;height:14px;border:2px solid #fff;border-radius:50%;background:#7B2FF7}
+.mctl{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:18px}
+.mctl button{border:0;background:none;color:#7B2FF7;display:grid;place-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.mctl .mr{width:48px;height:48px;border:1px solid #F1E8FF;border-radius:16px;background:#fff;box-shadow:0 2px 8px rgba(60,20,140,.05)}
+.mctl .mr svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.mctl .mp{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,#7B2FF7 0%,#A45BFF 100%);color:#fff;box-shadow:0 14px 26px -14px rgba(91,31,208,.85)}
+.mctl .mp svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mctl button:active{transform:scale(.95)}
+.mhead{display:flex;align-items:center;justify-content:space-between;margin:24px 2px 10px}
+.mhead span{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#8E82AB}
+.mhead b{font-size:.7rem;font-weight:700;color:#B9A3F2}
+#mList{display:grid;gap:8px}
+.mrow{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 14px;border:1px solid #F1EAFA;border-radius:16px;background:#fff;cursor:pointer;transition:background .15s}
+.mrow:active{background:#FAF6FF}
+.mrow i{font-style:normal;font-size:.74rem;font-weight:700;color:#B9A3F2;text-align:center;font-variant-numeric:tabular-nums}
+.mrow .mn{font-size:.9rem;font-weight:600;color:#241542;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mrow .mq{width:8px;height:8px;border-radius:50%;background:#EDE3FF}
+.mrow.on{border-color:#D9C6FF;background:#FAF6FF}
+.mrow.on .mn{color:#5B1FD0}
+.mrow.on .mq{background:#7B2FF7}
 </style>
 </head>
 <body>
@@ -812,6 +844,7 @@ body.prof-open.pm-open .nav{z-index:5}
 <button class="item" id="openKeu" type="button"><span class="tile"><svg viewBox="32 62 148 126" aria-hidden="true"><defs><linearGradient id="gB1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4C93E6"/><stop offset="1" stop-color="#245DB3"/></linearGradient><linearGradient id="gBt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6CAAF0"/><stop offset="1" stop-color="#4C93E6"/></linearGradient></defs><ellipse cx="100" cy="176" rx="54" ry="7" fill="#000" opacity="0.12"/><rect x="40" y="72" width="120" height="92" rx="12" fill="url(#gB1)"/><rect x="40" y="72" width="120" height="22" rx="12" fill="url(#gBt1)"/><rect x="40" y="84" width="120" height="10" fill="url(#gBt1)"/><rect x="50" y="104" width="44" height="4" rx="2" fill="#fff" opacity="0.28"/><rect x="122" y="108" width="50" height="34" rx="10" fill="#1D4A94"/><circle cx="140" cy="125" r="7" fill="#F7BE3E"/><circle cx="140" cy="125" r="3" fill="#D9961A"/></svg></span>Keuangan</button>
 <button class="item" id="openJam" type="button"><span class="tile"><svg viewBox="220 44 130 144" aria-hidden="true"><defs><linearGradient id="gP" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="285" cy="176" rx="52" ry="7" fill="#000" opacity="0.12"/><circle cx="256" cy="58" r="10" fill="#8A4DF0"/><circle cx="314" cy="58" r="10" fill="#8A4DF0"/><circle cx="285" cy="110" r="58" fill="url(#gP)"/><circle cx="285" cy="110" r="45" fill="#F7F2FF"/><circle cx="285" cy="72" r="2.5" fill="#CDB6FA"/><circle cx="323" cy="110" r="2.5" fill="#CDB6FA"/><circle cx="285" cy="148" r="2.5" fill="#CDB6FA"/><circle cx="247" cy="110" r="2.5" fill="#CDB6FA"/><path d="M285 86V110l16 10" fill="none" stroke="#7B3FE9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="285" cy="110" r="5" fill="#7B3FE9"/></svg></span>Jam</button>
 <button class="item" id="openKalk" type="button"><span class="tile"><svg viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="gK" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="48" cy="88" rx="30" ry="4.5" fill="#2A0F66" opacity=".14"/><rect x="16" y="8" width="64" height="76" rx="14" fill="url(#gK)"/><rect x="25" y="17" width="46" height="17" rx="6" fill="#F7F2FF"/><g fill="#fff" opacity=".92"><rect x="23" y="40" width="11" height="11" rx="4"/><rect x="38" y="40" width="11" height="11" rx="4"/><rect x="53" y="40" width="11" height="11" rx="4"/><rect x="68" y="40" width="11" height="11" rx="4"/><rect x="23" y="54" width="11" height="11" rx="4"/><rect x="38" y="54" width="11" height="11" rx="4"/><rect x="53" y="54" width="11" height="11" rx="4"/><rect x="68" y="54" width="11" height="11" rx="4"/><rect x="23" y="68" width="11" height="9" rx="4"/><rect x="38" y="68" width="26" height="9" rx="4"/></g><rect x="68" y="68" width="11" height="9" rx="4" fill="#FFD66B"/></svg></span>Kalkulator</button>
+<button class="item" id="openMusik" type="button"><span class="tile"><svg viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="gMu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="48" cy="88" rx="30" ry="4.5" fill="#2A0F66" opacity=".14"/><rect x="18" y="8" width="60" height="76" rx="16" fill="url(#gMu)"/><circle cx="36" cy="66" r="9" fill="#FFF6FF"/><circle cx="62" cy="60" r="9" fill="#FFF6FF"/><path d="M45 66V28l26-5v32" fill="none" stroke="#FFF6FF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="36" cy="66" r="3.4" fill="#B98CF5"/><circle cx="62" cy="60" r="3.4" fill="#B98CF5"/></svg></span>Musik</button>
 </div></div></div>
 
 <nav class="nav" aria-label="Navigasi bawah">
@@ -1262,6 +1295,43 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
   </div></div>
 </section>
+<section class="cal" id="musik" aria-label="Musik" aria-hidden="true">
+  <div class="chd"><div class="in">
+    <div class="crow">
+      <button class="ib" id="musikBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <span class="ctl">Musik</span>
+      <span class="hr">
+        <button class="ib" id="mAdd" type="button" aria-label="Tambah lagu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button class="ib mv" id="mMenu" type="button" aria-label="Menu musik"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.8" fill="currentColor" stroke="none"/></svg></button>
+      </span>
+    </div>
+  </div></div>
+  <div class="csheet"><div class="cin">
+    <div class="mnow">
+      <div class="mcover" id="mCover"><svg class="mcv" viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="gM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="48" cy="86" rx="28" ry="4" fill="#2A0F66" opacity=".12"/><rect x="20" y="14" width="56" height="64" rx="16" fill="url(#gM)"/><circle cx="38" cy="62" r="9" fill="#FFF6FF"/><circle cx="62" cy="56" r="9" fill="#FFF6FF"/><path d="M47 62V30l24-4v26" fill="none" stroke="#FFF6FF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="mmeta">
+        <div class="mtitle" id="mTitle">Belum ada lagu</div>
+        <div class="msub" id="mSub">Tambahkan lagu dari perangkatmu</div>
+      </div>
+    </div>
+    <div class="mprog">
+      <span id="mCur">0:00</span>
+      <input id="mSeek" type="range" min="0" max="1000" value="0" step="1" aria-label="Posisi lagu">
+      <span id="mDur">0:00</span>
+    </div>
+    <div class="mctl">
+      <button class="mr" id="mPrev" type="button" aria-label="Lagu sebelumnya"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v14L8 12l11-7Z" fill="currentColor" stroke="none"/><path d="M5 5v14"/></svg></button>
+      <button class="mp" id="mPlay" type="button" aria-label="Putar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg></button>
+      <button class="mr" id="mNext" type="button" aria-label="Lagu berikutnya"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5v14l11-7L5 5Z" fill="currentColor" stroke="none"/><path d="M19 5v14"/></svg></button>
+    </div>
+    <div class="mhead"><span>Daftar lagu</span><b id="mCount">0 lagu</b></div>
+    <div id="mList"></div>
+    <div class="tsem" id="mEmpty"><svg viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="gM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="48" cy="86" rx="28" ry="4" fill="#2A0F66" opacity=".12"/><rect x="20" y="14" width="56" height="64" rx="16" fill="url(#gM)"/><circle cx="38" cy="62" r="9" fill="#FFF6FF"/><circle cx="62" cy="56" r="9" fill="#FFF6FF"/><path d="M47 62V30l24-4v26" fill="none" stroke="#FFF6FF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Belum ada lagu</b><span>Ketuk tombol + di atas untuk memilih lagu dari perangkatmu.</span></div>
+  </div></div>
+  <input type="file" id="mFile" accept="audio/*" multiple hidden>
+  <audio id="mAudio" preload="metadata"></audio>
+</section>
+
 
 <section class="cal" id="prof" aria-label="Profil" aria-hidden="true">
   <button id="profBack" type="button" aria-hidden="true" tabindex="-1" style="display:none"></button>
@@ -3163,6 +3233,179 @@ window.PROFIL=(function(){
   show();
 })();
 
+
+/* Musik: pemutar lagu dari perangkat, file disimpan di IndexedDB. */
+(function(){
+  var sec=document.getElementById('musik');
+  if(!sec)return;
+  var $=function(i){return document.getElementById(i)};
+  var audio=$('mAudio'),fileInp=$('mFile'),listEl=$('mList'),emp=$('mEmpty');
+  var tEl=$('mTitle'),sEl=$('mSub'),cEl=$('mCur'),dEl=$('mDur'),seek=$('mSeek'),playBtn=$('mPlay'),cnt=$('mCount');
+  var DB='mydaily-musik',ST='tracks',db=null,mem=[],useMem=false;
+  var tracks=[],cur=-1,objUrl=null,seeking=false;
+  function openDB(cb){
+    try{
+      var r=indexedDB.open(DB,1);
+      r.onupgradeneeded=function(){if(!r.result.objectStoreNames.contains(ST))r.result.createObjectStore(ST,{keyPath:'id',autoIncrement:true})};
+      r.onsuccess=function(){db=r.result;cb()};
+      r.onerror=function(){useMem=true;cb()};
+    }catch(e){useMem=true;cb()}
+  }
+  function all(cb){
+    if(useMem)return cb(mem.slice());
+    try{
+      var st=db.transaction(ST,'readonly').objectStore(ST).getAll();
+      st.onsuccess=function(){cb(st.result||[])};
+      st.onerror=function(){cb([])};
+    }catch(e){cb([])}
+  }
+  function put(items,blobs,cb){
+    if(useMem){
+      blobs.forEach(function(b,i){mem.push({id:'m'+Date.now()+i,name:items[i].name,blob:b})});
+      return cb();
+    }
+    try{
+      var tx=db.transaction(ST,'readwrite'),os=tx.objectStore(ST);
+      items.forEach(function(it,i){os.add({name:it.name,type:it.type,size:it.size,blob:blobs[i],date:Date.now()})});
+      tx.oncomplete=function(){cb()};tx.onerror=function(){cb()};
+    }catch(e){cb()}
+  }
+  function delAll(cb){
+    if(useMem){mem=[];return cb()}
+    try{var tx=db.transaction(ST,'readwrite');tx.objectStore(ST).clear();tx.oncomplete=function(){cb()};tx.onerror=function(){cb()}}catch(e){cb()}
+  }
+  function name(t){return String(t||'').replace(/\.[a-z0-9]{2,5}$/i,'')}
+  function tstr(v){
+    if(!isFinite(v)||v<0)v=0;
+    var m=Math.floor(v/60),s2=Math.floor(v%60);
+    return m+':'+(s2<10?'0':'')+s2;
+  }
+  function render(){
+    listEl.innerHTML='';
+    tracks.forEach(function(t,i){
+      var r=document.createElement('div');
+      r.className='mrow'+(i===cur?' on':'');
+      r.dataset.i=i;
+      var n=document.createElement('i');n.textContent=(i+1<10?'0':'')+(i+1);r.appendChild(n);
+      var nm=document.createElement('div');nm.className='mn';nm.textContent=name(t.name);r.appendChild(nm);
+      var q=document.createElement('div');q.className='mq';r.appendChild(q);
+      r.addEventListener('click',function(){play(i)});
+      listEl.appendChild(r);
+    });
+    cnt.textContent=tracks.length+' lagu';
+    emp.hidden=tracks.length>0;
+    if(cur<0){
+      tEl.textContent='Belum ada lagu';
+      sEl.textContent=tracks.length?'Ketuk salah satu lagu untuk memutar':'Tambahkan lagu dari perangkatmu';
+    }
+  }
+  function setPlay(on){
+    playBtn.innerHTML=on
+      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>'
+      : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor" stroke="none"/></svg>';
+    playBtn.setAttribute('aria-label',on?'Jeda':'Putar');
+  }
+  function play(i){
+    if(!tracks.length)return;
+    if(i<0)i=tracks.length-1;
+    if(i>=tracks.length)i=0;
+    var t=tracks[i];
+    cur=i;
+    if(objUrl)URL.revokeObjectURL(objUrl);
+    objUrl=URL.createObjectURL(t.blob);
+    audio.src=objUrl;
+    audio.play().catch(function(){});
+    tEl.textContent=name(t.name);
+    sEl.textContent='Memutar';
+    seek.value=0;cEl.textContent='0:00';dEl.textContent='0:00';
+    render();
+    if('mediaSession' in navigator){
+      try{navigator.mediaSession.metadata=new MediaMetadata({title:name(t.name),artist:'My Daily',album:'Perangkat'})}catch(e){}
+    }
+  }
+  function toggle(){
+    if(cur<0){if(tracks.length)play(0);return}
+    if(audio.paused){audio.play().catch(function(){})}else{audio.pause()}
+  }
+  audio.addEventListener('play',function(){setPlay(true);sEl.textContent='Memutar'});
+  audio.addEventListener('pause',function(){setPlay(false);if(audio.currentTime>0&&audio.currentTime<(audio.duration||0))sEl.textContent='Dijeda'});
+  audio.addEventListener('loadedmetadata',function(){dEl.textContent=tstr(audio.duration)});
+  audio.addEventListener('timeupdate',function(){
+    if(seeking)return;
+    var d=audio.duration||0;
+    cEl.textContent=tstr(audio.currentTime);
+    if(d>0)seek.value=Math.round(audio.currentTime/d*1000);
+  });
+  audio.addEventListener('ended',function(){if(tracks.length>1)play(cur+1);else{setPlay(false);seek.value=0;cEl.textContent='0:00';sEl.textContent='Selesai'}});
+  seek.addEventListener('pointerdown',function(){seeking=true});
+  seek.addEventListener('input',function(){
+    var d=audio.duration||0;
+    if(d>0)cEl.textContent=tstr(seek.value/1000*d);
+  });
+  seek.addEventListener('change',function(){
+    var d=audio.duration||0;
+    if(d>0)audio.currentTime=seek.value/1000*d;
+    seeking=false;
+  });
+  seek.addEventListener('pointerup',function(){setTimeout(function(){seeking=false},60)});
+  playBtn.addEventListener('click',toggle);
+  $('mNext').addEventListener('click',function(){if(tracks.length)play(cur+1)});
+  $('mPrev').addEventListener('click',function(){
+    if(audio.currentTime>4){audio.currentTime=0;return}
+    if(tracks.length)play(cur-1);
+  });
+  $('mAdd').addEventListener('click',function(){fileInp.click()});
+  fileInp.addEventListener('change',function(){
+    var fs=Array.prototype.slice.call(fileInp.files||[]);
+    if(!fs.length)return;
+    put(fs.map(function(f){return {name:f.name,type:f.type,size:f.size}}),fs,function(){
+      fileInp.value='';
+      load(true);
+      if(window.toast)toast(fs.length+' lagu ditambahkan');
+    });
+  });
+  $('mMenu').addEventListener('click',function(){
+    window.popMenu(this,[
+      {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}},
+      {l:'Hapus semua lagu',d:1,f:function(){
+        if(!tracks.length)return;
+        audio.pause();audio.removeAttribute('src');
+        if(objUrl){URL.revokeObjectURL(objUrl);objUrl=null}
+        cur=-1;delAll(function(){load();if(window.toast)toast('Semua lagu dihapus')});
+      }}
+    ]);
+  });
+  function load(announce){
+    all(function(list){
+      tracks=list.slice().sort(function(a,b){return (+a.date||0)-(+b.date||0)});
+      if(cur>=tracks.length)cur=-1;
+      render();
+      if(announce&&cur<0&&tracks.length)sEl.textContent='Siap diputar';
+    });
+  }
+  $('openMusik').addEventListener('click',function(){
+    if(sec.classList.contains('open'))return;
+    ['keu','feed','chat','prof','cal','task','note','jam','kalk'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(!el||!el.classList.contains('open'))return;
+      var back=document.getElementById(id+'Back');
+      if(back)back.click();
+    });
+    sec.classList.add('open');sec.setAttribute('aria-hidden','false');sec.scrollTop=0;
+    document.body.style.overflow='hidden';
+    if(!db&&!useMem)openDB(function(){load()});
+  });
+  $('musikBack').addEventListener('click',function(){
+    sec.classList.remove('open');sec.setAttribute('aria-hidden','true');
+    document.body.style.overflow='';
+    var nb=document.querySelectorAll('.nav .nb');
+    Array.prototype.forEach.call(nb,function(x){x.classList.remove('on')});
+    if(nb[0])nb[0].classList.add('on');
+  });
+  setPlay(false);
+  openDB(function(){load()});
+})();
+
 /* Router: path bersih (History API), tanpa hash.
    /  /kalender  /kalender/agenda/baru
    /tugas  /tugas/belum  /tugas/selesai  /tugas/baru  /tugas/:id
@@ -3170,8 +3413,8 @@ window.PROFIL=(function(){
 (function(){
   if(!/^https?:$/.test(location.protocol)||!window.history||!history.pushState)return;
   var $=function(i){return document.getElementById(i)};
-  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ja=$('jAModal'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs'),kalk=$('kalk');
-  var TITLE='My Daily',NAMES={kalender:'Kalender',tugas:'Tugas',catatan:'Catatan',keuangan:'Keuangan',jam:'Jam',chat:'Clara',kalkulator:'Kalkulator',feed:'Feed',profil:'Profil'};
+  var cal=$('cal'),task=$('task'),note=$('note'),chat=$('chat'),feed=$('feed'),prof=$('prof'),keu=$('keu'),km=$('kModal'),jam=$('jam'),ja=$('jAModal'),ag=$('agModal'),tm=$('tModal'),nm=$('nModal'),tabs=$('tTabs'),kalk=$('kalk'),musik=$('musik');
+  var TITLE='My Daily',NAMES={kalender:'Kalender',tugas:'Tugas',catatan:'Catatan',keuangan:'Keuangan',jam:'Jam',chat:'Clara',kalkulator:'Kalkulator',musik:'Musik',feed:'Feed',profil:'Profil'};
   var FIL={'/tugas':1,'/tugas/belum':1,'/tugas/selesai':1};
   var busy=false,cur='/',idx=0,stack=[];
   function isOpen(e){return e.classList.contains('open')}
@@ -3187,6 +3430,7 @@ window.PROFIL=(function(){
     if(isOpen(keu))return km.hidden?'/keuangan':'/keuangan/baru';
     if(isOpen(jam))return ja.hidden?'/jam':'/jam/alarm/baru';
     if(isOpen(kalk))return '/kalkulator';
+    if(isOpen(musik))return '/musik';
     if(isOpen(chat))return '/chat';
     if(isOpen(note))return nm.hidden?'/catatan':'/catatan/'+(nm.dataset.eid||'baru');
     if(isOpen(task)){
@@ -3203,6 +3447,7 @@ window.PROFIL=(function(){
       var seg=path.split('/').filter(Boolean),pg=seg[0],sub=seg.slice(1).join('/');
       if(pg!=='jam'&&isOpen(jam))click($('jamBack'));
       if(pg!=='kalkulator'&&isOpen(kalk))click($('kalkBack'));
+      if(pg!=='musik'&&isOpen(musik))click($('musikBack'));
       if(pg!=='keuangan'&&isOpen(keu)){if(!km.hidden)click($('kNo'));click($('keuBack'))}
       if(pg!=='feed'&&isOpen(feed))click($('feedBack'));
       if(pg!=='profil'&&isOpen(prof))click($('profBack'));
@@ -3249,6 +3494,7 @@ window.PROFIL=(function(){
         else if(!km.hidden)click($('kNo'));
       }
       if(pg==='kalkulator'&&!isOpen(kalk))click($('openKalk'));
+      if(pg==='musik'&&!isOpen(musik))click($('openMusik'));
       if(pg==='feed'&&!isOpen(feed))click($('openFeed'));
       if(pg==='profil'&&!isOpen(prof))click($('openProf'));
       if(pg==='chat'&&!isOpen(chat))click($('openChat'));
@@ -3269,7 +3515,7 @@ window.PROFIL=(function(){
     }catch(e){}
   }
   var mo=new MutationObserver(function(){if(busy)return;var d=st();if(d!==cur)navigate(d)});
-  [cal,task,note,keu,jam,ja,chat,feed,prof,ag,tm,nm,km,kalk].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
+  [cal,task,note,keu,jam,ja,chat,feed,prof,ag,tm,nm,km,kalk,musik].forEach(function(e){mo.observe(e,{attributes:true,attributeFilter:['class','hidden','data-eid']})});
   mo.observe(tabs,{attributes:true,attributeFilter:['class'],subtree:true});
   window.applyRoute=apply;
   window.addEventListener('popstate',function(e){idx=(e.state&&e.state.i)||0;apply(norm(location.pathname))});
