@@ -819,6 +819,8 @@ body.prof-open.pm-open .nav{z-index:5}
 #musik .mempty span{font-size:.8rem;font-weight:600;color:#9A8FB5;line-height:1.5;max-width:250px}
 #musik .mcta{margin-top:16px;height:44px;padding:0 22px;border:0;border-radius:999px;background:linear-gradient(135deg,#8B45FF 0%,#6A1FE0 100%);color:#fff;font:700 .86rem 'Plus Jakarta Sans',sans-serif;box-shadow:0 14px 24px -16px rgba(91,31,208,.95);-webkit-tap-highlight-color:transparent}
 #musik .mcta:active{transform:scale(.97)}
+#musik .mghost{margin-top:4px;height:40px;padding:0 16px;border:0;border-radius:999px;background:rgba(139,69,255,.08);color:#6A1FE0;font:700 .8rem 'Plus Jakarta Sans',sans-serif;-webkit-tap-highlight-color:transparent}
+#musik .mghost:active{background:rgba(139,69,255,.16)}
 #musik.empty .mstage,#musik.empty .minfo,#musik.empty .mprog,#musik.empty .mctl,#musik.empty .mhead{display:none}
 #musik.empty .mempty{display:flex}
 </style>
@@ -1341,7 +1343,7 @@ body.prof-open.pm-open .nav{z-index:5}
     </div>
     <div class="mhead"><span>Daftar lagu</span><b id="mCount">0 lagu</b></div>
     <div id="mList"></div>
-    <div class="mempty" id="mEmpty"><svg viewBox="110 38 160 150" aria-hidden="true"><defs><linearGradient id="gMev" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B33B8"/><stop offset="1" stop-color="#1F0F4F"/></linearGradient><linearGradient id="gMesl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DFF8"/></linearGradient></defs><ellipse cx="186" cy="172" rx="52" ry="6" fill="#000" opacity="0.12"/><g transform="translate(9 0)"><circle cx="178" cy="100" r="34" fill="url(#gMev)"/><circle cx="178" cy="100" r="27" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><circle cx="178" cy="100" r="20" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><path d="M178 66A34 34 0 0 1 212 100" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.28"/><rect x="116" y="48" width="96" height="112" rx="18" fill="url(#gMesl)"/><ellipse cx="156" cy="122" rx="11" ry="8" transform="rotate(-20 156 122)" fill="#7B3FE9"/><rect x="163" y="78" width="5" height="42" fill="#7B3FE9"/><path d="M168 78q16 4 16 22q-7-11-16-11Z" fill="#7B3FE9"/></g></svg><b>Belum ada lagu</b><span>Pilih lagu sekali di sini. Daftarnya tersimpan, jadi langsung muncul tiap buka aplikasi.</span><button class="mcta" id="mEmptyAdd" type="button">Tambah lagu</button></div>
+    <div class="mempty" id="mEmpty"><svg viewBox="110 38 160 150" aria-hidden="true"><defs><linearGradient id="gMev" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B33B8"/><stop offset="1" stop-color="#1F0F4F"/></linearGradient><linearGradient id="gMesl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DFF8"/></linearGradient></defs><ellipse cx="186" cy="172" rx="52" ry="6" fill="#000" opacity="0.12"/><g transform="translate(9 0)"><circle cx="178" cy="100" r="34" fill="url(#gMev)"/><circle cx="178" cy="100" r="27" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><circle cx="178" cy="100" r="20" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><path d="M178 66A34 34 0 0 1 212 100" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.28"/><rect x="116" y="48" width="96" height="112" rx="18" fill="url(#gMesl)"/><ellipse cx="156" cy="122" rx="11" ry="8" transform="rotate(-20 156 122)" fill="#7B3FE9"/><rect x="163" y="78" width="5" height="42" fill="#7B3FE9"/><path d="M168 78q16 4 16 22q-7-11-16-11Z" fill="#7B3FE9"/></g></svg><b>Belum ada lagu</b><span>Pilih lagu sekali di sini. Daftarnya tersimpan, jadi langsung muncul tiap buka aplikasi.</span><button class="mcta" id="mEmptyAdd" type="button">Tambah lagu</button><button class="mghost" id="mEmptyDir" type="button">Pilih folder musik</button></div>
   </div></div></div>
   <input type="file" id="mFile" accept="audio/*" multiple hidden>
   <input type="file" id="mDir" webkitdirectory directory multiple hidden>
@@ -3257,13 +3259,13 @@ window.PROFIL=(function(){
   var $=function(i){return document.getElementById(i)};
   var audio=$('mAudio'),fileInp=$('mFile'),dirInp=$('mDir'),listEl=$('mList'),emp=$('mEmpty');
   var tEl=$('mTitle'),sEl=$('mSub'),cEl=$('mCur'),dEl=$('mDur'),seek=$('mSeek'),playBtn=$('mPlay'),cnt=$('mCount');
-  var DB='mydaily-musik',ST='tracks',db=null,mem=[],useMem=false;
+  var DB='mydaily-musik',ST='tracks',MT='meta',DB_VER=2,db=null,mem=[],useMem=false;
   var tracks=[],cur=-1,objUrl=null,seeking=false,restored=false;
   var STATE='mydaily_musik_state',lastSave=0;
   function openDB(cb){
     try{
-      var r=indexedDB.open(DB,1);
-      r.onupgradeneeded=function(){if(!r.result.objectStoreNames.contains(ST))r.result.createObjectStore(ST,{keyPath:'id',autoIncrement:true})};
+      var r=indexedDB.open(DB,DB_VER);
+      r.onupgradeneeded=function(){var d=r.result;if(!d.objectStoreNames.contains(ST))d.createObjectStore(ST,{keyPath:'id',autoIncrement:true});if(!d.objectStoreNames.contains(MT))d.createObjectStore(MT)};
       r.onsuccess=function(){db=r.result;cb()};
       r.onerror=function(){useMem=true;cb()};
     }catch(e){useMem=true;cb()}
@@ -3412,6 +3414,58 @@ window.PROFIL=(function(){
   });
   $('mAdd').addEventListener('click',function(){fileInp.click()});
   $('mEmptyAdd').addEventListener('click',function(){fileInp.click()});
+  $('mEmptyDir').addEventListener('click',function(){pickFolder()});
+  function metaGet(key,cb){
+    if(useMem||!db)return cb(null);
+    try{var st=db.transaction('meta','readonly').objectStore('meta').get(key);st.onsuccess=function(){cb(st.result||null)};st.onerror=function(){cb(null)}}catch(e){cb(null)}
+  }
+  function metaSet(key,val,cb){
+    if(useMem||!db)return cb&&cb();
+    try{var tx=db.transaction('meta','readwrite');tx.objectStore('meta').put(val,key);tx.oncomplete=function(){cb&&cb()};tx.onerror=function(){cb&&cb()}}catch(e){cb&&cb()}
+  }
+  function audioOk(f){return /^audio\//.test(f.type||'')||/\.(mp3|m4a|aac|wav|ogg|oga|opus|flac|wma|mp4|3gp|amr)$/i.test(f.name||'')}
+  async function scanDir(h,depth){
+    var out=[];
+    try{
+      for await (var e of h.values()){
+        if(e.kind==='file'){try{var f=await e.getFile();if(audioOk(f))out.push(f)}catch(e2){}}
+        else if(e.kind==='directory'&&depth>0){try{out=out.concat(await scanDir(e,depth-1))}catch(e3){}}
+      }
+    }catch(e){}
+    return out;
+  }
+  async function syncFolder(announce){
+    var h=null;
+    await new Promise(function(res){metaGet('musicDir',function(v){h=v;res()})});
+    if(!h||!h.queryPermission)return;
+    var perm='denied';
+    try{perm=await h.queryPermission({mode:'read'})}catch(e){}
+    if(perm!=='granted'){
+      if(!announce)return;
+      try{perm=await h.requestPermission({mode:'read'})}catch(e){}
+    }
+    if(perm!=='granted'){if(announce&&window.toast)toast('Izin folder belum diberikan');return}
+    var files=await scanDir(h,2);
+    if(!files.length){if(announce&&window.toast)toast('Tidak ada berkas audio di folder itu');return}
+    var known={};
+    tracks.forEach(function(t){known[(t.name||'')+'|'+(t.size||0)]=1});
+    var fresh=files.filter(function(f){return !known[(f.name||'')+'|'+(f.size||0)]});
+    if(!fresh.length){if(announce&&window.toast)toast('Semua lagu di folder sudah masuk daftar');return}
+    put(fresh.map(function(f){return {name:f.name,type:f.type,size:f.size}}),fresh,function(){
+      all(function(list){tracks=list.slice().sort(function(a,b){return (+a.date||0)-(+b.date||0)});render()});
+      if(window.toast)toast(fresh.length+' lagu baru dari folder');
+    });
+  }
+  async function pickFolder(){
+    if(!window.showDirectoryPicker){
+      if(window.toast)toast('Browser ini belum mendukung folder otomatis. Pakai Tambah lagu atau Impor folder.');
+      return;
+    }
+    try{
+      var h=await window.showDirectoryPicker({mode:'read'});
+      metaSet('musicDir',h,function(){syncFolder(true)});
+    }catch(e){}
+  }
   function addFiles(list){
     var fs=list.filter(function(f){return /^audio\//.test(f.type||'')||/\.(mp3|m4a|aac|wav|ogg|oga|opus|flac|wma|mp4|3gp|amr)$/i.test(f.name||'')});
     if(!fs.length){if(window.toast)toast('Tidak ada berkas audio yang dipilih');return}
@@ -3427,6 +3481,7 @@ window.PROFIL=(function(){
     window.popMenu(this,[
       {l:'Putar berikutnya',f:function(){if(tracks.length)play(cur+1)}},
       {l:'Impor folder musik',f:function(){dirInp.click()}},
+      {l:'Folder musik otomatis',f:function(){pickFolder()}},
       {l:'Hapus semua lagu',d:1,f:function(){
         if(!tracks.length)return;
         audio.pause();audio.removeAttribute('src');
@@ -3466,6 +3521,7 @@ window.PROFIL=(function(){
   openDB(function(){all(function(list){
     tracks=list.slice().sort(function(a,b){return (+a.date||0)-(+b.date||0)});
     render();restoreLast();
+    setTimeout(function(){syncFolder(false)},900);
   })});
 })();
 
