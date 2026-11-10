@@ -788,28 +788,25 @@ body.prof-open.pm-open .nav{z-index:5}
 .cv-swap svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .cv-note{margin-top:11px;font-size:.72rem;line-height:1.4;color:#8B84A3;text-align:center;cursor:pointer}
 .cv-note b{color:#5B1FD0;font-weight:600}
-.rg-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.rg-chip{padding:6px 12px;border-radius:999px;background:#F6F1FD;color:#6B5A8A;font:600 .8rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;user-select:none}
-.rg-chip.on{background:#E6D8FB;color:#6A1FE0}
-.rg-read{margin-left:auto;font:600 .76rem 'Plus Jakarta Sans',sans-serif;color:#8B84A3;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rg-read b{color:#5B1FD0;font-weight:700}
-.rg-scroll{margin:0 -18px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border-radius:0;background:#FAF8FF;padding:6px 0 0;box-shadow:inset 0 -1px 0 #EFE8FA}
-.rg-scroll::-webkit-scrollbar{height:0}
-.rg-strip{position:relative;height:74px}
-.rg-strip svg{display:block;height:74px}
-.rg-mk{position:absolute;top:0;bottom:0;width:2px;background:#7B2FF7;border-radius:2px;pointer-events:none}
-.rg-mk.b{background:#C2410C}
-.rg-mk span{position:absolute;top:2px;left:4px;font:700 .62rem 'Plus Jakarta Sans',sans-serif;color:#fff;background:#7B2FF7;border-radius:6px;padding:1px 4px;white-space:nowrap}
-.rg-mk.b span{background:#C2410C}
-.rg-foot{display:flex;align-items:center;gap:10px;margin-top:12px}
-.rg-btn{flex:none;padding:9px 14px;border:0;border-radius:999px;background:#F1E8FF;color:#5B1FD0;font:600 .82rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}
-.rg-btn.on{background:#E6D8FB}
-.rg-hint{flex:1 1 auto;min-width:0;font:500 .72rem/1.35 'Plus Jakarta Sans',sans-serif;color:#8B84A3}
-.rg-adj{display:none;align-items:center;gap:8px;margin-top:12px}
-.rg-adj.on{display:flex}
-.rg-adj button{width:38px;height:38px;border:0;border-radius:50%;background:#F1E8FF;color:#5B1FD0;font:700 1.15rem/1 'Plus Jakarta Sans',sans-serif;cursor:pointer}
-.rg-kartu{position:relative;flex:1 1 auto;height:54px;border-radius:8px;background:linear-gradient(160deg,#EDE3FF,#D9C6FF);box-shadow:inset 0 0 0 1.5px #B79BF0}
-.rg-kartu span{position:absolute;right:8px;bottom:5px;font:600 .66rem 'Plus Jakarta Sans',sans-serif;color:#5B1FD0}
+.un-cd{padding-top:12px}
+.un-tabs{display:flex;gap:4px;overflow-x:auto;margin:0 -18px 6px;padding:0 18px;-webkit-overflow-scrolling:touch}
+.un-tabs::-webkit-scrollbar{height:0}
+.un-tab{flex:none;padding:8px 14px;border:0;border-radius:999px;background:transparent;color:#8B84A3;font:600 .88rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.un-tab.on{background:#E6D8FB;color:#5B1FD0}
+.un-rows{position:relative;display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.un-row{display:flex;align-items:center;gap:10px;padding:13px 6px;border-radius:14px;cursor:text}
+.un-row.on{background:#FAF8FF}
+.un-u{flex:none;display:flex;align-items:center;gap:6px;max-width:52%;padding:0;border:0;background:transparent;color:#241542;font:600 .98rem 'Plus Jakarta Sans',sans-serif;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.un-u b{font-weight:600;color:#8B84A3;margin-left:2px}
+.un-u i{flex:none;width:0;height:0;border-left:5px solid #8B84A3;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.un-v{flex:1 1 auto;min-width:0;border:0;background:transparent;text-align:right;font:700 1.45rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em;color:#B3A9CC;outline:none;font-variant-numeric:tabular-nums;padding:0}
+.un-row.on .un-v{color:#241542}
+.un-pop{position:absolute;left:6px;z-index:3;min-width:210px;max-height:260px;overflow-y:auto;background:#fff;border-radius:16px;padding:6px;box-shadow:0 12px 34px rgba(36,21,66,.2),0 0 0 1px rgba(36,21,66,.05)}
+.un-pop button{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border:0;border-radius:11px;background:transparent;color:#241542;font:500 .92rem 'Plus Jakarta Sans',sans-serif;text-align:left;cursor:pointer}
+.un-pop button.on{color:#5B1FD0;font-weight:700}
+.un-pop button span{width:16px;flex:none;color:#7B2FF7;font-weight:800}
+.un-pop button b{margin-left:auto;font-weight:600;color:#8B84A3}
+.un-note{margin-top:12px;min-height:16px;text-align:center;font:500 .72rem 'Plus Jakarta Sans',sans-serif;color:#8B84A3}
 /* ===== Musik ===== */
 #musik .csheet{background:linear-gradient(180deg,#FBF7FF 0%,#FFFFFF 42%)}
 #musik .cin{max-width:420px;padding:0 18px calc(92px + env(safe-area-inset-bottom,0px))}
@@ -1396,12 +1393,11 @@ body.prof-open.pm-open .nav{z-index:5}
   </div>
 </div>
 <div class="ovl" id="rgWrap" hidden>
-  <div class="ovl-cd" role="dialog" aria-modal="true" aria-label="Penggaris">
-    <div class="ovl-hd"><span class="ovl-t">Penggaris</span><button class="ovl-x" id="rgX" type="button" aria-label="Tutup">&#10005;</button></div>
-    <div class="rg-top"><span class="rg-chip on" id="rgCm">cm</span><span class="rg-chip" id="rgIn">inci</span><span class="rg-read" id="rgRead">Ketuk penggaris untuk menandai</span></div>
-    <div class="rg-scroll" id="rgScroll"><div class="rg-strip" id="rgStrip"></div></div>
-    <div class="rg-foot"><button class="rg-btn" id="rgCal" type="button">Atur skala</button><span class="rg-hint" id="rgHint">Skala awal sudah mendekati asli. Kalibrasi sekali dengan kartu ATM supaya presisi.</span></div>
-    <div class="rg-adj" id="rgAdj"><button id="rgMinus" type="button" aria-label="Perkecil">&#8722;</button><div class="rg-kartu" id="rgKartu"><span>8,56 cm</span></div><button id="rgPlus" type="button" aria-label="Perbesar">+</button></div>
+  <div class="ovl-cd un-cd" role="dialog" aria-modal="true" aria-label="Pengonversi satuan">
+    <div class="ovl-hd"><span class="ovl-t">Pengonversi satuan</span><button class="ovl-x" id="rgX" type="button" aria-label="Tutup">&#10005;</button></div>
+    <div class="un-tabs" id="unTabs" role="tablist"></div>
+    <div class="un-rows" id="unRows"></div>
+    <div class="un-note" id="unNote"></div>
   </div>
 </div>
 <section class="cal" id="musik" aria-label="Musik" aria-hidden="true">
@@ -3992,84 +3988,118 @@ window.PROFIL=(function(){
   window.CVOPEN=open;
 })();
 
-/* Penggaris: skala px/cm bisa dikalibrasi, tandai titik A dan B. */
+/* Pengonversi satuan: Panjang, Area, Volume, Massa, Suhu, Waktu. Basis tiap kategori = satuan SI. */
 (function(){
   var wrap=document.getElementById('rgWrap');if(!wrap)return;
-  var strip=document.getElementById('rgStrip'),scroll=document.getElementById('rgScroll'),read=document.getElementById('rgRead'),
-      cmBtn=document.getElementById('rgCm'),inBtn=document.getElementById('rgIn'),calBtn=document.getElementById('rgCal'),
-      adj=document.getElementById('rgAdj'),kartu=document.getElementById('rgKartu'),hint=document.getElementById('rgHint');
-  var KEY='md_ruler',ppc=37.8,unit='cm',A=null,B=null,calMode=false;
-  try{var st=JSON.parse(localStorage.getItem(KEY));if(st){if(isFinite(st.ppc)&&st.ppc>10&&st.ppc<200)ppc=+st.ppc;if(st.unit==='in')unit='in'}}catch(e){}
-  function ppu(){return unit==='cm'?ppc:ppc*2.54}
-  function save(){try{localStorage.setItem(KEY,JSON.stringify({ppc:ppc,unit:unit}))}catch(e){}}
-  function fmtCm(v){return v.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1})+' cm'}
-  function fmtIn(v){var i=Math.floor(v),f=Math.round((v-i)*16);if(f===16){i++;f=0}return i+(f?' '+f+'/16':'')+' inci'}
-  function val(x){return x/ppu()}
-  function label(v){return unit==='cm'?fmtCm(v):fmtIn(v)}
-  function draw(){
-    var u=ppu(),tot=unit==='cm'?40:16,step=unit==='cm'?0.1:0.125,half=unit==='cm'?0.5:0.25,maj=1,parts=[],w=Math.round(tot*u)+8;
-    parts.push('<svg width="'+w+'" height="74" viewBox="0 0 '+w+' 74" aria-hidden="true">');
-    parts.push('<rect x="0" y="0" width="'+w+'" height="74" fill="none"/>');
-    var n=Math.round(tot/step);
-    for(var i=0;i<=n;i++){
-      var v=i*step,x=v*u,len=9,cl='#B9A8DD';
-      if(Math.abs(v%maj)<0.0001){len=26;cl='#5B1FD0'}
-      else if(Math.abs(v%half)<0.0001){len=17;cl='#8B6EDC'}
-      parts.push('<line x1="'+x.toFixed(2)+'" y1="'+(46-len)+'" x2="'+x.toFixed(2)+'" y2="46" stroke="'+cl+'" stroke-width="'+(len===26?1.6:1)+'" stroke-linecap="round"/>');
-      if(Math.abs(v%maj)<0.0001&&v>0){
-        parts.push('<text x="'+(x+3).toFixed(2)+'" y="66" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="600" fill="#5B5A6B">'+Math.round(v)+'</text>');
-      }
-    }
-    parts.push('</svg>');
-    strip.style.width=w+'px';
-    strip.innerHTML=parts.join('');
-    if(A!==null)marks();
-    readR();
+  var tabsEl=document.getElementById('unTabs'),rowsEl=document.getElementById('unRows'),noteEl=document.getElementById('unNote');
+  var CAT=[
+    {k:'panjang',n:'Panjang',u:[['m','Meter','m',1],['km','Kilometer','km',1000],['dm','Desimeter','dm',0.1],['cm','Sentimeter','cm',0.01],['mm','Milimeter','mm',0.001],['in','Inci','in',0.0254],['ft','Kaki','ft',0.3048],['yd','Yard','yd',0.9144],['mi','Mil','mi',1609.344]],d:['ft','cm','in']},
+    {k:'area',n:'Area',u:[['m2','Meter persegi','m²',1],['km2','Kilometer persegi','km²',1e6],['cm2','Sentimeter persegi','cm²',1e-4],['ha','Hektare','ha',1e4],['ft2','Kaki persegi','ft²',0.09290304],['in2','Inci persegi','in²',0.00064516],['ac','Acre','ac',4046.8564224]],d:['m2','ha','ft2']},
+    {k:'volume',n:'Volume',u:[['l','Liter','L',1],['ml','Mililiter','mL',0.001],['m3','Meter kubik','m³',1000],['cm3','Sentimeter kubik','cm³',0.001],['gal','Galon (AS)','gal',3.785411784],['qt','Quart (AS)','qt',0.946352946],['cup','Cangkir (AS)','cup',0.2365882365],['floz','Ons cairan (AS)','fl oz',0.0295735295625]],d:['l','ml','gal']},
+    {k:'massa',n:'Massa',u:[['kg','Kilogram','kg',1],['g','Gram','g',0.001],['mg','Miligram','mg',1e-6],['t','Ton','t',1000],['lb','Pon','lb',0.45359237],['oz','Ons','oz',0.028349523125],['ons','Ons (100 g)','ons',0.1]],d:['kg','g','lb']},
+    {k:'suhu',n:'Suhu',u:[['c','Celsius','°C'],['f','Fahrenheit','°F'],['k','Kelvin','K']],d:['c','f','k'],t:1},
+    {k:'waktu',n:'Waktu',u:[['s','Detik','s',1],['min','Menit','mnt',60],['h','Jam','jam',3600],['d','Hari','hr',86400],['w','Minggu','mgg',604800],['ms','Milidetik','ms',0.001],['y','Tahun','thn',31557600]],d:['h','min','s']}
+  ];
+  var KEY='md_satuan',cat=0,sel=[],act=0,txt='1',pop=null;
+  try{var st=JSON.parse(localStorage.getItem(KEY));if(st&&st.c>=0&&st.c<CAT.length){cat=st.c;if(st.s&&st.s.length===3)sel=st.s}}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify({c:cat,s:sel}))}catch(e){}}
+  function C(){return CAT[cat]}
+  function U(code){return C().u.filter(function(x){return x[0]===code})[0]}
+  function valid(){var ok=sel.length===3;if(ok)sel.forEach(function(x){if(!U(x))ok=false});if(!ok)sel=C().d.slice()}
+  function toBase(code,v){
+    if(C().t){if(code==='c')return v;if(code==='f')return (v-32)*5/9;return v-273.15}
+    return v*U(code)[3];
   }
-  function marks(){
-    Array.prototype.forEach.call(strip.querySelectorAll('.rg-mk'),function(m){m.remove()});
-    function add(v,cls,txt){
-      var d=document.createElement('div');d.className='rg-mk'+(cls?' '+cls:'');d.style.left=(v*ppu()).toFixed(2)+'px';
-      var sp=document.createElement('span');sp.textContent=txt;d.appendChild(sp);strip.appendChild(d);
-    }
-    if(A!==null)add(A,'',unit==='cm'?'A':'A');
-    if(B!==null)add(B,'b','B');
+  function fromBase(code,b){
+    if(C().t){if(code==='c')return b;if(code==='f')return b*9/5+32;return b+273.15}
+    return b/U(code)[3];
   }
-  function readR(){
-    if(A===null){read.innerHTML='Ketuk penggaris untuk menandai';return}
-    if(B===null){read.innerHTML='<b>A '+label(A)+'</b> \u00b7 ketuk lagi untuk titik B';return}
-    read.innerHTML='<b>'+label(Math.abs(B-A))+'</b> \u00b7 A '+label(A)+' \u2192 B '+label(B);
+  function parse(t){var n=parseFloat(String(t).replace(/\./g,'').replace(',','.'));return isFinite(n)?n:NaN}
+  function fmt(v){
+    if(!isFinite(v))return '';
+    if(v===0)return '0';
+    var a=Math.abs(v),o;
+    if(a>=1e15||a<1e-9)return v.toExponential(4).replace('.',',');
+    o={maximumSignificantDigits:10};
+    if(a>=1)o={maximumFractionDigits:6};
+    try{return new Intl.NumberFormat('id-ID',o).format(v)}catch(e){return String(v)}
   }
-  function setUnit(u){
-    unit=u;cmBtn.classList.toggle('on',u==='cm');inBtn.classList.toggle('on',u==='in');save();draw();
+  function closePop(){if(pop){pop.remove();pop=null}}
+  function render(){
+    closePop();
+    var base=parse(txt);
+    var b=isNaN(base)?NaN:toBase(sel[act],base);
+    rowsEl.innerHTML='';
+    sel.forEach(function(code,i){
+      var u=U(code),row=document.createElement('div');row.className='un-row'+(i===act?' on':'');
+      var ub=document.createElement('button');ub.type='button';ub.className='un-u';
+      ub.innerHTML=u[1]+' <b>'+u[2]+'</b><i></i>';
+      var inp=document.createElement('input');inp.className='un-v';inp.type='text';inp.setAttribute('inputmode','decimal');inp.setAttribute('autocomplete','off');
+      inp.setAttribute('aria-label',u[1]);
+      inp.value=(i===act)?txt:(isNaN(b)?'':fmt(fromBase(code,b)));
+      row.appendChild(ub);row.appendChild(inp);rowsEl.appendChild(row);
+      inp.addEventListener('focus',function(){
+        if(act!==i){var cur=inp.value;act=i;txt=cur||'0'; render(); var n=rowsEl.querySelectorAll('.un-v')[i];if(n){n.focus();try{n.select()}catch(e){}}}
+        else{try{inp.select()}catch(e){}}
+      });
+      inp.addEventListener('input',function(){
+        txt=inp.value.replace(/[^0-9.,\-]/g,'');if(inp.value!==txt)inp.value=txt;
+        var nb=parse(txt);
+        Array.prototype.forEach.call(rowsEl.querySelectorAll('.un-v'),function(el,k){
+          if(k===i)return;
+          el.value=isNaN(nb)?'':fmt(fromBase(sel[k],toBase(sel[i],nb)));
+        });
+      });
+      row.addEventListener('click',function(e){if(e.target===row)inp.focus()});
+      ub.addEventListener('click',function(e){e.stopPropagation();openPop(i,row)});
+    });
+    noteEl.textContent=C().t?'Rumus: C × 9/5 + 32 = F':'';
   }
-  cmBtn.addEventListener('click',function(){setUnit('cm')});
-  inBtn.addEventListener('click',function(){setUnit('in')});
-  strip.addEventListener('click',function(e){
-    var r=strip.getBoundingClientRect(),x=e.clientX-r.left,v=Math.max(0,val(x));
-    if(A===null||B!==null){A=v;B=null}else{B=v}
-    marks();readR();
-    try{if(navigator.vibrate)navigator.vibrate(8)}catch(err){}
-  });
-  calBtn.addEventListener('click',function(){
-    calMode=!calMode;adj.classList.toggle('on',calMode);calBtn.classList.toggle('on',calMode);
-    if(calMode){hint.textContent='Tempelkan sisi pendek kartu ATM pada kotak ungu, lalu geser tombol \u2212 / + sampai pas.';sizeKartu()}
-    else{hint.textContent='Skala tersimpan. Tempel objek ke tepi layar lalu ketuk penggaris untuk mengukur.';save()}
-  });
-  function sizeKartu(){kartu.style.maxWidth='none';kartu.style.width=(8.56*ppc).toFixed(1)+'px'}
-  function nudge(f){
-    ppc=Math.min(200,Math.max(15,ppc*f));sizeKartu();draw();save();
+  function openPop(i,row){
+    var wasMine=pop&&pop._i===i;closePop();if(wasMine)return;
+    var p=document.createElement('div');p.className='un-pop';p._i=i;
+    C().u.forEach(function(u){
+      var b=document.createElement('button');b.type='button';if(u[0]===sel[i])b.className='on';
+      b.innerHTML='<span>'+(u[0]===sel[i]?'\u2713':'')+'</span>'+u[1]+'<b>'+u[2]+'</b>';
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        var old=sel[i];
+        var dup=sel.indexOf(u[0]);
+        if(dup>=0&&dup!==i){sel[dup]=old}
+        sel[i]=u[0];save();render();
+      });
+      p.appendChild(b);
+    });
+    rowsEl.appendChild(p);
+    var top=row.offsetTop+row.offsetHeight+4;
+    var maxH=Math.max(120,Math.min(260,wrap.querySelector('.ovl-cd').getBoundingClientRect().height));
+    p.style.top=top+'px';
+    var bottom=rowsEl.getBoundingClientRect().top+top+p.offsetHeight;
+    if(bottom>window.innerHeight-8){p.style.top=Math.max(0,row.offsetTop-p.offsetHeight-4)+'px'}
+    pop=p;
   }
-  document.getElementById('rgMinus').addEventListener('click',function(){nudge(0.98)});
-  document.getElementById('rgPlus').addEventListener('click',function(){nudge(1.02)});
-  function open(){wrap.hidden=false;document.body.style.overflow='hidden';A=null;B=null;draw();if(calMode)sizeKartu();scroll.scrollLeft=0}
-  function close(){wrap.hidden=true;document.body.style.overflow='';calMode=false;adj.classList.remove('on');calBtn.classList.remove('on')}
+  function tabs(){
+    tabsEl.innerHTML='';
+    CAT.forEach(function(c,i){
+      var b=document.createElement('button');b.type='button';b.className='un-tab'+(i===cat?' on':'');b.textContent=c.n;b.setAttribute('role','tab');
+      b.addEventListener('click',function(){cat=i;sel=C().d.slice();act=0;txt='1';save();tabs();render()});
+      tabsEl.appendChild(b);
+    });
+  }
+  function open(){
+    wrap.hidden=false;document.body.style.overflow='hidden';
+    valid();tabs();render();
+  }
+  function close(){wrap.hidden=true;document.body.style.overflow='';closePop()}
   var btn=document.getElementById('kRuler');
-  if(btn)btn.addEventListener('click',open);
+  if(btn){
+    btn.setAttribute('aria-label','Pengonversi satuan');
+    btn.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="8.5" width="19" height="7" rx="1.6"/><path d="M6.5 8.5v3M10 8.5v4M13.5 8.5v3M17 8.5v4"/></svg>';
+    btn.addEventListener('click',open);
+  }
   document.getElementById('rgX').addEventListener('click',close);
-  wrap.addEventListener('click',function(e){if(e.target===wrap)close()});
+  wrap.addEventListener('click',function(e){if(e.target===wrap)close();else if(pop&&!e.target.closest('.un-pop')&&!e.target.closest('.un-u'))closePop()});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!wrap.hidden){close();e.stopImmediatePropagation()}},true);
-  setUnit(unit);
 })();
 </script>
 <script>
