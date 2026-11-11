@@ -1,0 +1,17 @@
+<!doctype html><meta charset="utf-8"><title>dbg</title>
+<iframe id="f" src="/keuangan" style="width:390px;height:760px;border:0"></iframe>
+<pre id="o">menunggu</pre>
+<script>
+setTimeout(function(){
+  try{
+    var d=document.getElementById('f').contentDocument;
+    var rows=d.querySelectorAll('#kList .krow'),out=[];
+    Array.prototype.forEach.call(rows,function(r){
+      var n=r.querySelector('.kn'),kt=r.querySelector('.kt');
+      var rr=r.getBoundingClientRect(),nr=n.getBoundingClientRect();
+      out.push('ROW '+Math.round(rr.width)+' kanan-row='+Math.round(rr.right)+' kanan-nom='+Math.round(nr.right)+' lebar-nom='+Math.round(nr.width)+' | '+(kt?kt.textContent:'')+' | '+n.textContent);
+    });
+    document.getElementById('o').textContent=out.join('\n')||'tidak ada baris';
+  }catch(e){document.getElementById('o').textContent='ERR '+e.message}
+},4000);
+</script>
