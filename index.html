@@ -1464,7 +1464,7 @@ html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
     return id?nameOf(id):'';
   };
 
-  var ctx=null,audioEl=null,playingId='',stopTimer=0;
+  var ctx=null,audioEl=null,playingId='',stopTimer=0,live=[];
   function ac(){
     try{
       var C=window.AudioContext||window.webkitAudioContext;
@@ -1483,6 +1483,8 @@ html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
     g.gain.exponentialRampToValueAtTime(vol||0.2,start+0.02);
     g.gain.exponentialRampToValueAtTime(0.0001,start+dur);
     o.connect(g);g.connect(c.destination);
+    live.push(o);
+    o.onended=function(){var k=live.indexOf(o);if(k>=0)live.splice(k,1)};
     o.start(start);o.stop(start+dur+0.03);
   }
   function pattern(kind){
@@ -1528,9 +1530,14 @@ html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
     clearTimeout(stopTimer);stopTimer=0;
     if(audioEl){try{audioEl.pause();audioEl.currentTime=0}catch(e){}}
     playingId='';
-    try{if(ctx&&ctx.state==='running')ctx.close().catch(function(){});}catch(e){}
-    ctx=null;
+    live.forEach(function(o){try{o.stop()}catch(e){}});
+    live=[];
   }
+  function unlock(){ac()}
+  document.addEventListener('pointerdown',unlock,{once:true});
+  document.addEventListener('touchstart',unlock,{once:true});
+  document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')ac()});
+
   function ring(al){
     if(al&&al.v!==false&&navigator.vibrate){try{navigator.vibrate([300,150,300])}catch(e){}}
     var s=(al&&al.snd)||'bip';
