@@ -891,14 +891,14 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 <script>"serviceWorker"in navigator&&"https:"===location.protocol&&window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})});</script>
 <style>
 /* Daftar transaksi: ikon | judul + tanggal/jam | nominal rata kanan */
-#kList .krow{display:grid;grid-template-columns:44px minmax(0,1fr) max-content;align-items:center;column-gap:13px;min-height:62px;padding:9px 8px;border-radius:18px;width:100%;box-sizing:border-box}
-#kList .kb{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px}
-#kList .kt{font-size:.95rem;font-weight:600;line-height:1.25;color:#2d1f4f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#kList .km2{margin:0;font-size:.72rem;font-weight:500;line-height:1.2;color:#9a8fb5;white-space:nowrap}
-#kList .kn{justify-self:end;min-width:max-content;overflow:visible;text-align:right;white-space:nowrap;font:700 .92rem/1.2 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-#kList .kic{width:44px;height:44px;min-width:44px;border-radius:15px}
-#kList .kgrp{margin:18px 0 4px;padding:0 8px;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#a89dc2}
-#kList .kgp{display:flex;flex-direction:column;gap:2px}
+#keu #kList .kgp{display:flex;flex-direction:column;gap:2px}
+#keu #kList .krow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;column-gap:13px;min-height:62px;padding:9px 12px 9px 8px;border-radius:18px;width:100%;box-sizing:border-box}
+#keu #kList .kic{width:44px;height:44px;min-width:44px;border-radius:15px}
+#keu #kList .kb{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px}
+#keu #kList .kt{font-size:.95rem;font-weight:600;line-height:1.25;color:#2d1f4f;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#keu #kList .km2{margin:0;font-size:.72rem;font-weight:500;line-height:1.2;color:#9a8fb5;white-space:nowrap}
+#keu #kList .kn{justify-self:end;text-align:right;white-space:nowrap;font:700 .92rem/1.2 'Plus Jakarta Sans',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+#keu #kList .kgrp{margin:18px 0 4px;padding:0 8px;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#a89dc2}
 #kAmount{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 </style>
 <style>
