@@ -1512,7 +1512,7 @@ html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
     if(!id)return false;
     if(audioEl&&playingId===id&&!audioEl.paused)return true;
     getBlob(id).then(function(b){
-      if(!b)return;
+      if(!b){pattern('nyaring');return}
       try{
         if(!audioEl){audioEl=new Audio();audioEl.preload='auto'}
         if(audioEl.src&&audioEl.src.indexOf('blob:')===0)URL.revokeObjectURL(audioEl.src);
