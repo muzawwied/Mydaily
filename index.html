@@ -1463,8 +1463,9 @@ html[data-theme=dark] .nt:active{background:#1b132a}
 html[data-theme=dark] .nt-p{color:#9d93b6}
 html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
 /* keypad nominal transaksi (dipisah dari keypad kalkulator) */
+#kModal.kpad-on #kPadNum{display:block}
 #kPadNum{display:none;position:fixed;left:0;right:0;bottom:0;z-index:41;box-sizing:border-box;padding:10px 14px calc(12px + var(--sab));background:#fff;-webkit-user-select:none;user-select:none;touch-action:manipulation}
-#kModal.kpad-on 
+
 #kPadNum .kpg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
 #kPadNum button{width:64px;height:64px;justify-self:center;border:0;border-radius:50%;background:#f4f0fa;color:var(--ink);font:700 1.3rem 'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,transform .08s}
 #kPadNum button:active{background:#e4dbf5;transform:scale(.96)}
