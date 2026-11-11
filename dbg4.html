@@ -1,0 +1,22 @@
+<!doctype html><meta charset="utf-8"><title>dbg4</title>
+<iframe id="f" src="/kalkulator" style="width:390px;height:760px;border:0"></iframe>
+<pre id="o">menunggu</pre>
+<script>
+setTimeout(function(){
+  var out=[];
+  try{
+    var d=document.getElementById('f').contentDocument;
+    var pad=d.getElementById('kPad'), cin=d.querySelector('#kalk .cin'), sheet=d.querySelector('#kalk .csheet'), cal=d.getElementById('kalk');
+    function info(el,label){
+      if(!el){out.push(label+': tidak ada');return}
+      var r=el.getBoundingClientRect(), cs=getComputedStyle(el);
+      out.push(label+' rect='+Math.round(r.left)+','+Math.round(r.top)+' '+Math.round(r.width)+'x'+Math.round(r.height)+' display='+cs.display+' pos='+cs.position+' vis='+cs.visibility+' op='+cs.opacity+' overflow='+cs.overflow+' h='+cs.height+' pb='+cs.paddingBottom);
+    }
+    info(pad,'kPad'); info(cin,'cin'); info(sheet,'csheet'); info(cal,'cal');
+    var b=d.querySelector('#kPad button');
+    info(b,'tombol1');
+    out.push('cal scrollHeight='+cal.scrollHeight+' clientH='+cal.clientHeight);
+  }catch(e){out.push('ERR '+e.message)}
+  document.getElementById('o').textContent=out.join('\n');
+},3500);
+</script>
