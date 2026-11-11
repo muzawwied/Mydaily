@@ -953,14 +953,19 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
     busy=true;
     if(url)try{URL.revokeObjectURL(url)}catch(e){}
     url=URL.createObjectURL(file);
+    ovl.hidden=false;
     img.onload=function(){
       natW=img.naturalWidth||1;natH=img.naturalHeight||1;
-      var st=stageSize();base=Math.max(st.w/natW,st.h/natH);
-      resetElement();ovl.hidden=false;
+      resetElement();
     };
     img.src=url;
   }
-  function resetElement(){zoom=1;ox=0;oy=0;zoomEl.value='1';var st=stageSize();base=Math.max(st.w/natW,st.h/natH);draw()}
+  function resetElement(){
+    zoom=1;ox=0;oy=0;zoomEl.value='1';
+    var st=stageSize();
+    if(st.w<8||st.h<8){requestAnimationFrame(resetElement);return}
+    base=Math.max(st.w/natW,st.h/natH);draw();
+  }
   function close(){
     ovl.hidden=true;busy=false;drag=null;pinch=0;
     if(url){try{URL.revokeObjectURL(url)}catch(e){}url=''}
