@@ -1200,7 +1200,7 @@ html[data-theme=dark] .kchip{background:#1e142d}
 html[data-theme=dark] .kchip:active{background:#2a1e3d}
 html[data-theme=dark] #kModal #kForm.kst2 #kInp{background:#1e142d}
 
-#kModal.kpad-on 
+
 #kModal.kpad-on .mbox{padding-bottom:calc(330px + var(--sab))}
 
 
@@ -1217,7 +1217,7 @@ html[data-theme=dark]
   var modal=document.getElementById("kModal"),form=document.getElementById("kForm"),amt=document.getElementById("kAmount"),save=document.getElementById("kSave");
   if(!modal||!form||!amt)return;
   var pad=document.createElement("div");
-  pad.id="kPad";pad.setAttribute("aria-label","Keyboard nominal");
+  pad.id="kPadNum";pad.setAttribute("aria-label","Keyboard nominal");
   var keys=["1","2","3","4","5","6","7","8","9","000","0","del"],h='<div class="kpg">';
   keys.forEach(function(k){
     if(k==="del")h+='<button type="button" data-p="del" aria-label="Hapus angka"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 5H9l-6 7 6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path stroke-width="2.7" d="M11.4 9.4l4.8 5.2M16.2 9.4l-4.8 5.2"/></svg></button>';
@@ -1462,7 +1462,18 @@ html[data-theme=dark] .nt:last-child{border-bottom:0}
 html[data-theme=dark] .nt:active{background:#1b132a}
 html[data-theme=dark] .nt-p{color:#9d93b6}
 html[data-theme=dark] .nt-d{background:none;color:#8a7fa6}
-#kalk #kPad{display:grid;position:static;left:auto;right:auto;bottom:auto;z-index:auto;width:auto;padding:0;background:0 0;visibility:visible}
+/* keypad nominal transaksi (dipisah dari keypad kalkulator) */
+#kPadNum{display:none;position:fixed;left:0;right:0;bottom:0;z-index:41;box-sizing:border-box;padding:10px 14px calc(12px + var(--sab));background:#fff;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+#kModal.kpad-on 
+#kPadNum .kpg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
+#kPadNum button{width:64px;height:64px;justify-self:center;border:0;border-radius:50%;background:#f4f0fa;color:var(--ink);font:700 1.3rem 'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,transform .08s}
+#kPadNum button:active{background:#e4dbf5;transform:scale(.96)}
+#kPadNum button svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#kPadNum .kpz{font-size:1.1rem}
+#kPadNum button[data-p=del] svg{width:31px;height:31px}
+html[data-theme=dark] html[data-theme=dark] #kPadNum{background:#150d20}
+html[data-theme=dark] html[data-theme=dark] #kPadNum button{background:#1e142d}
+html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2a1e3d}
 </style>
 <input type="file" id="mdSndFile" accept="audio/*" hidden>
 <script>
