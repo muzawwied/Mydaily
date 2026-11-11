@@ -1058,8 +1058,21 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 
   /* HOOK_UJI */
   window.__cropOpen=open;
-  if(/[?&]croptest=1/.test(location.search)){
-    fetch('/assets/img/daily-01.jpg').then(function(r){return r.blob()}).then(function(b){open(new File([b],'tes.jpg',{type:'image/jpeg'}))}).catch(function(){});
+  if(/[?&]croptest=[12]/.test(location.search)){
+    fetch('/assets/img/daily-01.jpg').then(function(r){return r.blob()}).then(function(b){
+      open(new File([b],'tes.jpg',{type:'image/jpeg'}));
+      if(/croptest=2/.test(location.search)){
+        setTimeout(function(){
+          crop={x:ir.x+ir.w*0.1,y:ir.y+ir.h*0.1,size:Math.min(ir.w,ir.h)*0.5};
+          try{finish()}catch(e){document.getElementById('greet').textContent='ERRFIN '+e.message}
+          setTimeout(function(){
+            var pv=document.getElementById('pPre');
+            var bg=(pv&&pv.style&&pv.style.backgroundImage)||'';
+            document.getElementById('greet').textContent='HASIL '+Math.round(bg.length/1)+' '+bg.slice(0,26);
+          },900);
+        },600);
+      }
+    }).catch(function(){});
   }
 })();
 </script>
