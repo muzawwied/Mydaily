@@ -1,7 +1,7 @@
 /* Service worker My Daily: seluruh aplikasi (HTML, ikon, dan gambar) tetap hidup tanpa internet. */
-const VERSION = 'mydaily-v80';
+const VERSION = 'mydaily-v81';
 const CACHE = VERSION;
-const EXT_CACHE = 'mydaily-ext-v80';
+const EXT_CACHE = 'mydaily-ext-v81';
 const SHELL = [
   '/',
   '/index.html',
@@ -93,6 +93,12 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(req.url);
   if (url.pathname.indexOf('/api/') === 0) return;
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
+
+  // Versi aplikasi harus selalu data terbaru, bukan salinan cache.
+  if (url.pathname === '/version.json') {
+    e.respondWith(fetch(req, { cache: 'no-store' }).catch(() => caches.match(req)));
+    return;
+  }
 
   const isDoc = req.mode === 'navigate' || (req.headers.get('accept') || '').indexOf('text/html') !== -1;
   if (isDoc) {
