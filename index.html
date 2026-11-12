@@ -998,7 +998,9 @@ html[data-theme=dark] #kModal .ttabs button.on{background:#7b2ff7;color:#fff}
 #gal .galcell img.on{opacity:1}
 #gal .galcell span{position:absolute;inset:0;display:grid;place-items:center;color:#b9a9d8;font-size:.7rem}
 #gal .galempty{display:flex;flex-direction:column;align-items:center;gap:8px;margin:44px auto 0;padding:0 18px;text-align:center;color:#8e82ab;font:500 .84rem/1.5 'Plus Jakarta Sans',sans-serif}
-#gal .galempty b{font:800 1.02rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#241542}
+#gal #gal .galempty[hidden],#gal .galgrid[hidden],#gal .galskel[hidden],#gal .galbar[hidden]{display:none!important}
+.galmore{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 0 4px;color:#a294c2;font:600 .76rem 'Plus Jakarta Sans',sans-serif}
+.galempty b{font:800 1.02rem 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;color:#241542}
 #gal .galbtn{margin-top:8px;padding:11px 20px;border:0;border-radius:999px;background:linear-gradient(135deg,#7B2FF7,#A45BFF);color:#fff;font:700 .86rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}
 #gal .galskel{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
 #gal .galskel i{display:block;aspect-ratio:1/1;border-radius:10px;background:linear-gradient(100deg,#f2ecfb 30%,#faf7ff 50%,#f2ecfb 70%);background-size:220% 100%;animation:galsh 1.1s infinite linear}
@@ -1748,13 +1750,20 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
       showEmpty('Belum ada foto','Foto di perangkat akan muncul di sini tanpa perlu diunggah.',false);
       return;
     }
-    skel.hidden=true;empty.hidden=true;grid.hidden=false;
+    skel.hidden=true;empty.hidden=true;ask.hidden=true;grid.hidden=false;
     batch.forEach(function(it){items.push(it);grid.appendChild(cell(it))});
     cnt.textContent=total?total+' foto':'';
     info.textContent=total?'Foto terbaru di perangkat':'Galeri perangkat';
     loading=false;
     watch();
+    markMore();
     if(!done&&grid.scrollHeight<window.innerHeight*1.4)load();
+  }
+  function markMore(){
+    var m=document.getElementById('galMore');
+    if(!m){m=document.createElement('div');m.id='galMore';m.className='galmore';grid.parentNode.appendChild(m)}
+    m.textContent='Memuat foto…';
+    m.hidden=done||!items.length;
   }
   function cell(it){
     var b=document.createElement('button');
@@ -1812,7 +1821,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
   });
   gal.addEventListener('scroll',function(){
     if(loading||done)return;
-    if(gal.scrollTop+gal.clientHeight>gal.scrollHeight-420)load();
+    if(gal.scrollTop+gal.clientHeight>gal.scrollHeight-900)load();
   },{passive:true});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!view.hidden)closeView()});
 })();
