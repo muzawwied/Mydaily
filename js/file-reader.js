@@ -382,8 +382,7 @@
     });
     renderList();
     info(files.length + ' berkas terbuka');
-    if (active < 0) show(files.length - added.length);
-    else show(active, true);
+    show(files.length - added.length);   // langsung tampilkan berkas pertama yang baru dipilih
   }
 
   /* ---------- buka / tutup bagian ---------- */
