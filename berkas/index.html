@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#7B2FF7">
+<title>Berkas — My Daily</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/img/icon-192.png">
+<style>
+:root{
+  --bg:#FFFFFF;--ink:#1E1433;--muted:#6A5F80;--line:#E4DBF5;--tile:#F1E8FF;
+  --sky:#7B2FF7;--soft:#F7F1FF;--code-bg:#140A2B;--code-ink:#EFE7FF;--code-mut:#CBB8F5;
+  --sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0F0A1C;--ink:#F2ECFF;--muted:#A99FC4;--line:#2A2040;--tile:#1D1430;--soft:#170F28;
+    --code-bg:#0B0716;--code-ink:#EFE7FF;--code-mut:#9D8AC6;}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5;
+  padding:calc(14px + var(--sat)) 0 calc(40px + var(--sab))}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+h1{font-size:1.12rem;margin:0;font-weight:800;letter-spacing:-.01em}
+.badge{margin-left:auto;font:700 .68rem/1 system-ui;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 10px;white-space:nowrap}
+.sub{margin:2px 0 16px;color:var(--muted);font-size:.82rem}
+.pickrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--sky);border-radius:999px;
+  padding:10px 15px;font:800 .78rem/1 'Plus Jakarta Sans',system-ui;cursor:pointer}
+.btn.pri{background:var(--sky);border-color:var(--sky);color:#fff}
+.btn.on{background:var(--tile);border-color:#C9AEF7}
+.btn:active{transform:scale(.985)}
+.files{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.files:empty{display:none}
+.frow{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:9px 11px;cursor:pointer;font:700 .8rem/1.3 'Plus Jakarta Sans',system-ui;color:var(--ink)}
+.frow.on{border-color:#C9AEF7;background:var(--soft)}
+.fnm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fsz{flex:none;font:700 .68rem/1 system-ui;color:var(--muted)}
+.fx{flex:none;border:0;background:transparent;color:var(--muted);font-size:1rem;line-height:1;padding:2px 4px;cursor:pointer}
+.empty{border:1px dashed var(--line);border-radius:16px;padding:34px 18px;text-align:center;color:var(--muted);font-size:.84rem}
+.empty b{display:block;color:var(--ink);font-size:.92rem;margin-bottom:6px}
+.stage{margin:6px 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.meta span{background:var(--tile);border-radius:999px;padding:4px 9px;font:700 .69rem/1.4 system-ui;color:var(--muted)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+pre.code{margin:0;padding:14px;border-radius:14px;background:var(--code-bg);color:var(--code-ink);
+  font:500 .78rem/1.62 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:auto;max-height:66vh;
+  white-space:pre;-webkit-overflow-scrolling:touch}
+pre.code.wrap{white-space:pre-wrap;word-break:break-word}
+pre.hex{margin:0;padding:14px;border-radius:14px;background:var(--code-bg);color:var(--code-mut);
+  font:500 .7rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:auto;max-height:52vh;white-space:pre}
+img.view,canvas.view{display:block;width:100%;height:auto;border-radius:14px;background:var(--tile)}
+.zoomable{overflow:auto;border-radius:14px;background:var(--tile);max-height:66vh}
+.zoomable img{display:block;max-width:none;transform-origin:top left}
+video.view,audio.view{width:100%;border-radius:14px;background:var(--tile)}
+iframe.pdf{width:100%;height:70vh;border:1px solid var(--line);border-radius:14px;background:#fff}
+h2{font-size:.9rem;margin:22px 0 10px;font-weight:800}
+table.info{width:100%;border-collapse:collapse;font-size:.78rem}
+table.info th,table.info td{text-align:left;padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.info th{color:var(--muted);font-weight:700;width:42%;white-space:nowrap}
+table.info td{word-break:break-word;font-variant-numeric:tabular-nums}
+.hash{font:600 .72rem ui-monospace,monospace;word-break:break-all;color:var(--ink)}
+.zl{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.zrow{display:flex;justify-content:space-between;gap:10px;padding:9px 12px;border-bottom:1px solid var(--line);font:700 .76rem/1.4 system-ui}
+.zrow:last-child{border-bottom:0}
+.zrow small{color:var(--muted);font-weight:600;flex:none}
+.note{color:var(--muted);font-size:.75rem;margin:8px 0 0}
+select.sel{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:9px 12px;font:700 .76rem system-ui}
+[hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Berkas</h1>
+      <div class="sub" id="sub">Pembaca berkas · semua ekstensi</div>
+    </div>
+    <span class="badge" id="modeBadge">Web</span>
+  </header>
+
+  <div class="pickrow">
+    <button class="btn pri" id="pick" type="button">Pilih berkas</button>
+    <button class="btn" id="studio" type="button">Studio</button>
+    <input type="file" id="inp" multiple hidden>
+  </div>
+
+  <div class="files" id="list"></div>
+
+  <div class="empty" id="empty">
+    <b>Belum ada berkas</b>
+    Ketuk “Pilih berkas”, atau buka berkas dari aplikasi lain lalu pilih “Buka dengan → My Daily”.
+  </div>
+
+  <div id="reader"></div>
+
+  <section id="studioPanel" hidden>
+    <h2>Studio</h2>
+    <table class="info"><tbody id="studioInfo"></tbody></table>
+    <div class="tools" id="studioTools" style="margin-top:14px"></div>
+    <div id="studioExtra"></div>
+  </section>
+</div>
+<script src="/berkas/reader.js" defer></script>
+</body>
+</html>
