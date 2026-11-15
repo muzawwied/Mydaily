@@ -143,6 +143,40 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 .jpanel[data-p=timer]:not([hidden]) .jctrl{padding-bottom:0}
 
 </style>
+<style id="jr-css">
+.srow{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}
+.srow .ttl{margin:0}
+.tlink{border:0;background:0;padding:6px 2px;font:600 .78rem 'Plus Jakarta Sans',sans-serif;color:#7b2ff7;cursor:pointer}
+.jcard{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:1px solid var(--line);background:linear-gradient(135deg,#f7f1ff,#efe3ff);border-radius:18px;padding:15px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.jcard:active{transform:scale(.99)}
+.jic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(160deg,#B27CFF,#6A2FE0);color:#fff;flex:0 0 auto}
+.jic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.jtx{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.jtx b{font:700 .95rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.jtx i{font:500 .78rem/1.35 'Plus Jakarta Sans',sans-serif;font-style:normal;color:var(--muted)}
+.jchev{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.jrwrap{display:flex;flex-direction:column;gap:14px;padding-bottom:40px}
+.jdate{font:600 .82rem 'Plus Jakarta Sans',sans-serif;color:var(--muted);text-transform:capitalize}
+.jsum{display:flex;flex-wrap:wrap;gap:8px}
+.jchip{display:inline-flex;align-items:center;gap:6px;background:#F1E8FF;color:#5B33B8;border-radius:999px;padding:7px 12px;font:600 .76rem 'Plus Jakarta Sans',sans-serif}
+.jq{font:600 .85rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);margin:2px 0 -4px}
+.jmood{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.jmb{height:46px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font-size:1.3rem;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}
+.jmb:active{transform:scale(.94)}
+.jmb.on{border-color:#7b2ff7;background:#F3EAFF}
+.jta{width:100%;min-height:104px;border:1.5px solid var(--line);border-radius:16px;padding:13px 14px;font:500 .9rem/1.55 'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fff;resize:vertical}
+.jta:focus{border-color:#B27CFF}
+.jsave{width:100%;height:48px;border:0;border-radius:999px;background:linear-gradient(120deg,#7B2FF7,#B27CFF);color:#fff;font:700 .92rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}
+.jhist .ttl{margin:14px 0 10px}
+.jitem{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px;background:#fff;cursor:pointer}
+.jitem .je{font-size:1.15rem;line-height:1.2}
+.jitem .jt{flex:1;min-width:0}
+.jitem .jd{font:700 .72rem 'Plus Jakarta Sans',sans-serif;color:#7b2ff7;text-transform:capitalize}
+.jitem .jp{font:500 .82rem/1.45 'Plus Jakarta Sans',sans-serif;color:var(--ink);word-break:break-word}
+.jdel{border:0;background:0;padding:2px;color:#B9A9D6;cursor:pointer;flex:0 0 auto}
+.jdel svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.jempty{font:500 .82rem 'Plus Jakarta Sans',sans-serif;color:var(--muted);padding:2px 0 6px}
+</style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -186,8 +220,8 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 <div class="slide s3"><h3>Catat hal yang kamu syukuri</h3><p>Tutup hari dengan hati tenang.</p></div>
 </div>
 <div class="dots" id="dots"></div>
-<h2 class="ttl">Menu favorit</h2>
-<div class="grid">
+<div class="srow"><h2 class="ttl">Menu favorit</h2><button class="tlink" id="favMore" type="button">Semua</button></div>
+<div class="grid" id="favGrid">
 <button class="item" id="openCal" type="button"><span class="tile"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="45" rx="14" ry="2.5" fill="#2A0F66" opacity=".14"/><rect x="7" y="11" width="34" height="33" rx="8" fill="#A9B6D6"/><rect x="7" y="8" width="34" height="33" rx="8" fill="url(#gW)"/><path d="M7 16a8 8 0 0 1 8-8h18a8 8 0 0 1 8 8v3H7z" fill="url(#gV)"/><rect x="14" y="4" width="4.5" height="9" rx="2.25" fill="url(#gY)"/><rect x="29.500" y="4" width="4.5" height="9" rx="2.25" fill="url(#gY)"/><text id="dnum" x="24" y="35" text-anchor="middle" font-size="16" font-weight="800" font-family="Plus Jakarta Sans,sans-serif" fill="#5B1FD0">9</text></svg></span>Kalender</button>
 <button class="item" id="openTask" type="button"><span class="tile"><svg viewBox="128 28 124 160" aria-hidden="true"><defs><linearGradient id="gP2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient></defs><ellipse cx="190" cy="178" rx="52" ry="7" fill="#000" opacity="0.12"/><rect x="136" y="36" width="108" height="128" rx="20" fill="url(#gP2)"/><rect x="150" y="54" width="80" height="26" rx="9" fill="#fff" opacity="0.96"/><circle cx="165" cy="67" r="8" fill="#25A68A"/><path d="M161 67l3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="180" y="64" width="38" height="6" rx="3" fill="#B9A3F2"/><rect x="150" y="89" width="80" height="26" rx="9" fill="#fff" opacity="0.96"/><circle cx="165" cy="102" r="7" fill="none" stroke="#B9A3F2" stroke-width="3"/><rect x="180" y="99" width="38" height="6" rx="3" fill="#B9A3F2"/><rect x="150" y="124" width="80" height="26" rx="9" fill="#fff" opacity="0.96"/><circle cx="165" cy="137" r="7" fill="none" stroke="#B9A3F2" stroke-width="3"/><rect x="180" y="134" width="26" height="6" rx="3" fill="#B9A3F2"/></svg></span>Tugas</button>
 <button class="item" id="openNote2" type="button"><span class="tile"><svg viewBox="128 28 134 160" aria-hidden="true"><defs><linearGradient id="gS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE27A"/><stop offset="1" stop-color="#F7A81B"/></linearGradient></defs><ellipse cx="190" cy="178" rx="52" ry="7" fill="#000" opacity="0.12"/><path d="M156 38H210L240 68V150a16 16 0 0 1-16 16H156a16 16 0 0 1-16-16V54a16 16 0 0 1 16-16Z" fill="url(#gS)"/><path d="M210 38V54a14 14 0 0 0 14 14H240Z" fill="#FFF4C9"/><path d="M210 54a14 14 0 0 0 14 14H240" fill="none" stroke="#E79A12" stroke-width="2" opacity="0.35"/><rect x="156" y="82" width="50" height="8" rx="4" fill="#7B3FE9"/><rect x="156" y="104" width="38" height="8" rx="4" fill="#9B5CF0"/><rect x="156" y="126" width="24" height="8" rx="4" fill="#B98CF5"/><g transform="translate(224 136) rotate(45)"><path d="M-8 -30V-36a4 4 0 0 1 4-4H4a4 4 0 0 1 4 4V-30Z" fill="#F77FB0"/><rect x="-8" y="-30" width="16" height="7" fill="#DCCBFF"/><rect x="-8" y="-23" width="16" height="43" fill="#A66BFF"/><rect x="0" y="-23" width="8" height="43" fill="#8444E8"/><polygon points="-8,20 8,20 0,36" fill="#FFE0A8"/><polygon points="0,20 8,20 0,36" fill="#F2C880"/><polygon points="-3,30 3,30 0,36" fill="#4B2A9E"/></g></svg></span>Catatan</button>
@@ -197,7 +231,16 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 
 <button class="item" id="openMusik" type="button"><span class="tile"><svg viewBox="110 38 160 150" aria-hidden="true"><defs><linearGradient id="gV2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5B33B8"/><stop offset="1" stop-color="#1F0F4F"/></linearGradient><linearGradient id="gSl2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E6DFF8"/></linearGradient></defs><ellipse cx="186" cy="172" rx="52" ry="6" fill="#000" opacity="0.12"/><g transform="translate(9 0)"><circle cx="192" cy="100" r="40" fill="url(#gV2)"/><circle cx="192" cy="100" r="32" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><circle cx="192" cy="100" r="24" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.12"/><path d="M192 60A40 40 0 0 1 232 100" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.28"/><rect x="116" y="48" width="96" height="112" rx="18" fill="url(#gSl2)"/><ellipse cx="156" cy="122" rx="11" ry="8" transform="rotate(-20 156 122)" fill="#7B3FE9"/><rect x="163" y="78" width="5" height="42" fill="#7B3FE9"/><path d="M168 78q16 4 16 22q-7-11-16-11Z" fill="#7B3FE9"/></g></svg></span>Musik</button><button class="item" id="openGal" type="button"><span class="tile"><svg viewBox="6 3 36 42" aria-hidden="true"><defs><linearGradient id="gGal1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C47DFF"/><stop offset="1" stop-color="#6A2FE0"/></linearGradient><linearGradient id="gGal2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE9B8"/><stop offset="1" stop-color="#FFB27A"/></linearGradient></defs><ellipse cx="24" cy="45" rx="12" ry="2.2" fill="#2A0F66" opacity="0.14"/><rect x="9" y="7" width="30" height="33" rx="8" fill="url(#gGal1)"/><rect x="13" y="11" width="22" height="17" rx="5" fill="url(#gGal2)"/><circle cx="28" cy="16" r="3" fill="#FFF8E2"/><path d="M13 28l6-7 5 6 4-4 7 8z" fill="#5B33B8" opacity="0.9"/><rect x="13" y="32" width="13" height="3" rx="1.5" fill="#fff" opacity="0.92"/></svg></span>Galeri</button>
  
-</div></div></div>
+</div>
+
+<h2 class="ttl" style="margin-top:26px">Jurnal</h2>
+<button class="jcard" id="openJurnal" type="button">
+  <span class="jic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15.5H6.5A2.5 2.5 0 0 0 4 21z"/><path d="M8 7h7M8 10.5h5"/></svg></span>
+  <span class="jtx"><b>Jurnal malam</b><i>Tutup hari dalam satu menit</i></span>
+  <svg class="jchev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+</button>
+<div style="height:14px"></div>
+</div></div>
 
 <nav class="nav" aria-label="Navigasi bawah">
 <button class="nb on" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Beranda</button>
@@ -206,6 +249,32 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 <button class="nb" id="openChat" type="button"><svg viewBox="105 26 174 150" aria-hidden="true"><path d="M175 43Q186 94 237 105Q186 116 175 167Q164 116 113 105Q164 94 175 43Z" fill="#7B2FF7"/><path d="M245 34Q250 55 271 60Q250 65 245 86Q240 65 219 60Q240 55 245 34Z" fill="#9B5CF0"/><path d="M250 132Q253.5 146.5 268 150Q253.5 153.5 250 168Q246.5 153.5 232 150Q246.5 146.5 250 132Z" fill="#C77DFF"/></svg>Clara</button>
 <button class="nb" id="openProf" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profil</button>
 </nav>
+<section class="cal" id="jurnal" aria-label="Jurnal" aria-hidden="true">
+  <div class="chd"><div class="in">
+    <div class="crow">
+      <button class="ib" id="jurnalBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <span class="ctl">Jurnal</span>
+      <span class="hr"></span>
+    </div>
+  </div></div>
+  <div class="csheet"><div class="cin">
+    <div class="jrwrap">
+      <div class="jdate" id="jrDate"></div>
+      <div class="jsum" id="jrSum"></div>
+      <div class="jq">Bagaimana harimu?</div>
+      <div class="jmood" id="jrMood">
+        <button class="jmb" type="button" data-m="1" aria-label="Sangat berat">&#128542;</button>
+        <button class="jmb" type="button" data-m="2" aria-label="Kurang">&#128533;</button>
+        <button class="jmb" type="button" data-m="3" aria-label="Biasa">&#128528;</button>
+        <button class="jmb" type="button" data-m="4" aria-label="Baik">&#128578;</button>
+        <button class="jmb" type="button" data-m="5" aria-label="Senang">&#128516;</button>
+      </div>
+      <textarea class="jta" id="jrText" placeholder="Satu dua kalimat tentang hari ini..."></textarea>
+      <button class="jsave" id="jrSave" type="button">Simpan jurnal</button>
+      <div class="jhist"><h2 class="ttl">Riwayat</h2><div id="jrList"></div></div>
+    </div>
+  </div></div>
+</section>
 <section class="cal" id="cal" aria-label="Kalender" aria-hidden="true">
   <div class="chd">
     <div class="in">
@@ -1828,6 +1897,219 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     if(gal.scrollTop+gal.clientHeight>gal.scrollHeight-900)load();
   },{passive:true});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!view.hidden)closeView()});
+})();
+</script>
+<script id="jr-js">
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var MOOD = { 1: '\uD83D\uDE22', 2: '\uD83D\uDE15', 3: '\uD83D\uDE10', 4: '\uD83D\uDE42', 5: '\uD83D\uDE04' };
+  var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  var KEY = 'jurnal';
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function dkey(d) { d = d || new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function ls(k, f) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? f : v; } catch (e) { return f; } }
+  function rp(n) { try { return 'Rp' + (Number(n) || 0).toLocaleString('id-ID'); } catch (e) { return 'Rp' + (Number(n) || 0); } }
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  function niceDate(k) {
+    var p = String(k || '').split('-');
+    if (p.length !== 3) return k;
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return HARI[d.getDay()] + ', ' + d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function stats() {
+    var today = dkey();
+    var T = ls('tugas', []); if (!Array.isArray(T)) T = [];
+    var done = 0, open = 0;
+    T.forEach(function (x) { if (!x || !x.t) return; if (x.d) done++; else open++; });
+    var N = ls('catatan', []); if (!Array.isArray(N)) N = [];
+    var start = new Date(); start.setHours(0, 0, 0, 0);
+    var notesToday = N.filter(function (x) { return x && +x.m >= +start; }).length;
+    var K = ls('keuangan', []); if (!Array.isArray(K)) K = [];
+    var out = 0, inc = 0, tx = 0;
+    K.forEach(function (x) {
+      if (!x || x.d !== today) return;
+      tx++;
+      if (x.k === 'in') inc += Math.abs(+x.n || 0); else out += Math.abs(+x.n || 0);
+    });
+    var A = ls('agenda', {}); if (!A || typeof A !== 'object') A = {};
+    var ag = Array.isArray(A[today]) ? A[today].length : 0;
+    return { done: done, open: open, notes: notesToday, out: out, inc: inc, tx: tx, ag: ag };
+  }
+
+  var mood = 0;
+  function setMood(v) {
+    mood = +v || 0;
+    var box = $('jrMood');
+    if (!box) return;
+    Array.prototype.forEach.call(box.querySelectorAll('.jmb'), function (b) {
+      b.classList.toggle('on', +b.getAttribute('data-m') === mood);
+    });
+  }
+
+  function renderSum() {
+    var st = stats(), el = $('jrSum');
+    if (!el) return;
+    var chips = [];
+    if (st.done || st.open) chips.push('<span class="jchip">' + st.done + '/' + (st.done + st.open) + ' tugas beres</span>');
+    if (st.notes) chips.push('<span class="jchip">' + st.notes + ' catatan baru</span>');
+    if (st.tx) chips.push('<span class="jchip">' + rp(st.out) + ' keluar</span>');
+    if (st.inc) chips.push('<span class="jchip">' + rp(st.inc) + ' masuk</span>');
+    if (st.ag) chips.push('<span class="jchip">' + st.ag + ' agenda</span>');
+    el.innerHTML = chips.length ? chips.join('') : '<span class="jempty">Belum ada aktivitas tercatat hari ini.</span>';
+  }
+
+  function list() { var L = ls(KEY, []); return Array.isArray(L) ? L : []; }
+
+  function renderList() {
+    var el = $('jrList');
+    if (!el) return;
+    var L = list().slice(0, 30), html = '';
+    if (!L.length) { el.innerHTML = '<div class="jempty">Belum ada jurnal. Mulai dari hari ini.</div>'; return; }
+    L.forEach(function (x) {
+      if (!x || !x.d) return;
+      html += '<div class="jitem" data-d="' + esc(x.d) + '">' +
+        '<span class="je">' + (MOOD[x.m] || '\uD83D\uDCDD') + '</span>' +
+        '<span class="jt"><span class="jd">' + esc(niceDate(x.d)) + '</span>' +
+        '<div class="jp">' + (x.t ? esc(x.t) : '<i style="color:#8E7FA8">tanpa catatan</i>') + '</div></span>' +
+        '<button class="jdel" type="button" data-del="' + esc(x.d) + '" aria-label="Hapus"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>' +
+        '</div>';
+    });
+    el.innerHTML = html;
+  }
+
+  function loadToday() {
+    var t = dkey();
+    var dEl = $('jrDate');
+    if (dEl) dEl.textContent = niceDate(t);
+    var found = null;
+    list().forEach(function (x) { if (x && x.d === t) found = x; });
+    setMood(found && found.m ? found.m : 0);
+    var ta = $('jrText');
+    if (ta) ta.value = found && found.t ? found.t : '';
+    renderSum();
+    renderList();
+  }
+
+  function toast(msg) {
+    if (window.toast) { try { window.toast(msg); return; } catch (e) {} }
+    var d = document.createElement('div');
+    d.textContent = msg;
+    d.style.cssText = 'position:fixed;left:50%;bottom:86px;transform:translateX(-50%);background:#2A1560;color:#fff;padding:10px 16px;border-radius:999px;font:600 .82rem system-ui;z-index:99';
+    document.body.appendChild(d);
+    setTimeout(function () { d.remove(); }, 1800);
+  }
+
+  var box = $('jurnal');
+  function openSheet() {
+    if (!box) return;
+    // tutup sheet lain yang mungkin terbuka (pola sama dengan modul lain)
+    ['feed', 'chat', 'prof', 'cal', 'task', 'note', 'keu', 'jam', 'kalk', 'musik', 'gal'].forEach(function (id) {
+      var el = $(id);
+      if (el && el.classList.contains('open')) {
+        var b = $(id + 'Back');
+        if (b) b.click(); else el.classList.remove('open');
+      }
+    });
+    loadToday();
+    box.classList.add('open');
+    box.setAttribute('aria-hidden', 'false');
+    box.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSheet() {
+    if (!box) return;
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  var openBtn = $('openJurnal');
+  if (openBtn) openBtn.addEventListener('click', openSheet);
+  var backBtn = $('jurnalBack');
+  if (backBtn) backBtn.addEventListener('click', closeSheet);
+
+  var moodBox = $('jrMood');
+  if (moodBox) moodBox.addEventListener('click', function (e) {
+    var b = e.target.closest('.jmb');
+    if (!b) return;
+    var v = +b.getAttribute('data-m');
+    setMood(v === mood ? 0 : v);
+  });
+
+  var saveBtn = $('jrSave');
+  if (saveBtn) saveBtn.addEventListener('click', function () {
+    var ta = $('jrText');
+    var text = ta ? String(ta.value || '').trim().slice(0, 4000) : '';
+    if (!mood && !text) { toast('Pilih suasana hati atau tulis sesuatu dulu'); return; }
+    var L = list(), t = dkey(), st = stats();
+    var entry = { d: t, m: mood || 0, t: text, a: st, ts: Date.now() };
+    var idx = -1;
+    L.forEach(function (x, i) { if (x && x.d === t) idx = i; });
+    if (idx >= 0) L[idx] = entry; else L.unshift(entry);
+    L.sort(function (a, b) { return String(b.d).localeCompare(String(a.d)); });
+    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch (e) { toast('Gagal menyimpan'); return; }
+    renderList();
+    toast('Jurnal tersimpan');
+  });
+
+  var listEl = $('jrList');
+  if (listEl) listEl.addEventListener('click', function (e) {
+    var del = e.target.closest('[data-del]');
+    if (del) {
+      e.stopPropagation();
+      var d = del.getAttribute('data-del');
+      var L = list().filter(function (x) { return x && x.d !== d; });
+      try { localStorage.setItem(KEY, JSON.stringify(L)); } catch (er) {}
+      if (d === dkey()) { setMood(0); var ta = $('jrText'); if (ta) ta.value = ''; }
+      renderList(); toast('Jurnal dihapus');
+      return;
+    }
+    var it = e.target.closest('.jitem');
+    if (!it) return;
+    var dd = it.getAttribute('data-d'), found = null;
+    list().forEach(function (x) { if (x && x.d === dd) found = x; });
+    if (!found) return;
+    setMood(found.m || 0);
+    var ta2 = $('jrText'); if (ta2) ta2.value = found.t || '';
+    if (box) box.scrollTop = 0;
+  });
+
+  // ===== Menu favorit: maksimal 6, urut paling sering dibuka =====
+  var grid = $('favGrid');
+  if (grid) {
+    var items = Array.prototype.slice.call(grid.querySelectorAll('.item'));
+    var UKEY = 'md_use', use = ls(UKEY, {});
+    if (!use || typeof use !== 'object') use = {};
+    var DEF = ['openCal', 'openTask', 'openNote2', 'openKeu', 'openJam', 'openKalk'];
+    var rankDef = {};
+    DEF.forEach(function (id, i) { rankDef[id] = DEF.length - i; });
+    var MAX = 6, expanded = false;
+    items.forEach(function (b) {
+      b.addEventListener('click', function () {
+        use[b.id] = (use[b.id] || 0) + 1;
+        try { localStorage.setItem(UKEY, JSON.stringify(use)); } catch (e) {}
+      });
+    });
+    function apply() {
+      var sorted = items.slice().sort(function (a, b) {
+        var ua = use[a.id] || 0, ub = use[b.id] || 0;
+        if (ua !== ub) return ub - ua;
+        return (rankDef[b.id] || 0) - (rankDef[a.id] || 0);
+      });
+      sorted.forEach(function (b) { grid.appendChild(b); });
+      var shown = expanded ? sorted.length : Math.min(MAX, sorted.length);
+      sorted.forEach(function (b, i) { b.style.display = i < shown ? '' : 'none'; });
+      var btn = $('favMore');
+      if (btn) btn.textContent = expanded ? 'Ringkas' : 'Semua';
+    }
+    var more = $('favMore');
+    if (more) more.addEventListener('click', function () { expanded = !expanded; apply(); });
+    apply();
+  }
 })();
 </script>
 </body>
