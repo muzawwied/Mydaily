@@ -155,27 +155,46 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 .jtx b{font:700 .95rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
 .jtx i{font:500 .78rem/1.35 'Plus Jakarta Sans',sans-serif;font-style:normal;color:var(--muted)}
 .jchev{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
-.jrwrap{display:flex;flex-direction:column;gap:14px;padding-bottom:40px}
-.jdate{font:600 .82rem 'Plus Jakarta Sans',sans-serif;color:var(--muted);text-transform:capitalize}
-.jsum{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ===== Jurnal: buku 3D ===== */
+.bkwrap{display:flex;flex-direction:column;gap:10px;padding:2px 0 34px}
+.bkmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;font:600 .74rem 'Plus Jakarta Sans',sans-serif;color:var(--muted)}
+.bkmeta b{color:#7b2ff7;font-weight:700}
+.bk{position:relative;width:100%;height:clamp(400px,56vh,540px);perspective:1500px;perspective-origin:50% 42%;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.bk.book-h{box-shadow:0 18px 34px rgba(60,20,140,.16)}
+.bkstack{position:absolute;inset:0;transform-style:preserve-3d}
+.bk-leaf{position:absolute;inset:0;border-radius:14px 12px 12px 14px;background:linear-gradient(178deg,#fffefb 0%,#fdfaff 55%,#f8f2ff 100%);border:1px solid #EADFFB;box-shadow:0 10px 20px rgba(50,15,120,.13),inset 0 0 0 1px rgba(255,255,255,.7);transform-origin:left center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;overflow:hidden;display:flex;flex-direction:column}
+.bk-leaf::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:linear-gradient(90deg,rgba(92,45,170,.16),rgba(92,45,170,.04) 55%,transparent),repeating-linear-gradient(180deg,rgba(120,80,190,.10) 0 1px,transparent 1px 4px);pointer-events:none;z-index:2}
+.bk-leaf::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(180deg,rgba(140,110,200,.055) 0 1px,transparent 1px 26px);opacity:.9;z-index:0}
+.bk-sh{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:3;background:linear-gradient(90deg,rgba(40,10,80,.24) 0%,rgba(40,10,80,.06) 34%,rgba(255,255,255,0) 62%,rgba(255,255,255,.35) 100%)}
+.bk-in{position:relative;z-index:1;padding:15px 16px 14px 24px;flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:11px;scrollbar-width:none}
+.bk-in::-webkit-scrollbar{display:none}
+.bk-d{font:700 .9rem 'Plus Jakarta Sans',sans-serif;color:#5B33B8;text-transform:capitalize;letter-spacing:.1px}
+.bk-tag{font:600 .66rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase;color:#A38BD0}
+.bk-mood{display:flex;align-items:center;gap:10px}
+.bk-mood .big{font-size:1.9rem;line-height:1}
+.bk-sum{display:flex;flex-wrap:wrap;gap:6px}
+.bk-sum .jchip{background:#F3EAFF;color:#5B33B8;padding:5px 10px;font-size:.72rem}
 .jchip{display:inline-flex;align-items:center;gap:6px;background:#F1E8FF;color:#5B33B8;border-radius:999px;padding:7px 12px;font:600 .76rem 'Plus Jakarta Sans',sans-serif}
-.jq{font:600 .85rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);margin:2px 0 -4px}
-.jmood{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.jmb{height:46px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font-size:1.3rem;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}
-.jmb:active{transform:scale(.94)}
+.jq{font:600 .8rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
+.jmood{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.jmb{height:42px;border-radius:12px;border:1.5px solid #E9DEFA;background:#fff;font-size:1.2rem;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}
+.jmb:active{transform:scale(.93)}
 .jmb.on{border-color:#7b2ff7;background:#F3EAFF}
-.jta{width:100%;min-height:104px;border:1.5px solid var(--line);border-radius:16px;padding:13px 14px;font:500 .9rem/1.55 'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fff;resize:vertical}
-.jta:focus{border-color:#B27CFF}
-.jsave{width:100%;height:48px;border:0;border-radius:999px;background:linear-gradient(120deg,#7B2FF7,#B27CFF);color:#fff;font:700 .92rem 'Plus Jakarta Sans',sans-serif;cursor:pointer}
-.jhist .ttl{margin:14px 0 10px}
-.jitem{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:8px;background:#fff;cursor:pointer}
-.jitem .je{font-size:1.15rem;line-height:1.2}
-.jitem .jt{flex:1;min-width:0}
-.jitem .jd{font:700 .72rem 'Plus Jakarta Sans',sans-serif;color:#7b2ff7;text-transform:capitalize}
-.jitem .jp{font:500 .82rem/1.45 'Plus Jakarta Sans',sans-serif;color:var(--ink);word-break:break-word}
+.jta{width:100%;min-height:92px;flex:1;border:1.5px solid #E9DEFA;border-radius:13px;padding:11px 12px;font:500 .88rem/1.6 'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fffdfb;resize:none;touch-action:pan-y}
+.jta:focus{border-color:#B27CFF;outline:0}
+.jsave{width:100%;height:44px;border:0;border-radius:999px;background:linear-gradient(120deg,#7B2FF7,#B27CFF);color:#fff;font:700 .88rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;flex:0 0 auto}
+.bk-text{font:500 .88rem/1.65 'Plus Jakarta Sans',sans-serif;color:var(--ink);white-space:pre-wrap;word-break:break-word}
+.bk-empty{font:500 .84rem 'Plus Jakarta Sans',sans-serif;color:#9A8BB4;font-style:italic}
 .jdel{border:0;background:0;padding:2px;color:#B9A9D6;cursor:pointer;flex:0 0 auto}
 .jdel svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
-.jempty{font:500 .82rem 'Plus Jakarta Sans',sans-serif;color:var(--muted);padding:2px 0 6px}
+.bknav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bk-btn{border:1px solid var(--line);background:#fff;border-radius:999px;height:36px;padding:0 14px;font:600 .78rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);cursor:pointer}
+.bk-btn:disabled{opacity:.38;cursor:default}
+.bk-dots{display:flex;align-items:center;gap:5px;flex:1;justify-content:center;overflow:hidden}
+.bk-dots i{width:5px;height:5px;border-radius:99px;background:#DCCCF7;flex:0 0 auto}
+.bk-dots i.on{width:15px;background:#7B2FF7}
+.bkhint{font:500 .7rem 'Plus Jakarta Sans',sans-serif;color:#A38BD0;text-align:center}
 </style>
 </head>
 <body>
@@ -254,24 +273,21 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
     <div class="crow">
       <button class="ib" id="jurnalBack" type="button" aria-label="Kembali"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
       <span class="ctl">Jurnal</span>
-      <span class="hr"></span>
+      <span class="hr"><button class="ib" id="jrToday" type="button" aria-label="Hari ini"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg></button></span>
     </div>
   </div></div>
   <div class="csheet"><div class="cin">
-    <div class="jrwrap">
-      <div class="jdate" id="jrDate"></div>
-      <div class="jsum" id="jrSum"></div>
-      <div class="jq">Bagaimana harimu?</div>
-      <div class="jmood" id="jrMood">
-        <button class="jmb" type="button" data-m="1" aria-label="Sangat berat">&#128542;</button>
-        <button class="jmb" type="button" data-m="2" aria-label="Kurang">&#128533;</button>
-        <button class="jmb" type="button" data-m="3" aria-label="Biasa">&#128528;</button>
-        <button class="jmb" type="button" data-m="4" aria-label="Baik">&#128578;</button>
-        <button class="jmb" type="button" data-m="5" aria-label="Senang">&#128516;</button>
+    <div class="bkwrap">
+      <div class="bkmeta"><span id="jrCount">Halaman 1</span><span id="jrStatus"></span></div>
+      <div class="bk" id="bk">
+        <div class="bkstack" id="bkStack"></div>
       </div>
-      <textarea class="jta" id="jrText" placeholder="Satu dua kalimat tentang hari ini..."></textarea>
-      <button class="jsave" id="jrSave" type="button">Simpan jurnal</button>
-      <div class="jhist"><h2 class="ttl">Riwayat</h2><div id="jrList"></div></div>
+      <div class="bknav">
+        <button class="bk-btn" id="jrPrev" type="button">&#8249; Sebelum</button>
+        <div class="bk-dots" id="jrDots"></div>
+        <button class="bk-btn" id="jrNext" type="button">Berikut &#8250;</button>
+      </div>
+      <div class="bkhint">Geser halaman seperti membalik kertas</div>
     </div>
   </div></div>
 </section>
@@ -1915,10 +1931,18 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
   function niceDate(k) {
     var p = String(k || '').split('-');
-    if (p.length !== 3) return k;
+    if (p.length !== 3) return String(k || '');
     var d = new Date(+p[0], +p[1] - 1, +p[2]);
     return HARI[d.getDay()] + ', ' + d.getDate() + ' ' + BULAN[d.getMonth()] + ' ' + d.getFullYear();
   }
+
+  function list() { var L = ls(KEY, []); return Array.isArray(L) ? L.filter(function (x) { return x && x.d; }) : []; }
+  function entries() {
+    var L = list().slice();
+    L.sort(function (a, b) { return String(b.d).localeCompare(String(a.d)); });
+    return L;
+  }
+  function findEntry(d) { var out = null; list().forEach(function (x) { if (x && x.d === d) out = x; }); return out; }
 
   function stats() {
     var today = dkey();
@@ -1926,8 +1950,8 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     var done = 0, open = 0;
     T.forEach(function (x) { if (!x || !x.t) return; if (x.d) done++; else open++; });
     var N = ls('catatan', []); if (!Array.isArray(N)) N = [];
-    var start = new Date(); start.setHours(0, 0, 0, 0);
-    var notesToday = N.filter(function (x) { return x && +x.m >= +start; }).length;
+    var st = new Date(); st.setHours(0, 0, 0, 0);
+    var notes = N.filter(function (x) { return x && +x.m >= +st; }).length;
     var K = ls('keuangan', []); if (!Array.isArray(K)) K = [];
     var out = 0, inc = 0, tx = 0;
     K.forEach(function (x) {
@@ -1937,61 +1961,234 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     });
     var A = ls('agenda', {}); if (!A || typeof A !== 'object') A = {};
     var ag = Array.isArray(A[today]) ? A[today].length : 0;
-    return { done: done, open: open, notes: notesToday, out: out, inc: inc, tx: tx, ag: ag };
+    return { done: done, open: open, notes: notes, out: out, inc: inc, tx: tx, ag: ag };
+  }
+  function chipsHTML(a) {
+    if (!a || typeof a !== 'object') return '';
+    var c = [];
+    if ((a.done || 0) || (a.open || 0)) c.push('<span class="jchip">' + (a.done || 0) + '/' + ((a.done || 0) + (a.open || 0)) + ' tugas beres</span>');
+    if (a.notes) c.push('<span class="jchip">' + a.notes + ' catatan baru</span>');
+    if (a.tx) c.push('<span class="jchip">' + rp(a.out) + ' keluar</span>');
+    if (a.inc) c.push('<span class="jchip">' + rp(a.inc) + ' masuk</span>');
+    if (a.ag) c.push('<span class="jchip">' + a.ag + ' agenda</span>');
+    return c.join('');
   }
 
+  var bk = $('bk'), stack = $('bkStack');
+  var leaves = [];
+  var state = { i: 0, n: 0, anim: false };
   var mood = 0;
-  function setMood(v) {
-    mood = +v || 0;
-    var box = $('jrMood');
-    if (!box) return;
-    Array.prototype.forEach.call(box.querySelectorAll('.jmb'), function (b) {
-      b.classList.toggle('on', +b.getAttribute('data-m') === mood);
+
+  function pages() {
+    var today = dkey();
+    var te = findEntry(today);
+    var out = [{ d: today, m: te ? (te.m || 0) : 0, t: te ? (te.t || '') : '', a: stats(), editable: true, saved: !!te }];
+    entries().forEach(function (x) {
+      if (x.d === today) return;
+      out.push({ d: x.d, m: x.m || 0, t: x.t || '', a: x.a || null, editable: false, saved: true });
+    });
+    return out;
+  }
+
+  function setLeaf(lf, deg, animate) {
+    if (!lf) return;
+    lf.style.transition = animate ? 'transform .62s cubic-bezier(.22,.75,.28,1)' : 'none';
+    lf.style.transform = 'rotateY(' + deg + 'deg)';
+  }
+  function resetLeaves() {
+    leaves.forEach(function (lf, i) {
+      var flipped = i < state.i;
+      setLeaf(lf, flipped ? -180 : 0, false);
+      lf.classList.toggle('flip', flipped);
+      lf.style.zIndex = String(state.n - i);
+      var sh = lf.querySelector('.bk-sh');
+      if (sh) sh.style.opacity = '0';
     });
   }
 
-  function renderSum() {
-    var st = stats(), el = $('jrSum');
-    if (!el) return;
-    var chips = [];
-    if (st.done || st.open) chips.push('<span class="jchip">' + st.done + '/' + (st.done + st.open) + ' tugas beres</span>');
-    if (st.notes) chips.push('<span class="jchip">' + st.notes + ' catatan baru</span>');
-    if (st.tx) chips.push('<span class="jchip">' + rp(st.out) + ' keluar</span>');
-    if (st.inc) chips.push('<span class="jchip">' + rp(st.inc) + ' masuk</span>');
-    if (st.ag) chips.push('<span class="jchip">' + st.ag + ' agenda</span>');
-    el.innerHTML = chips.length ? chips.join('') : '<span class="jempty">Belum ada aktivitas tercatat hari ini.</span>';
+  function leafHTML(pg, idx) {
+    var head = '<div class="bk-d">' + esc(niceDate(pg.d)) + (pg.editable ? '<span class="bk-tag" style="margin-left:8px">hari ini</span>' : '') + '</div>';
+    var body;
+    if (pg.editable) {
+      var moods = [1, 2, 3, 4, 5].map(function (m) {
+        return '<button class="jmb" type="button" data-m="' + m + '" aria-label="Suasana ' + m + '">' + MOOD[m] + '</button>';
+      }).join('');
+      body = '<div class="jq">Bagaimana harimu?</div>' +
+        '<div class="jmood" data-mood>' + moods + '</div>' +
+        '<div class="bk-sum" data-sum>' + (chipsHTML(pg.a) || '<span class="bk-empty">Belum ada aktivitas tercatat hari ini.</span>') + '</div>' +
+        '<textarea class="jta" data-text placeholder="Satu dua kalimat tentang hari ini...">' + esc(pg.t || '') + '</textarea>' +
+        '<button class="jsave" type="button" data-save>' + (pg.saved ? 'Perbarui jurnal' : 'Simpan jurnal') + '</button>';
+    } else {
+      body = '<div class="bk-mood"><span class="big">' + (MOOD[pg.m] || '\uD83D\uDCDD') + '</span><span class="bk-tag">suasana hari itu</span></div>' +
+        '<div class="bk-text">' + (pg.t ? esc(pg.t) : '<span class="bk-empty">Tidak ada catatan di hari ini.</span>') + '</div>' +
+        '<div class="bk-sum">' + (chipsHTML(pg.a) || '') + '</div>' +
+        '<div style="margin-top:auto;display:flex;justify-content:flex-end"><button class="jdel" type="button" data-del="' + esc(pg.d) + '" aria-label="Hapus halaman"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button></div>';
+    }
+    return '<div class="bk-in">' + head + body + '</div><div class="bk-sh"></div>';
   }
 
-  function list() { var L = ls(KEY, []); return Array.isArray(L) ? L : []; }
-
-  function renderList() {
-    var el = $('jrList');
-    if (!el) return;
-    var L = list().slice(0, 30), html = '';
-    if (!L.length) { el.innerHTML = '<div class="jempty">Belum ada jurnal. Mulai dari hari ini.</div>'; return; }
-    L.forEach(function (x) {
-      if (!x || !x.d) return;
-      html += '<div class="jitem" data-d="' + esc(x.d) + '">' +
-        '<span class="je">' + (MOOD[x.m] || '\uD83D\uDCDD') + '</span>' +
-        '<span class="jt"><span class="jd">' + esc(niceDate(x.d)) + '</span>' +
-        '<div class="jp">' + (x.t ? esc(x.t) : '<i style="color:#8E7FA8">tanpa catatan</i>') + '</div></span>' +
-        '<button class="jdel" type="button" data-del="' + esc(x.d) + '" aria-label="Hapus"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>' +
-        '</div>';
+  function renderBook(keepPage) {
+    if (!stack) return;
+    var P = pages();
+    state.n = P.length;
+    if (!keepPage) state.i = 0;
+    if (state.i > state.n - 1) state.i = Math.max(0, state.n - 1);
+    stack.innerHTML = '';
+    leaves = [];
+    P.forEach(function (pg, idx) {
+      var d = document.createElement('div');
+      d.className = 'bk-leaf';
+      d.style.zIndex = String(state.n - idx);
+      d.innerHTML = leafHTML(pg, idx);
+      stack.appendChild(d);
+      leaves.push(d);
+      if (pg.editable) {
+        mood = pg.m || 0;
+        Array.prototype.forEach.call(d.querySelectorAll('.jmb'), function (b) {
+          b.classList.toggle('on', +b.getAttribute('data-m') === mood);
+        });
+      }
     });
-    el.innerHTML = html;
+    resetLeaves();
+    updateMeta();
   }
 
-  function loadToday() {
-    var t = dkey();
-    var dEl = $('jrDate');
-    if (dEl) dEl.textContent = niceDate(t);
-    var found = null;
-    list().forEach(function (x) { if (x && x.d === t) found = x; });
-    setMood(found && found.m ? found.m : 0);
-    var ta = $('jrText');
-    if (ta) ta.value = found && found.t ? found.t : '';
-    renderSum();
-    renderList();
+  function updateMeta() {
+    var c = $('jrCount'), st = $('jrStatus'), dots = $('jrDots'), prev = $('jrPrev'), next = $('jrNext');
+    if (c) c.textContent = 'Halaman ' + (state.i + 1) + ' / ' + Math.max(1, state.n);
+    if (st) {
+      var te = findEntry(dkey());
+      st.innerHTML = te ? 'Tersimpan' : '<b style="color:#C2410C">Draf</b>';
+    }
+    if (dots) {
+      var html = '';
+      for (var k = 0; k < state.n; k++) html += '<i class="' + (k === state.i ? 'on' : '') + '"></i>';
+      dots.innerHTML = html;
+    }
+    if (prev) prev.disabled = state.i <= 0;
+    if (next) next.disabled = state.i >= state.n - 1;
+  }
+
+  function flipTo(target) {
+    if (state.anim || !leaves.length) return;
+    target = Math.max(0, Math.min(state.n - 1, target));
+    if (target === state.i) return;
+    state.anim = true;
+    while (state.i < target) {
+      var lf = leaves[state.i];
+      setLeaf(lf, -180, true);
+      lf.classList.add('flip');
+      state.i++;
+    }
+    while (state.i > target) {
+      state.i--;
+      var lf2 = leaves[state.i];
+      setLeaf(lf2, 0, true);
+      lf2.classList.remove('flip');
+    }
+    updateMeta();
+    setTimeout(function () { state.anim = false; }, 640);
+  }
+
+  /* ---------- geser seperti membalik kertas ---------- */
+  var drag = null;
+  if (bk) {
+    bk.addEventListener('pointerdown', function (e) {
+      if (state.anim) return;
+      if (e.target.closest('button,a,input,select')) return;
+      drag = { x: e.clientX, y: e.clientY, axis: 0, leaf: null, dir: 0, p: 0, w: bk.clientWidth || 320 };
+      try { bk.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    bk.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.axis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (Math.abs(dy) > Math.abs(dx)) { drag = null; return; }
+        drag.axis = 1;
+        if (dx < 0 && state.i < state.n - 1) { drag.dir = -1; drag.leaf = leaves[state.i]; }
+        else if (dx > 0 && state.i > 0) { drag.dir = 1; drag.leaf = leaves[state.i - 1]; }
+        else { drag = null; return; }
+        drag.leaf.style.transition = 'none';
+        drag.leaf.classList.add('drag');
+      }
+      var p = Math.min(1, Math.max(0, Math.abs(dx) / drag.w));
+      drag.p = p;
+      var deg = drag.dir < 0 ? -180 * p : -180 * (1 - p);
+      drag.leaf.style.transform = 'rotateY(' + deg + 'deg)';
+      var sh = drag.leaf.querySelector('.bk-sh');
+      if (sh) sh.style.opacity = String(Math.min(.85, p * 1.05));
+      if (e.cancelable) e.preventDefault();
+    });
+    var endDrag = function () {
+      if (!drag) return;
+      var d = drag; drag = null;
+      if (!d.leaf) return;
+      d.leaf.classList.remove('drag');
+      var sh = d.leaf.querySelector('.bk-sh');
+      var commit = (d.p || 0) > 0.34;
+      var fwd = d.dir < 0;
+      var degTo = fwd ? (commit ? -180 : 0) : (commit ? 0 : -180);
+      setLeaf(d.leaf, degTo, true);
+      if (sh) sh.style.opacity = '0';
+      if (commit) {
+        if (fwd) { state.i++; d.leaf.classList.add('flip'); }
+        else { state.i--; d.leaf.classList.remove('flip'); }
+        state.anim = true;
+        setTimeout(function () { state.anim = false; updateMeta(); }, 40);
+        updateMeta();
+      } else {
+        state.anim = true;
+        setTimeout(function () { state.anim = false; }, 640);
+      }
+    };
+    bk.addEventListener('pointerup', endDrag);
+    bk.addEventListener('pointercancel', endDrag);
+  }
+
+  var prevBtn = $('jrPrev'), nextBtn = $('jrNext'), todayBtn = $('jrToday');
+  if (prevBtn) prevBtn.addEventListener('click', function () { flipTo(state.i - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { flipTo(state.i + 1); });
+  if (todayBtn) todayBtn.addEventListener('click', function () { flipTo(0); });
+
+  /* ---------- interaksi di dalam halaman ---------- */
+  if (stack) {
+    stack.addEventListener('click', function (e) {
+      var mb = e.target.closest('.jmb');
+      if (mb) {
+        var v = +mb.getAttribute('data-m');
+        mood = v === mood ? 0 : v;
+        Array.prototype.forEach.call(mb.parentNode.querySelectorAll('.jmb'), function (b) {
+          b.classList.toggle('on', +b.getAttribute('data-m') === mood);
+        });
+        return;
+      }
+      var del = e.target.closest('[data-del]');
+      if (del) {
+        var d = del.getAttribute('data-del');
+        var rest = list().filter(function (x) { return x && x.d !== d; });
+        try { localStorage.setItem(KEY, JSON.stringify(rest)); } catch (er) { return; }
+        renderBook(true);
+        toast('Halaman jurnal dihapus');
+        return;
+      }
+      var sv = e.target.closest('[data-save]');
+      if (sv) {
+        var ta = stack.querySelector('[data-text]');
+        var text = ta ? String(ta.value || '').trim().slice(0, 4000) : '';
+        if (!mood && !text) { toast('Pilih suasana hati atau tulis sesuatu dulu'); return; }
+        var t = dkey(), st2 = stats();
+        var L = list();
+        var entry = { d: t, m: mood || 0, t: text, a: st2, ts: Date.now() };
+        var idx = -1;
+        L.forEach(function (x, k) { if (x && x.d === t) idx = k; });
+        if (idx >= 0) L[idx] = entry; else L.push(entry);
+        L.sort(function (a, b) { return String(b.d).localeCompare(String(a.d)); });
+        try { localStorage.setItem(KEY, JSON.stringify(L)); } catch (er) { toast('Gagal menyimpan'); return; }
+        renderBook(true);
+        toast('Jurnal tersimpan');
+      }
+    });
   }
 
   function toast(msg) {
@@ -2003,82 +2200,40 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     setTimeout(function () { d.remove(); }, 1800);
   }
 
-  var box = $('jurnal');
+  var sheet = $('jurnal');
   function openSheet() {
-    if (!box) return;
-    // tutup sheet lain yang mungkin terbuka (pola sama dengan modul lain)
-    ['feed', 'chat', 'prof', 'cal', 'task', 'note', 'keu', 'jam', 'kalk', 'musik', 'gal'].forEach(function (id) {
+    if (!sheet) return;
+    ['feed','chat','prof','cal','task','note','keu','jam','kalk','musik','gal'].forEach(function (id) {
       var el = $(id);
       if (el && el.classList.contains('open')) {
         var b = $(id + 'Back');
         if (b) b.click(); else el.classList.remove('open');
       }
     });
-    loadToday();
-    box.classList.add('open');
-    box.setAttribute('aria-hidden', 'false');
-    box.scrollTop = 0;
+    state.i = 0;
+    renderBook(false);
+    sheet.classList.add('open');
+    sheet.setAttribute('aria-hidden', 'false');
+    sheet.scrollTop = 0;
     document.body.style.overflow = 'hidden';
   }
   function closeSheet() {
-    if (!box) return;
-    box.classList.remove('open');
-    box.setAttribute('aria-hidden', 'true');
+    if (!sheet) return;
+    sheet.classList.remove('open');
+    sheet.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
-
   var openBtn = $('openJurnal');
   if (openBtn) openBtn.addEventListener('click', openSheet);
   var backBtn = $('jurnalBack');
   if (backBtn) backBtn.addEventListener('click', closeSheet);
-
-  var moodBox = $('jrMood');
-  if (moodBox) moodBox.addEventListener('click', function (e) {
-    var b = e.target.closest('.jmb');
-    if (!b) return;
-    var v = +b.getAttribute('data-m');
-    setMood(v === mood ? 0 : v);
+  document.addEventListener('keydown', function (e) {
+    if (!sheet || !sheet.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') flipTo(state.i + 1);
+    if (e.key === 'ArrowLeft') flipTo(state.i - 1);
   });
 
-  var saveBtn = $('jrSave');
-  if (saveBtn) saveBtn.addEventListener('click', function () {
-    var ta = $('jrText');
-    var text = ta ? String(ta.value || '').trim().slice(0, 4000) : '';
-    if (!mood && !text) { toast('Pilih suasana hati atau tulis sesuatu dulu'); return; }
-    var L = list(), t = dkey(), st = stats();
-    var entry = { d: t, m: mood || 0, t: text, a: st, ts: Date.now() };
-    var idx = -1;
-    L.forEach(function (x, i) { if (x && x.d === t) idx = i; });
-    if (idx >= 0) L[idx] = entry; else L.unshift(entry);
-    L.sort(function (a, b) { return String(b.d).localeCompare(String(a.d)); });
-    try { localStorage.setItem(KEY, JSON.stringify(L)); } catch (e) { toast('Gagal menyimpan'); return; }
-    renderList();
-    toast('Jurnal tersimpan');
-  });
-
-  var listEl = $('jrList');
-  if (listEl) listEl.addEventListener('click', function (e) {
-    var del = e.target.closest('[data-del]');
-    if (del) {
-      e.stopPropagation();
-      var d = del.getAttribute('data-del');
-      var L = list().filter(function (x) { return x && x.d !== d; });
-      try { localStorage.setItem(KEY, JSON.stringify(L)); } catch (er) {}
-      if (d === dkey()) { setMood(0); var ta = $('jrText'); if (ta) ta.value = ''; }
-      renderList(); toast('Jurnal dihapus');
-      return;
-    }
-    var it = e.target.closest('.jitem');
-    if (!it) return;
-    var dd = it.getAttribute('data-d'), found = null;
-    list().forEach(function (x) { if (x && x.d === dd) found = x; });
-    if (!found) return;
-    setMood(found.m || 0);
-    var ta2 = $('jrText'); if (ta2) ta2.value = found.t || '';
-    if (box) box.scrollTop = 0;
-  });
-
-  // ===== Menu favorit: maksimal 6, urut paling sering dibuka =====
+  /* ===== Menu favorit: maksimal 6, urut paling sering dibuka ===== */
   var grid = $('favGrid');
   if (grid) {
     var items = Array.prototype.slice.call(grid.querySelectorAll('.item'));
@@ -2094,7 +2249,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
         try { localStorage.setItem(UKEY, JSON.stringify(use)); } catch (e) {}
       });
     });
-    function apply() {
+    var apply = function () {
       var sorted = items.slice().sort(function (a, b) {
         var ua = use[a.id] || 0, ub = use[b.id] || 0;
         if (ua !== ub) return ub - ua;
@@ -2105,7 +2260,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
       sorted.forEach(function (b, i) { b.style.display = i < shown ? '' : 'none'; });
       var btn = $('favMore');
       if (btn) btn.textContent = expanded ? 'Ringkas' : 'Semua';
-    }
+    };
     var more = $('favMore');
     if (more) more.addEventListener('click', function () { expanded = !expanded; apply(); });
     apply();
