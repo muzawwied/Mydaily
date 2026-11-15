@@ -156,21 +156,30 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 .jtx i{font:500 .78rem/1.35 'Plus Jakarta Sans',sans-serif;font-style:normal;color:var(--muted)}
 .jchev{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
 
-/* ===== Jurnal: buku 3D ===== */
-.bkwrap{display:flex;flex-direction:column;gap:10px;padding:2px 0 34px}
-.bkmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;font:600 .74rem 'Plus Jakarta Sans',sans-serif;color:var(--muted)}
+/* ===== Jurnal: buku 3D, geser pakai jari ===== */
+.bkwrap{display:flex;flex-direction:column;gap:9px;padding:2px 0 30px}
+.bkmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;font:600 .72rem 'Plus Jakarta Sans',sans-serif;color:var(--muted);padding:0 2px}
 .bkmeta b{color:#7b2ff7;font-weight:700}
-.bk{position:relative;width:100%;height:clamp(400px,56vh,540px);perspective:1500px;perspective-origin:50% 42%;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-.bk.book-h{box-shadow:0 18px 34px rgba(60,20,140,.16)}
+.bk{position:relative;width:100%;height:clamp(400px,56vh,540px);perspective:1150px;perspective-origin:38% 46%;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.bk-base{position:absolute;inset:0;border-radius:14px;background:linear-gradient(180deg,#f4ecff,#e9dcfc);box-shadow:6px 8px 0 -1px #f3ecfd,7px 9px 0 -1px #e5d9fb,8px 10px 0 -1px #dccdf8,10px 14px 26px rgba(60,20,140,.18);transform:translateZ(-14px);pointer-events:none}
 .bkstack{position:absolute;inset:0;transform-style:preserve-3d}
-.bk-leaf{position:absolute;inset:0;border-radius:14px 12px 12px 14px;background:linear-gradient(178deg,#fffefb 0%,#fdfaff 55%,#f8f2ff 100%);border:1px solid #EADFFB;box-shadow:0 10px 20px rgba(50,15,120,.13),inset 0 0 0 1px rgba(255,255,255,.7);transform-origin:left center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform;overflow:hidden;display:flex;flex-direction:column}
-.bk-leaf::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:linear-gradient(90deg,rgba(92,45,170,.16),rgba(92,45,170,.04) 55%,transparent),repeating-linear-gradient(180deg,rgba(120,80,190,.10) 0 1px,transparent 1px 4px);pointer-events:none;z-index:2}
-.bk-leaf::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:repeating-linear-gradient(180deg,rgba(140,110,200,.055) 0 1px,transparent 1px 26px);opacity:.9;z-index:0}
-.bk-sh{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:3;background:linear-gradient(90deg,rgba(40,10,80,.24) 0%,rgba(40,10,80,.06) 34%,rgba(255,255,255,0) 62%,rgba(255,255,255,.35) 100%)}
-.bk-in{position:relative;z-index:1;padding:15px 16px 14px 24px;flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:11px;scrollbar-width:none}
+.bk-leaf{position:absolute;inset:0;border-radius:13px 10px 10px 13px;background:linear-gradient(174deg,#fffefb 0%,#fdfaff 52%,#f9f3ff 100%);border:1px solid #E7DBF9;box-shadow:0 12px 22px rgba(50,15,120,.14),inset 0 0 0 1px rgba(255,255,255,.85);transform-origin:left center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,box-shadow;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s ease}
+.bk-leaf.drag{box-shadow:0 26px 44px rgba(40,10,100,.26),inset 0 0 0 1px rgba(255,255,255,.9)}
+/* garis kertas + bayangan tepi kanan */
+.bk-leaf::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-image:repeating-linear-gradient(180deg,rgba(140,110,200,.055) 0 1px,transparent 1px 26px),linear-gradient(270deg,rgba(86,44,160,.13) 0,rgba(86,44,160,.04) 3.5%,transparent 9%)}
+/* jilid buku di kiri + lengkung gutter */
+.bk-leaf::before{content:"";position:absolute;left:0;top:0;bottom:0;width:34px;pointer-events:none;z-index:2;background:
+  linear-gradient(90deg,rgba(52,18,110,.30) 0,rgba(52,18,110,.12) 34%,rgba(52,18,110,.02) 62%,transparent 100%),
+  repeating-linear-gradient(90deg,rgba(120,80,190,.16) 0 1px,transparent 1px 3px)}
+/* bayangan saat terangkat: gelap di jilid + kilau di sisi luar */
+.bk-sh{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:3;transition:opacity .16s;background:
+  linear-gradient(100deg,rgba(30,8,66,.34) 0%,rgba(40,14,80,.10) 26%,rgba(255,255,255,0) 48%,rgba(255,255,255,.34) 74%,rgba(255,255,255,.62) 100%)}
+.bk-shadow{position:absolute;inset:2% 4% 2% 2%;border-radius:16px;background:radial-gradient(115% 88% at 78% 48%,rgba(38,10,88,.34),rgba(38,10,88,.10) 46%,transparent 72%);filter:blur(7px);opacity:0;transform:translateX(0);transition:opacity .12s;pointer-events:none;z-index:0}
+.bk-curl{position:absolute;top:4%;right:0;bottom:4%;width:30px;border-radius:0 12px 12px 0;pointer-events:none;z-index:4;opacity:0;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(120,80,200,.16) 38%,rgba(255,255,255,.62) 78%,rgba(96,52,180,.22) 100%);box-shadow:6px 0 14px rgba(60,25,130,.16);transform-origin:right center}
+.bk-in{position:relative;z-index:1;padding:15px 16px 14px 30px;flex:1;overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;gap:11px;scrollbar-width:none}
 .bk-in::-webkit-scrollbar{display:none}
 .bk-d{font:700 .9rem 'Plus Jakarta Sans',sans-serif;color:#5B33B8;text-transform:capitalize;letter-spacing:.1px}
-.bk-tag{font:600 .66rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase;color:#A38BD0}
+.bk-tag{font:600 .64rem 'Plus Jakarta Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase;color:#A38BD0}
 .bk-mood{display:flex;align-items:center;gap:10px}
 .bk-mood .big{font-size:1.9rem;line-height:1}
 .bk-sum{display:flex;flex-wrap:wrap;gap:6px}
@@ -178,23 +187,21 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
 .jchip{display:inline-flex;align-items:center;gap:6px;background:#F1E8FF;color:#5B33B8;border-radius:999px;padding:7px 12px;font:600 .76rem 'Plus Jakarta Sans',sans-serif}
 .jq{font:600 .8rem 'Plus Jakarta Sans',sans-serif;color:var(--ink)}
 .jmood{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-.jmb{height:42px;border-radius:12px;border:1.5px solid #E9DEFA;background:#fff;font-size:1.2rem;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .12s,border-color .12s,background .12s}
+.jmb{height:42px;border-radius:12px;border:1.5px solid #E9DEFA;background:#fff;font-size:1.2rem;line-height:1;display:grid;place-items:center;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;box-shadow:0 1px 0 #efe7fd}
 .jmb:active{transform:scale(.93)}
 .jmb.on{border-color:#7b2ff7;background:#F3EAFF}
 .jta{width:100%;min-height:92px;flex:1;border:1.5px solid #E9DEFA;border-radius:13px;padding:11px 12px;font:500 .88rem/1.6 'Plus Jakarta Sans',sans-serif;color:var(--ink);background:#fffdfb;resize:none;touch-action:pan-y}
 .jta:focus{border-color:#B27CFF;outline:0}
-.jsave{width:100%;height:44px;border:0;border-radius:999px;background:linear-gradient(120deg,#7B2FF7,#B27CFF);color:#fff;font:700 .88rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;flex:0 0 auto}
+.jsave{width:100%;height:44px;border:0;border-radius:999px;background:linear-gradient(120deg,#7B2FF7,#B27CFF);color:#fff;font:700 .88rem 'Plus Jakarta Sans',sans-serif;cursor:pointer;flex:0 0 auto;box-shadow:0 6px 14px rgba(110,45,220,.28)}
 .bk-text{font:500 .88rem/1.65 'Plus Jakarta Sans',sans-serif;color:var(--ink);white-space:pre-wrap;word-break:break-word}
 .bk-empty{font:500 .84rem 'Plus Jakarta Sans',sans-serif;color:#9A8BB4;font-style:italic}
 .jdel{border:0;background:0;padding:2px;color:#B9A9D6;cursor:pointer;flex:0 0 auto}
 .jdel svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
-.bknav{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.bk-btn{border:1px solid var(--line);background:#fff;border-radius:999px;height:36px;padding:0 14px;font:600 .78rem 'Plus Jakarta Sans',sans-serif;color:var(--ink);cursor:pointer}
-.bk-btn:disabled{opacity:.38;cursor:default}
-.bk-dots{display:flex;align-items:center;gap:5px;flex:1;justify-content:center;overflow:hidden}
-.bk-dots i{width:5px;height:5px;border-radius:99px;background:#DCCCF7;flex:0 0 auto}
-.bk-dots i.on{width:15px;background:#7B2FF7}
-.bkhint{font:500 .7rem 'Plus Jakarta Sans',sans-serif;color:#A38BD0;text-align:center}
+.bkfoot{display:flex;align-items:center;justify-content:center;gap:6px;padding:2px 0 0}
+.bk-dots{display:flex;align-items:center;gap:5px;justify-content:center;overflow:hidden}
+.bk-dots i{width:6px;height:6px;border-radius:99px;background:#DDCEF7;flex:0 0 auto;transition:width .25s,background .25s;cursor:pointer}
+.bk-dots i.on{width:18px;background:#7B2FF7}
+.bkhint{font:500 .72rem 'Plus Jakarta Sans',sans-serif;color:#A38BD0;text-align:center;letter-spacing:.1px}
 </style>
 </head>
 <body>
@@ -280,14 +287,11 @@ html[data-theme=dark] .jcirc.off{color:#6f6286}
     <div class="bkwrap">
       <div class="bkmeta"><span id="jrCount">Halaman 1</span><span id="jrStatus"></span></div>
       <div class="bk" id="bk">
+        <div class="bk-base" aria-hidden="true"></div>
         <div class="bkstack" id="bkStack"></div>
       </div>
-      <div class="bknav">
-        <button class="bk-btn" id="jrPrev" type="button">&#8249; Sebelum</button>
-        <div class="bk-dots" id="jrDots"></div>
-        <button class="bk-btn" id="jrNext" type="button">Berikut &#8250;</button>
-      </div>
-      <div class="bkhint">Geser halaman seperti membalik kertas</div>
+      <div class="bkfoot"><div class="bk-dots" id="jrDots"></div></div>
+      <div class="bkhint">Geser pakai jari buat balik kertas</div>
     </div>
   </div></div>
 </section>
@@ -1923,6 +1927,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
   var BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
   var HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
   var KEY = 'jurnal';
+  var EASE = 'cubic-bezier(.18,.72,.24,1)';
 
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
   function dkey(d) { d = d || new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
@@ -1990,23 +1995,32 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     return out;
   }
 
-  function setLeaf(lf, deg, animate) {
+  /* transform 3D: makin jauh geseran, kertas makin terangkat & melengkung */
+  function leafTransform(deg, p) {
+    var k = Math.min(1, Math.max(0, p || 0));
+    var lift = Math.sin(k * Math.PI);
+    return 'translateZ(' + (lift * 38).toFixed(2) + 'px) rotateX(' + (lift * 5).toFixed(2) + 'deg) rotateY(' + deg.toFixed(2) + 'deg)';
+  }
+  function setLeaf(lf, deg, animate, p) {
     if (!lf) return;
-    lf.style.transition = animate ? 'transform .62s cubic-bezier(.22,.75,.28,1)' : 'none';
-    lf.style.transform = 'rotateY(' + deg + 'deg)';
+    lf.style.transition = animate ? 'transform .62s ' + EASE + ', box-shadow .3s ease' : 'none';
+    lf.style.transform = leafTransform(deg, animate ? 0 : p);
   }
   function resetLeaves() {
     leaves.forEach(function (lf, i) {
       var flipped = i < state.i;
-      setLeaf(lf, flipped ? -180 : 0, false);
+      setLeaf(lf, flipped ? -180 : 0, false, 0);
       lf.classList.toggle('flip', flipped);
       lf.style.zIndex = String(state.n - i);
       var sh = lf.querySelector('.bk-sh');
       if (sh) sh.style.opacity = '0';
+      lf.style.setProperty('--p', '0');
     });
+    var sl = document.getElementById('bkShadow');
+    if (sl) { sl.style.opacity = '0'; sl.style.transform = 'translateX(0)'; }
   }
 
-  function leafHTML(pg, idx) {
+  function leafHTML(pg) {
     var head = '<div class="bk-d">' + esc(niceDate(pg.d)) + (pg.editable ? '<span class="bk-tag" style="margin-left:8px">hari ini</span>' : '') + '</div>';
     var body;
     if (pg.editable) {
@@ -2024,7 +2038,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
         '<div class="bk-sum">' + (chipsHTML(pg.a) || '') + '</div>' +
         '<div style="margin-top:auto;display:flex;justify-content:flex-end"><button class="jdel" type="button" data-del="' + esc(pg.d) + '" aria-label="Hapus halaman"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button></div>';
     }
-    return '<div class="bk-in">' + head + body + '</div><div class="bk-sh"></div>';
+    return '<div class="bk-in">' + head + body + '</div><div class="bk-sh"></div><div class="bk-curl"></div>';
   }
 
   function renderBook(keepPage) {
@@ -2034,12 +2048,16 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     if (!keepPage) state.i = 0;
     if (state.i > state.n - 1) state.i = Math.max(0, state.n - 1);
     stack.innerHTML = '';
+    var shLayer = document.createElement('div');
+    shLayer.className = 'bk-shadow';
+    shLayer.id = 'bkShadow';
+    stack.appendChild(shLayer);
     leaves = [];
     P.forEach(function (pg, idx) {
       var d = document.createElement('div');
       d.className = 'bk-leaf';
       d.style.zIndex = String(state.n - idx);
-      d.innerHTML = leafHTML(pg, idx);
+      d.innerHTML = leafHTML(pg);
       stack.appendChild(d);
       leaves.push(d);
       if (pg.editable) {
@@ -2054,7 +2072,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
   }
 
   function updateMeta() {
-    var c = $('jrCount'), st = $('jrStatus'), dots = $('jrDots'), prev = $('jrPrev'), next = $('jrNext');
+    var c = $('jrCount'), st = $('jrStatus'), dots = $('jrDots');
     if (c) c.textContent = 'Halaman ' + (state.i + 1) + ' / ' + Math.max(1, state.n);
     if (st) {
       var te = findEntry(dkey());
@@ -2062,11 +2080,9 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     }
     if (dots) {
       var html = '';
-      for (var k = 0; k < state.n; k++) html += '<i class="' + (k === state.i ? 'on' : '') + '"></i>';
+      for (var k = 0; k < state.n; k++) html += '<i class="' + (k === state.i ? 'on' : '') + '" data-dot="' + k + '"></i>';
       dots.innerHTML = html;
     }
-    if (prev) prev.disabled = state.i <= 0;
-    if (next) next.disabled = state.i >= state.n - 1;
   }
 
   function flipTo(target) {
@@ -2076,48 +2092,55 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     state.anim = true;
     while (state.i < target) {
       var lf = leaves[state.i];
-      setLeaf(lf, -180, true);
+      setLeaf(lf, -180, true, 0);
       lf.classList.add('flip');
       state.i++;
     }
     while (state.i > target) {
       state.i--;
       var lf2 = leaves[state.i];
-      setLeaf(lf2, 0, true);
+      setLeaf(lf2, 0, true, 0);
       lf2.classList.remove('flip');
     }
     updateMeta();
     setTimeout(function () { state.anim = false; }, 640);
   }
 
-  /* ---------- geser seperti membalik kertas ---------- */
-  var drag = null;
+  /* ---------- geser dengan jari ---------- */
+  var drag = null, suppressClick = false;
   if (bk) {
     bk.addEventListener('pointerdown', function (e) {
       if (state.anim) return;
-      if (e.target.closest('button,a,input,select')) return;
+      if (e.target.closest('input,select')) return;
       drag = { x: e.clientX, y: e.clientY, axis: 0, leaf: null, dir: 0, p: 0, w: bk.clientWidth || 320 };
+      suppressClick = false;
       try { bk.setPointerCapture(e.pointerId); } catch (err) {}
     });
     bk.addEventListener('pointermove', function (e) {
       if (!drag) return;
       var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (!drag.axis) {
-        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        if (Math.abs(dx) < 7 && Math.abs(dy) < 7) return;
         if (Math.abs(dy) > Math.abs(dx)) { drag = null; return; }
         drag.axis = 1;
         if (dx < 0 && state.i < state.n - 1) { drag.dir = -1; drag.leaf = leaves[state.i]; }
         else if (dx > 0 && state.i > 0) { drag.dir = 1; drag.leaf = leaves[state.i - 1]; }
         else { drag = null; return; }
-        drag.leaf.style.transition = 'none';
+        suppressClick = true;
         drag.leaf.classList.add('drag');
       }
       var p = Math.min(1, Math.max(0, Math.abs(dx) / drag.w));
       drag.p = p;
       var deg = drag.dir < 0 ? -180 * p : -180 * (1 - p);
-      drag.leaf.style.transform = 'rotateY(' + deg + 'deg)';
+      drag.leaf.style.transition = 'none';
+      drag.leaf.style.transform = leafTransform(deg, drag.dir < 0 ? p : 1 - p);
       var sh = drag.leaf.querySelector('.bk-sh');
-      if (sh) sh.style.opacity = String(Math.min(.85, p * 1.05));
+      if (sh) sh.style.opacity = String(Math.min(.92, p * 1.1));
+      drag.leaf.style.setProperty('--p', p.toFixed(3));
+      var curl = drag.leaf.querySelector('.bk-curl');
+      if (curl) curl.style.opacity = String(Math.min(.95, p * 1.15));
+      var sl = document.getElementById('bkShadow');
+      if (sl) { sl.style.opacity = String(Math.min(.9, p * 1.2)); sl.style.transform = 'translateX(' + (-26 * p).toFixed(1) + 'px)'; }
       if (e.cancelable) e.preventDefault();
     });
     var endDrag = function () {
@@ -2126,30 +2149,40 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
       if (!d.leaf) return;
       d.leaf.classList.remove('drag');
       var sh = d.leaf.querySelector('.bk-sh');
-      var commit = (d.p || 0) > 0.34;
+      var commit = (d.p || 0) > 0.3;
       var fwd = d.dir < 0;
       var degTo = fwd ? (commit ? -180 : 0) : (commit ? 0 : -180);
-      setLeaf(d.leaf, degTo, true);
+      setLeaf(d.leaf, degTo, true, 0);
       if (sh) sh.style.opacity = '0';
+      var curl2 = d.leaf.querySelector('.bk-curl');
+      if (curl2) curl2.style.opacity = '0';
+      var sl2 = document.getElementById('bkShadow');
+      if (sl2) { sl2.style.opacity = '0'; sl2.style.transform = 'translateX(0)'; }
+      d.leaf.style.setProperty('--p', '0');
       if (commit) {
         if (fwd) { state.i++; d.leaf.classList.add('flip'); }
         else { state.i--; d.leaf.classList.remove('flip'); }
-        state.anim = true;
-        setTimeout(function () { state.anim = false; updateMeta(); }, 40);
         updateMeta();
-      } else {
-        state.anim = true;
-        setTimeout(function () { state.anim = false; }, 640);
       }
+      state.anim = true;
+      setTimeout(function () { state.anim = false; suppressClick = false; }, 640);
     };
     bk.addEventListener('pointerup', endDrag);
     bk.addEventListener('pointercancel', endDrag);
+    /* kalau barusan geser, jangan sampai kebaca sebagai klik tombol */
+    bk.addEventListener('click', function (e) {
+      if (suppressClick) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
   }
 
-  var prevBtn = $('jrPrev'), nextBtn = $('jrNext'), todayBtn = $('jrToday');
-  if (prevBtn) prevBtn.addEventListener('click', function () { flipTo(state.i - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { flipTo(state.i + 1); });
+  var todayBtn = $('jrToday');
   if (todayBtn) todayBtn.addEventListener('click', function () { flipTo(0); });
+
+  var dotBox = $('jrDots');
+  if (dotBox) dotBox.addEventListener('click', function (e) {
+    var d = e.target.closest('[data-dot]');
+    if (d) flipTo(+d.getAttribute('data-dot'));
+  });
 
   /* ---------- interaksi di dalam halaman ---------- */
   if (stack) {
@@ -2200,6 +2233,22 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     setTimeout(function () { d.remove(); }, 1800);
   }
 
+  /* hint halus: kertas diintip sekali waktu buku dibuka */
+  var peeked = false;
+  function peek() {
+    if (peeked || state.n < 2 || !leaves[0]) return;
+    peeked = true;
+    var lf = leaves[0], sh = lf.querySelector('.bk-sh');
+    lf.style.transition = 'transform .55s ' + EASE;
+    lf.style.transform = leafTransform(-11, .12);
+    if (sh) sh.style.opacity = '0.45';
+    setTimeout(function () {
+      lf.style.transition = 'transform .60s ' + EASE;
+      lf.style.transform = leafTransform(0, 0);
+      if (sh) sh.style.opacity = '0';
+    }, 700);
+  }
+
   var sheet = $('jurnal');
   function openSheet() {
     if (!sheet) return;
@@ -2216,6 +2265,7 @@ html[data-theme=dark] html[data-theme=dark] #kPadNum button:active{background:#2
     sheet.setAttribute('aria-hidden', 'false');
     sheet.scrollTop = 0;
     document.body.style.overflow = 'hidden';
+    setTimeout(peek, 420);
   }
   function closeSheet() {
     if (!sheet) return;
