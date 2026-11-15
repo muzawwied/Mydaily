@@ -1,7 +1,7 @@
 /* Service worker My Daily: seluruh aplikasi (HTML, ikon, dan gambar) tetap hidup tanpa internet. */
-const VERSION = 'mydaily-v108';
+const VERSION = 'mydaily-v109';
 const CACHE = VERSION;
-const EXT_CACHE = 'mydaily-ext-v108';
+const EXT_CACHE = 'mydaily-ext-v109';
 const SHELL = [
   '/',
   '/index.html',
@@ -31,13 +31,31 @@ const SHELL = [
   '/assets/img/daily-10.jpg',
   '/assets/img/daily-11.jpg',
   '/assets/img/daily-12.jpg'
+]
+// Font web (Google Fonts) ikut di-precache supaya tampilan offline tidak memakai font cadangan.
+const FONT_CSS = "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Dancing+Script:wght@700&family=Fredoka:wght@600&family=Bricolage+Grotesque:wght@800&display=swap";
+const FONTS = [
+  "https://fonts.gstatic.com/s/bricolagegrotesque/v9/3y9U6as8bTXq_nANBjzKo3IeZx8z6up5BeSl5jBNz_19PpbpMXuECpwUxJBOm_OJWiaaD30YfKfjZZoLvZvl-MQlss4KHt0uOQ.woff2",
+  "https://fonts.gstatic.com/s/bricolagegrotesque/v9/3y9U6as8bTXq_nANBjzKo3IeZx8z6up5BeSl5jBNz_19PpbpMXuECpwUxJBOm_OJWiaaD30YfKfjZZoLvZvl-Molss4KHt0.woff2",
+  "https://fonts.gstatic.com/s/dancingscript/v29/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7B1i03ROp8hNP6pnxP.woff2",
+  "https://fonts.gstatic.com/s/dancingscript/v29/If2cXTr6YS-zF4S-kcSWSVi_sxjsohD9F50Ruu7B1i03Sup8hNP6pg.woff2",
+  "https://fonts.gstatic.com/s/fredoka/v17/X7nP4b87HvSqjb_WIi2yDCRwoQ_k7367_B-i2yQag0-mac3OLyX8H-mKttpNbgEt.woff2",
+  "https://fonts.gstatic.com/s/fredoka/v17/X7nP4b87HvSqjb_WIi2yDCRwoQ_k7367_B-i2yQag0-mac3OLyX8EemKttpNbg.woff2",
+  "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2",
+  "https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2"
 ];
+;
 const NET_TIMEOUT = 3000;
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {
     const c = await caches.open(CACHE);
     await Promise.allSettled(SHELL.map((u) => c.add(new Request(u, { cache: 'reload' }))));
+    // Font dari origin lain disimpan terpisah; gagal satu font tidak membatalkan install.
+    const fc = await caches.open(EXT_CACHE);
+    await Promise.allSettled([FONT_CSS, ...FONTS].map((u) =>
+      fc.add(new Request(u, { mode: 'cors', cache: 'reload' }))
+    ));
     await self.skipWaiting();
   })());
 });
