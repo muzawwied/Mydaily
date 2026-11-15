@@ -1,7 +1,7 @@
 /* Service worker My Daily: seluruh aplikasi (HTML, ikon, dan gambar) tetap hidup tanpa internet. */
-const VERSION = 'mydaily-v107';
+const VERSION = 'mydaily-v108';
 const CACHE = VERSION;
-const EXT_CACHE = 'mydaily-ext-v107';
+const EXT_CACHE = 'mydaily-ext-v108';
 const SHELL = [
   '/',
   '/index.html',
