@@ -471,6 +471,7 @@
       return fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: (function () { try { var c = new AbortController(); setTimeout(function () { try { c.abort(); } catch (e) {} }, 30000); return c.signal; } catch (e) { return undefined; } })(),
         body: JSON.stringify({ action: 'learn', events: sample })
       }).then(function (r) { return r.json(); }).then(function (d) {
         var facts = (d && Array.isArray(d.facts)) ? d.facts : [];
